@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Apache Apex - DataTorrent Documentation</title>
+  <title>Installation - DataTorrent Documentation</title>
   
 
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -20,7 +20,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Apache Apex";
+    var mkdocs_page_name = "Installation";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -148,15 +148,8 @@
 
         
             
-    <li class="toctree-l1 current">
-        <a class="current" href="./">Apache Apex</a>
-        
-            <ul>
-            
-                <li class="toctree-l3"><a href="#apache-apex">Apache Apex</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l1 ">
+        <a class="" href="../apex/">Apache Apex</a>
         
     </li>
 
@@ -206,8 +199,27 @@
 
         
             
-    <li class="toctree-l1 ">
-        <a class="" href="../installation/">Installation</a>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Installation</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#datatorrent-rts-installation-guide">DataTorrent RTS Installation Guide</a></li>
+                
+                    <li><a class="toctree-l4" href="#requirements">Requirements</a></li>
+                
+                    <li><a class="toctree-l4" href="#installation">Installation</a></li>
+                
+                    <li><a class="toctree-l4" href="#limited-local-installation">Limited Local Installation</a></li>
+                
+                    <li><a class="toctree-l4" href="#upgrades">Upgrades</a></li>
+                
+                    <li><a class="toctree-l4" href="#customizing-installation">Customizing Installation</a></li>
+                
+                    <li><a class="toctree-l4" href="#installation-wizard">Installation Wizard</a></li>
+                
+            
+            </ul>
         
     </li>
 
@@ -457,11 +469,11 @@
     
       
         
-          <li>Platform &raquo;</li>
+          <li>Deployment and Operations &raquo;</li>
         
       
     
-    <li>Apache Apex</li>
+    <li>Installation</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -471,16 +483,102 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="apache-apex">Apache Apex</h1>
-<p>Apache Apex (incubating) is the industry’s only Apache 2.0 licensed open source enterprise grade unified stream and batch processing engine.  Project Apex includes key features requested by open source developer community that are not available in current open source technologies.</p>
+                <h1 id="datatorrent-rts-installation-guide">DataTorrent RTS Installation Guide</h1>
+<p>This guide covers installation of the DataTorrent RTS platform.</p>
+<h2 id="requirements">Requirements</h2>
 <ul>
-<li>Event processing guarantees</li>
-<li>In-memory performance &amp; scalability</li>
-<li>Fault tolerance and state management</li>
-<li>Native rolling and tumbling window support</li>
-<li>Hadoop-native YARN &amp; HDFS implementation</li>
+<li>Linux operating system (tested on CentOS 6.x and Ubuntu 12.04)</li>
+<li>Java 7 or 8 (tested with Oracle Java 7, OpenJDK Java 7)</li>
+<li>Hadoop (2.2.0 or above) cluster with YARN, HDFS configured, and hadoop executable available in PATH</li>
+<li>Minimum of 8G RAM available on the Hadoop cluster</li>
+<li>Google Chrome, Firefox, or Safari to access the DataTorrent Console UI</li>
+<li>Permissions to create HDFS directory for DataTorrent user</li>
 </ul>
-<p>For additional information visit <a href="http://apex.incubator.apache.org/">Apache Apex</a>.</p>
+<h2 id="installation">Installation</h2>
+<p>Complete installation configures DataTorrent to run as a system service, installs globally available binaries, and requires root/sudo privileges to run.  After the installation is complete, you will have the following</p>
+<ul>
+<li>DataTorrent platform release ( $DATATORRENT_HOME ) located in /opt/datatorrent/releases/[release_version]</li>
+<li>Binaries are available in /opt/datatorrent/current/bin and links in /usr/bin</li>
+<li>Configuration files located in /opt/datatorrent/current/conf</li>
+<li>Log files located in /var/log/datatorrent</li>
+<li>DataTorrent Gateway service dtgateway running as dtadmin, and managed with "sudo service dtgateway" command</li>
+</ul>
+<p>Download and run the installer binary on one of the Hadoop cluster nodes.  This can be done on ResourceManager, NameNode, or any node which has correct Hadoop configuration and is able to communicate with the rest of the cluster.</p>
+<p>a.  Installing from self-extracting archive (*.bin)</p>
+<pre><code>    curl -LSO https://www.datatorrent.com/downloads/datatorrent-rts.bin
+    sudo sh ./datatorrent-rts.bin
+</code></pre>
+<p>b.  Installing from RedHat Package Manager archive (*.rpm)</p>
+<pre><code>  curl -LSO https://www.datatorrent.com/downloads/datatorrent-rts.rpm
+  sudo rpm -ivh ./datatorrent-rts.rpm
+</code></pre>
+<h2 id="limited-local-installation">Limited Local Installation</h2>
+<p>A limited local installation can be helpful for in environments with no root/sudo privileges, or for testing purposes.  All DataTorrent files will be installed under the user's home directory, and DataTorrent Gateway will be running as a local process.  No services or files outside user's home directory will be created.</p>
+<ul>
+<li>DataTorrent platform release ( $DATATORRENT_HOME ) located under $HOME/datatorrent/releases/[release_version]</li>
+<li>Binaries are available under $HOME/datatorrent/current/bin</li>
+<li>Configuration files located under $HOME/datatorrent/conf</li>
+<li>Log files located under $HOME/.dt/logs</li>
+<li>
+<p>DataTorrent Gateway running as current user, and managed with dtgateway command</p>
+</li>
+<li>
+<p>Download and run the installer binary on one of the Hadoop cluster nodes.  This can be done on ResourceManager, NameNode, or any node which has correct Hadoop configuration and is able to communicate with the rest of the cluster.</p>
+<pre><code>curl -LSO https://www.datatorrent.com/downloads/datatorrent-rts.bin
+sh ./datatorrent-rts.bin
+</code></pre>
+</li>
+<li>
+<p>Add DataTorrent binaries to user PATH environment variable by pasting following into ~/.bashrc, ~/.profile or equivalent environment settings file.</p>
+<pre><code>DATATORRENT_HOME=~/datatorrent/current
+export PATH=$PATH:$DATATORRENT_HOME/bin
+</code></pre>
+</li>
+</ul>
+<h2 id="upgrades">Upgrades</h2>
+<p>DataTorrent RTS installer automatically performs an upgrade when the same base installation directory is selected.  Configurations stored in local files such as dt-site.xml and custom-env.sh, as well as contents of DataTorrent DFS root directory will be be used to configure the newer version.</p>
+<p>Automatic upgrade behavior can be avoided by providing installer with an options to perform full uninstall prior to running the installation.  See Customizing Installation section below.  </p>
+<p>Full uninstall prior to installation is strongly recommended when performing major version upgrades.  Not all settings and attributes will be backwards compatible between major releases.  This may result in applications failing to launch when an invalid attribute is loaded from dt-site.xml.  In such cases detailed error messages will be provided during an application launch, helping identify and fix outdated references before successfully launching applications.</p>
+<h2 id="customizing-installation">Customizing Installation</h2>
+<p>Various options are available to customize the DataTorrent installation.  List of available options be displayed by running installer with -h flag.</p>
+<pre><code>./datatorrent-rts*.bin -h
+
+Options:
+
+-h             Help menu
+-B &lt;path&gt;      Use &lt;path&gt; as base installation directory.  Must be an absolute path.  Default: /opt/datatorrent
+-U &lt;user&gt;      Use &lt;user&gt; user account for installation.  Default: dtadmin
+-G &lt;group&gt;     Use &lt;group&gt; group for installation.  Default: dtadmin ( based on value of &lt;user&gt; )
+-H &lt;path&gt;      Use &lt;path&gt; for location for hadoop executable.  Overrides defaults of HADOOP_PREFIX and PATH.
+-E &lt;expr&gt;      Adds export &lt;expr&gt; to custom-env.sh file.  Used to set an environment variable.  Examples include:
+                 -E JAVA_HOME=/my/java                 Java used by dtgateway  and dtcli
+                 -E DT_LOG_DIR=/var/log/datatorrent    Directory for dtgateway logs
+                 -E DT_RUN_DIR=/var/run/datatorrent    Directory for dtgateway pid files
+-s &lt;file&gt;      Use &lt;file&gt; DataTorrent dt-site.xml file to configure new installation. Overrides default and previous dt-site.xml
+-e &lt;file&gt;      Use &lt;file&gt; DataTorrent custom-env.sh file to configure new installation. Overrides default and previous custom-env.sh
+-g [ip:]port   DataTorrent Gateway address.  Defaults to 0.0.0.0:9090
+-u             Perform full uninstall prior to running installation. WARNING: All current settings will be removed!
+-x             Skip installation steps.  Useful for debugging installation settings with [-v] or perform uninstall with [-u]
+-r             Uninstall current release only.  Does not remove datatorrent, logs, var, etc directories.  Used with RPM uninstall.
+-v             Run in verbose mode, providing extra details for every step.
+-V             Print DataTorrent version and exit.
+</code></pre>
+<p>Some Hadoop distributions may rquire changes to default settings.  For example, when running Apache Hadoop, you may encounter that JAVA_HOME is not set for DTGateway user (defaults to dtadmin):</p>
+<pre><code>sudo -u dtadmin hadoop version
+Error: JAVA_HOME is not set and could not be found.
+</code></pre>
+<p>If JAVA_HOME is not set, you can export it manually at the end of /opt/datatorrent/current/conf/custom-env.sh or run the installer with following option to set JAVA_HOME during installation time:</p>
+<pre><code>sudo ./datatorrent-rts*.bin -E JAVA_HOME=/valid/java/home/path
+</code></pre>
+<p>In some Hadoop installations, you may already have an existing user, which has administrative privileges to HFDS and YARN, and you prefer to use that user to run DTGateway service.  Assuming this user is named myuser, you can run the following command during installation to ensure DTGateway service runs as myuser.</p>
+<pre><code>sudo ./datatorrent-rts*.bin -U myuser
+</code></pre>
+<h2 id="installation-wizard">Installation Wizard</h2>
+<p>After the system installation is complete, remaining configuration steps are performed using the Installation Wizard in the DataTorrent UI Console.  DataTorrent UI Console address is typically hostname of the node where DataTorrent platform was installed, listening on port 9090.  The connection details are provided by the system installer, but may need to modified depending on the way Hadoop cluster is being accessed.</p>
+<pre><code>http://&lt;installation_host&gt;:9090/
+</code></pre>
+<p>The Installation Wizard can be accessed and repeated at any time to update key system settings from the Configuration section of the DataTorrent UI Console.</p>
+<p>DataTorrent installation can be verified by running included demo applications.  See <a href="../demos/">Launching Demo Applications</a> for details.</p>
               
             </div>
           </div>
@@ -488,10 +586,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../coming_soon/" class="btn btn-neutral float-right" title="Apache Apex Deep Dive"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../coming_soon/" class="btn btn-neutral float-right" title="Configuration"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../coming_soon/" class="btn btn-neutral" title="dtGateway"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../coming_soon/" class="btn btn-neutral" title="Quick Start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   

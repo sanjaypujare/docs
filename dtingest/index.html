@@ -219,7 +219,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Installation</a>
+        <a class="" href="../installation/">Installation</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">Configuration</a>
         
     </li>
 
@@ -251,6 +258,13 @@
             <li>
     <ul class="subnav">
     <li><span>Development</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../apex_development_setup/">Apex Development Setup</a>
+        
+    </li>
 
         
             
@@ -291,14 +305,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../ApexPackage/">Application Packages</a>
+        <a class="" href="../application_packages/">Application Packages</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../AppConfPackage/">Configuration Packages</a>
+        <a class="" href="../configuration_packages/">Configuration Packages</a>
         
     </li>
 
@@ -411,7 +425,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">REST API</a>
+        <a class="" href="../dtgateway_api/">REST API</a>
         
     </li>
 
@@ -549,15 +563,15 @@ configuration under the same name or different name.</p>
 <p>If you want to specify all the options from scratch without using any pre-saved configuration; then unselect a checkbox 'Use a config file'</p>
 </li>
 <li>
-<p>Configure input source, refer to <a href="#h.pafr8c33lvo">Configuring input
+<p>Configure input source, refer to <a href="#configuring-input-source">Configuring input
     source</a> section for details.</p>
 </li>
 <li>
-<p>Configure output destination, refer to <a href="#h.628tlip12v4y">Configuring output
+<p>Configure output destination, refer to <a href="#configuring-output-destination">Configuring output
     destination</a> section for details.</p>
 </li>
 <li>
-<p>Configure processing steps, refer to <a href="#h.4uf7uxen8s0n">Configuring processing
+<p>Configure processing steps, refer to <a href="#configuring-processing-steps">Configuring processing
     steps</a> section for details.</p>
 </li>
 <li>
@@ -732,8 +746,8 @@ ingest files/directories from S3 using dtIngest.  </p>
 <li>
 <p>Configure S3 input url.</p>
 <p>Input url for S3 needs to be provided in following format,<br />
-<code>s3n://ukey:upass@bucketName/path</code>
-where,
+<code>s3n://ukey:upass@bucketName/path</code></p>
+<p>where,
 - <code>s3n</code>:  protocol name
 - <code>ukey</code>: access key
 - <code>upass</code>: secret access key
@@ -767,9 +781,11 @@ from kafka using dtIngest.</p>
 <p>Configure topic name and zookeeper quorum.
     zookeeper quorum  is a string in the form of
     <code>hostname1:port1,hostname2:port2,hostname3:port3</code></p>
-<p>where,
-- <code>hostname1,hostname2,hostname3</code> are hosts
-- <code>port1,port2,port3</code> are ports of zookeeper server</p>
+<p>where,</p>
+<ul>
+<li><code>hostname1,hostname2,hostname3</code> are hosts</li>
+<li><code>port1,port2,port3</code> are ports of zookeeper server</li>
+</ul>
 <p>e.g. localhost:2181,localhost:2182
 <img alt="Kafka.png" src="../images/dtingest/image44.png" /></p>
 </li>

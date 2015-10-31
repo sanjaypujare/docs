@@ -200,7 +200,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Installation</a>
+        <a class="" href="../installation/">Installation</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">Configuration</a>
         
     </li>
 
@@ -232,6 +239,13 @@
             <li>
     <ul class="subnav">
     <li><span>Development</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../apex_development_setup/">Apex Development Setup</a>
+        
+    </li>
 
         
             
@@ -272,7 +286,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../ApexPackage/">Application Packages</a>
+        <a class="" href="../application_packages/">Application Packages</a>
         
     </li>
 
@@ -283,10 +297,7 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#application-configuration-packages">Application Configuration Packages</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#introduction">Introduction</a></li>
+                <li class="toctree-l3"><a href="#apache-apex-configuration-packages">Apache Apex Configuration Packages</a></li>
                 
             
                 <li class="toctree-l3"><a href="#requirements">Requirements</a></li>
@@ -443,7 +454,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">REST API</a>
+        <a class="" href="../dtgateway_api/">REST API</a>
         
     </li>
 
@@ -501,9 +512,8 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="application-configuration-packages">Application Configuration Packages</h1>
-<h1 id="introduction">Introduction</h1>
-<p>An Apex Application Configuration Package is a zip file that contains
+                <h1 id="apache-apex-configuration-packages">Apache Apex Configuration Packages</h1>
+<p>An Apache Apex Application Configuration Package is a zip file that contains
 configuration files and additional files to be launched with an
 <a href="https://www.datatorrent.com/docs/guides/ApplicationPackages.html">Application Package</a> using 
 DTCLI or REST API.  This guide assumes the reader’s familiarity of
@@ -592,13 +602,10 @@ you should know about when assembling your own configuration package:</p>
 
 </code></pre>
 
-<p>In pom.xml, you can change the values of  <code>&lt;groupId&gt;, &lt;version&gt;,
-&lt;artifactId&gt;, &lt;name&gt;</code>and <code>&lt;description&gt;</code> to your desired values.  </p>
+<p>In pom.xml, you can change the values of  <code>&lt;groupId&gt;, &lt;version&gt;, &lt;artifactId&gt;, &lt;name&gt;</code>and <code>&lt;description&gt;</code> to your desired values.  </p>
 <p>You can also change the values of <code>&lt;datatorrent.apppackage.name&gt;, &lt;datatorrent.apppackage.minversion&gt; &lt;datatorrent.apppackage.maxversion&gt;</code>
-to reflect what app packages should be used with this configuration
-package.  Apex will use this information to check whether a
-configuration package is compatible with the application package when
-you issue a launch command.</p>
+to reflect what app packages should be used with this configuration package.  Apex will use this information to check whether a
+configuration package is compatible with the application package when you issue a launch command.</p>
 <h2 id="srcmainresourcesclasspath">./src/main/resources/classpath</h2>
 <p>Place any file in this directory that you’d like to be copied to the
 compute machines when launching an application and included in the
@@ -623,11 +630,13 @@ should be launched with.  </p>
 </code></pre>
 
 <p>Names of properties XML file:</p>
-<p><strong>properties.xml:</strong> Properties that are global to the Configuration
-Package</p>
-<p><strong>properties-{appName}.xml:</strong> Properties that are specific when launching
+<ul>
+<li><strong>properties.xml:</strong> Properties that are global to the Configuration
+Package</li>
+<li><strong>properties-{appName}.xml:</strong> Properties that are specific when launching
 an application with the specified appName within the Application
-Package.</p>
+Package.</li>
+</ul>
 <p>After you are done with the above, remember to do mvn package to
 generate a new configuration package, which will be located in the
 target directory in your project.</p>
@@ -647,40 +656,37 @@ files
 </code></pre>
 
 <h1 id="launching-with-cli">Launching with CLI</h1>
-<p>-conf of the launch command in CLI supports specifying configuration
-package in the local filesystem.  Example:</p>
-<p>dt> launch DTApp-mydtapp-1.0.0.jar -conf DTConfig-mydtconfig-1.0.0.jar</p>
-<p>This command expects both the application package and the configuration
-package to be in the local file system.</p>
+<p><code>-conf</code> option of the launch command in CLI supports specifying configuration package in the local filesystem.  Example:</p>
+<pre><code>dt\&gt; launch DTApp-mydtapp-1.0.0.jar -conf DTConfig-mydtconfig-1.0.0.jar
+</code></pre>
+<p>This command expects both the application package and the configuration package to be in the local file system.</p>
 <h1 id="related-rest-api">Related REST API</h1>
 <h2 id="post-wsv2configpackages">POST /ws/v2/configPackages</h2>
-<p>Payload: Raw content of configuration package zip
-Function: Creates or replace a configuration package zip file in HDFS</p>
-<p>Curl example:
-$ curl -XPOST -T DTConfig-{name}.jar http://{yourhost:port}/ws/v2/configPackages</p>
+<p>Payload: Raw content of configuration package zip</p>
+<p>Function: Creates or replace a configuration package zip file in HDFS</p>
+<p>Curl example:</p>
+<pre><code>$ curl -XPOST -T DTConfig-{name}.jar http://{yourhost:port}/ws/v2/configPackages
+</code></pre>
 <h2 id="get-wsv2configpackagesapppackagenameapppackageversion">GET /ws/v2/configPackages?appPackageName=...&amp;appPackageVersion=...</h2>
 <p>All query parameters are optional</p>
-<p>Function: Returns the configuration packages that the user is authorized
-to use and that are compatible with the specified appPackageName,
-appPackageVersion and appName.</p>
+<p>Function: Returns the configuration packages that the user is authorized to use and that are compatible with the specified appPackageName, appPackageVersion and appName. </p>
 <h2 id="get-wsv2configpackagesuserapppackagenameapppackageversion">GET /ws/v2/configPackages/<code>&lt;user&gt;</code>?appPackageName=...&amp;appPackageVersion=...</h2>
 <p>All query parameters are optional</p>
-<p>Function: Returns the configuration packages under the specified user
-and that are compatible with the specified appPackageName,
-appPackageVersion and appName.</p>
+<p>Function: Returns the configuration packages under the specified user and that are compatible with the specified appPackageName, appPackageVersion and appName.</p>
 <h2 id="get-wsv2configpackagesusername">GET /ws/v2/configPackages/<code>&lt;user&gt;</code>/<code>&lt;name&gt;</code></h2>
 <p>Function: Returns the information of the specified configuration package</p>
 <h2 id="get-wsv2configpackagesusernamedownload">GET /ws/v2/configPackages/<code>&lt;user&gt;</code>/<code>&lt;name&gt;</code>/download</h2>
 <p>Function: Returns the raw config package file</p>
-<p>Curl example:
-$ curl http://{yourhost:port}/ws/v2/configPackages/{user}/{name}/download > DTConfig-xyz.jar</p>
-<p>\$ unzip -t DTConfig-xyz.jar</p>
-<h2 id="post-wsv2apppackagesuserapp-pkg-nameapp-pkg-versionapplicationsapp-namelaunchconfigpackageuserconfpkgname">POST /ws/v2/appPackages/<code>&lt;user&gt;</code>/<code>&lt;app-pkg-name&gt;</code>/<code>&lt;app-pkg-version&gt;</code>/applications/{app-name}/launch?configPackage=<code>&lt;user&gt;</code>/<code>&lt;confpkgname&gt;</code></h2>
-<p>Function: Launches the app package with the specified configuration
-package stored in HDFS.</p>
 <p>Curl example:</p>
-<p>$ curl -XPOST -d ’{}’ http://{yourhost:port}/ws/v2/appPackages/{user}/{app-pkg-name}/{app-pkg-version}/applications/{app-name}/launch?configPackage={user}/{confpkgname}</p>
-<p>© 2014-2015 DataTorrent Inc.</p>
+<pre><code class="sh">$ curl http://{yourhost:port}/ws/v2/configPackages/{user}/{name}/download \&gt; DTConfig-xyz.jar
+$ unzip -t DTConfig-xyz.jar
+</code></pre>
+
+<h2 id="post-wsv2apppackagesuserapp-pkg-nameapp-pkg-versionapplicationsapp-namelaunchconfigpackageuserconfpkgname">POST /ws/v2/appPackages/<code>&lt;user&gt;</code>/<code>&lt;app-pkg-name&gt;</code>/<code>&lt;app-pkg-version&gt;</code>/applications/{app-name}/launch?configPackage=<code>&lt;user&gt;</code>/<code>&lt;confpkgname&gt;</code></h2>
+<p>Function: Launches the app package with the specified configuration package stored in HDFS.</p>
+<p>Curl example:</p>
+<pre><code class="sh">$ curl -XPOST -d ’{}’ http://{yourhost:port}/ws/v2/appPackages/{user}/{app-pkg-name}/{app-pkg-version}/applications/{app-name}/launch?configPackage={user}/{confpkgname}
+</code></pre>
               
             </div>
           </div>
@@ -691,7 +697,7 @@ package stored in HDFS.</p>
         <a href="../coming_soon/" class="btn btn-neutral float-right" title="Operators"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../ApexPackage/" class="btn btn-neutral" title="Application Packages"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../application_packages/" class="btn btn-neutral" title="Application Packages"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -717,7 +723,7 @@ package stored in HDFS.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../ApexPackage/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../application_packages/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../coming_soon/" style="color: #fcfcfc">Next &raquo;</a></span>
