@@ -212,7 +212,7 @@ To make these changes, edit the file `ApplicationWithQuerySupport.java`:
 2.  Add streams to connect the two query operators to the DAG by adding these
     lines before the four existing `addstream()` calls:
 
-        dag.addStream("QueryFileStream", wsQueryFile.outputPort, snapshotServerFile.query,
+        dag.addStream("QueryFileStream", wsQueryFile.outputPort, snapshotServerFile.query);
         dag.addStream("QueryGlobalStream", wsQueryGlobal.outputPort, snapshotServerGlobal.query);
 
 3.  Save the file.
