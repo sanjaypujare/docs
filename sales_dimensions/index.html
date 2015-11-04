@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sales Dimenions - DataTorrent Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Sales Dimenions";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> DataTorrent Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">DataTorrent RTS</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Demos</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../demo_videos/">Videos</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../demos/">Applications</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Sandbox</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../sandbox/">Welcome to the Sandbox</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../sandbox_demos/">Sandbox Demos</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../sandbox_services/">Sandbox Services</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Applications</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../dtingest/">dtIngest</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Development and Tutorials</span></li>
+
+        
+            
+    <ul class="subnav">
+    <li><span>Tutorials</span></li>
+
+        
+            
+    <ul class="subnav">
+    <li><span>Top N Words</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../create/">Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../tutorial-topNwords/TopNWords-c1/">Development Environment</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../tutorial-topNwords/TopNWords-c2/">Building in Java</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../tutorial-topNwords/TopNWords-c3/">Building with dtAssemble</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../tutorial-topNwords/TopNWords-c4/">Monitoring with dtManage</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../tutorial-topNwords/TopNWords-c5/">Visualizing with dtDashboard</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../tutorial-topNwords/TopNWords-c6/">Appendix</a>
+        
+    </li>
+
+        
+    </ul>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Sales Dimenions</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#sales-dimensions-transform-analyze-and-alert">Sales Dimensions - Transform, Analyze and Alert</a></li>
+                
+                    <li><a class="toctree-l4" href="#create-new-application">Create New Application</a></li>
+                
+                    <li><a class="toctree-l4" href="#add-and-connect-operators">Add and Connect Operators</a></li>
+                
+                    <li><a class="toctree-l4" href="#customize-application-and-operator-settings">Customize Application and Operator Settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#launch-application">Launch Application</a></li>
+                
+                    <li><a class="toctree-l4" href="#visualize-data">Visualize Data</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+    </ul>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../apex_development_setup/">Apex Development Setup</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">Applications</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../application_packages/">Application Packages</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../configuration_packages/">Configuration Packages</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">Operators</a>
+        
+    </li>
+
+        
+            
+    <ul class="subnav">
+    <li><span>Library Operators</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../operators/io/file_splitter/">File splitter</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../operators/io/block_reader/">Block reader</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">File Input, S3, NFS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">File Output</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">Deduper</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">HDHT</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">DimensionsStore</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">DimenstionComputation</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">KafkaInput</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">KafkaOutput</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">Solace</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">JMS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">HBase</a>
+        
+    </li>
+
+        
+    </ul>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../dtgateway_api/">REST API</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">Scalable Design</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Platform</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../rts/">RTS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">dtManage</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../dtassemble/">dtAssemble</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../dtdashboard/">dtDashboard</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">dtGateway</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../apex/">Apache Apex</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../apex_malhar/">Apache Apex-Malhar</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Deployment and Operations</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">Quick Start</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../installation/">Installation</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">Configuration</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../dtgateway_security/">Security</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">dtCli</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../coming_soon/">Troubleshooting</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../glossary/">Glossary</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../additional_docs/">Resources</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">DataTorrent Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorials &raquo;</li>
+        
+      
+    
+    <li>Sales Dimenions</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="sales-dimensions-transform-analyze-and-alert">Sales Dimensions - Transform, Analyze and Alert</h1>
+<p>Sales Dimensions application demonstrates multiple features of the DataTorrent platform, including ability to transform, analyze, and take actions on data in real time.  The application also demonstrates how DataTorrent platform is can be used to build scalable applications for high volume multi-dimensional computations with very low latency using existing library operators.</p>
+<p>A large national retailer with physical stores and online sales channels is trying to gain better insights and improve decision making for their business.  By utilising real time sales data they would like to detect and forecast customer demand across multiple product categories, gage pricing and promotional effectiveness across regions, and drive additional customer loyalty with real time cross purchase promotions.</p>
+<p>In order to achieve these goals, they need to be able to analyze large volumes of transactions in real time by computing aggregations of sales data across multiple dimensions, including retail channels, product categories, and regions.  This allows them to not only gain insights by visualizing the data for any dimension, but also make decisions and take actions on the data in real time.</p>
+<p>Application setup will require following steps:</p>
+<ol>
+<li><strong>Input</strong> - receive individual sales transactions</li>
+<li><strong>Transform</strong> - convert incoming records into consumable form</li>
+<li><strong>Enrich</strong> - provide additional information for each record by performing additional lookups</li>
+<li><strong>Compute</strong> - perform aggregate computations on all possible key field combinations</li>
+<li><strong>Store</strong> - store computed results for further analysis and visualizations</li>
+<li><strong>Analyze</strong>, Alert &amp; Visualize - display graphs for selected combinations, perform analysis, and take actions on computed data in real time.</li>
+</ol>
+<h2 id="create-new-application">Create New Application</h2>
+<p>DataTorrent platforms supports building new applications with <a href="../dtassemble/">Graphical Application Builder</a>, which will be used for Sales Dimensions demo.  App Builder is an easy and intuitive way to construct your applications, which provides a great visualization of the logical operator connectivity and application data flow.</p>
+<p>Go to App Packages section of the Console and make sure DataTorrent Dimensions Demos package is imported.  Use Import Demos button to add it, if not already present.
+Click create new application, and name the application “Sales Dimensions”.</p>
+<p>This will bring up the Application Builder interface</p>
+<p><img alt="" src="../images/create/image00.png" /></p>
+<h2 id="add-and-connect-operators">Add and Connect Operators</h2>
+<p>From the Operator Library section on the App Builder screen, select the following operators and drag them to the Application Canvas.  Rename them to the names in parenthesis.</p>
+<ol>
+<li><strong>JSON Sales Event Generator (Input)</strong> - generates synthetic sales events and emits them as JSON string bytes.</li>
+<li><strong>JSON to Map Parser (Parse)</strong> - transforms JSON data to Java maps, which provides a way to easily transform and analyze the sales data.</li>
+<li><strong>Enrichment (Enrich)</strong> - performs category lookup based on incoming product IDs, and adds the category ID to the output maps.</li>
+<li><strong>Dimension Computation Map (Compute)</strong> -  performs dimensions computations, also known as cubing, on the incoming data.  This pre-computes the sales numbers by region, product category, customer, and sales channel, and all combinations of the above.  Having these numbers available in advance, allows for viewing and taking action on any of these combinations in real time.</li>
+<li><strong>Simple App Data Dimensions Store (Store)</strong> - stores the computed dimensional information on HDFS in an optimized manner.</li>
+<li><strong>App Data Pub Sub Query (Query)</strong> - dashboard connector for visualization queries.</li>
+<li><strong>App Data Pub Sub Result (Result)</strong> - dashboard connector for visualization data results.</li>
+</ol>
+<p>Connect all the operators together by clicking on the output port of the upstream operator, dragging connection, and connecting to the input port of the downstream operator.  Use the example below for layout and connectivity reference.</p>
+<p><img alt="" src="../images/create/image01.png" /></p>
+<h2 id="customize-application-and-operator-settings">Customize Application and Operator Settings</h2>
+<p>By clicking on the individual operators or streams connecting them, and using Operator Inspector panel on the right, edit the operator and stream settings as follows:</p>
+<ol>
+<li>
+<p>Copy the Sales schema below and paste the contents into the <em>Event Schema JSON</em> field of <strong>Input</strong> operator, and <em>Configuration Schema JSON</em> of the <strong>Compute</strong> and <strong>Store</strong> operators.</p>
+<pre><code>{
+  "keys":[{"name":"channel","type":"string","enumValues":["Mobile","Online","Store"]},
+          {"name":"region","type":"string","enumValues":["Atlanta","Boston","Chicago","Cleveland","Dallas","Minneapolis","New York","Philadelphia","San Francisco","St. Louis"]},
+          {"name":"product","type":"string","enumValues":["Laptops","Printers","Routers","Smart Phones","Tablets"]}],
+ "timeBuckets":["1m", "1h", "1d"],
+ "values":
+  [{"name":"sales","type":"double","aggregators":["SUM"]},
+   {"name":"discount","type":"double","aggregators":["SUM"]},
+   {"name":"tax","type":"double","aggregators":["SUM"]}],
+ "dimensions":
+  [{"combination":[]},
+   {"combination":["channel"]},
+   {"combination":["region"]},
+   {"combination":["product"]},
+   {"combination":["channel","region"]},
+   {"combination":["channel","product"]},
+   {"combination":["region","product"]},
+   {"combination":["channel","region","product"]}]
+}
+</code></pre>
+</li>
+<li>
+<p>Set the <em>Topic</em> property for <strong>Query</strong> and <strong>Result</strong> operators to <code>SalesDimensionsQuery</code> and <code>SalesDimensionsResult</code> respectively.</p>
+</li>
+<li>
+<p>Select the <strong>Store</strong> operator, and edit the <em>File Store</em> property.  Set the <em>Base Path</em> to <code>SalesDimensionsDemoStore</code> value.  This sets the HDHT storage path to write dimensions computation results to the <code>/user/&lt;username&gt;/SalesDimensionsDemoStore</code> on HDFS.</p>
+<p><img alt="" src="../images/create/image05.png" /></p>
+</li>
+<li>
+<p>Click on the stream and set the <em>Stream Locality</em> to <code>CONTAINER_LOCAL</code> for all the streams between <strong>Input</strong> and <strong>Compute</strong> operators.  Changing stream locality controls which container operators get deployed to, and can lead to significant performance improvements for an application.  Once set, connection will be represented by a dashed line to indicate the new locality setting.</p>
+</li>
+</ol>
+<h2 id="launch-application">Launch Application</h2>
+<p>Once application is constructed, and validation checks are satisfied, a launch button will become available at the top left of the Application Canvas screen.  Clicking it will bring up the application launch dialog, which allows you to further configure the application by changing its name and configuration settings prior to starting it. </p>
+<p><img alt="" src="../images/create/image04.png" /></p>
+<p>After launching, go to <em>Sales Dimensions</em> application operations page in the <a href="../#/ops">Monitor</a> section.</p>
+<p><img alt="" src="../images/create/image06.png" /></p>
+<p>Confirm that the application is launched successfully by looking for <em>Running</em> state in the <strong>Application Overview</strong> section, and all confirming all the operators are successfully started under <strong>Stram Events</strong> section.  By navigating to <strong>Physical</strong> view tab, and looking at <strong>Input</strong>, <strong>Parse</strong>, <strong>Enrich</strong>, or <strong>Compute</strong> operators, notice that they are all deployed to the single container, thanks to the stream locality setting of <code>CONTAINER_LOCAL</code> we applied earlier.  This represents one of the many performance improvement techniques available with the DataTorrent platform, in this case eliminating data serialization and networking stack overhead between a group of adjacent operators.</p>
+<p><img alt="" src="../images/create/image07.png" /></p>
+<h2 id="visualize-data">Visualize Data</h2>
+<p>DataTorrent includes powerful data visualization tools, which allow you to visualize streaming data from multiple sources in real time.  For additional details see <a href="../dtdashboard/">Data Visualization</a> tutorial.</p>
+<p>After application is started, a <strong>visualize</strong> button, available in the <strong>Application Overview</strong> section, can be used to quickly generate a new dashboard for the Sales Dimensions application.</p>
+<p><img alt="" src="../images/create/image02.png" /></p>
+<p>Once dashboard is created, additional widgets can be added to display various dimensions and combinations of the sales data.  Below is an example of multiple sales combinations displayed in real time.</p>
+<p><img alt="" src="../images/create/image03.png" /></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../apex_development_setup/" class="btn btn-neutral float-right" title="Apex Development Setup"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../tutorial-topNwords/TopNWords-c6/" class="btn btn-neutral" title="Appendix"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../tutorial-topNwords/TopNWords-c6/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../apex_development_setup/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

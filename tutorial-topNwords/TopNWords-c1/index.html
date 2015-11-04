@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Development Environment - DataTorrent Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Development Environment";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> DataTorrent Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">DataTorrent RTS</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Demos</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../demo_videos/">Videos</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../demos/">Applications</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Sandbox</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../sandbox/">Welcome to the Sandbox</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../sandbox_demos/">Sandbox Demos</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../sandbox_services/">Sandbox Services</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Applications</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../dtingest/">dtIngest</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Development and Tutorials</span></li>
+
+        
+            
+    <ul class="subnav">
+    <li><span>Tutorials</span></li>
+
+        
+            
+    <ul class="subnav">
+    <li><span>Top N Words</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../create/">Introduction</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Development Environment</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#setting-up-your-development-environment">Setting up your development environment</a></li>
+                
+                    <li><a class="toctree-l4" href="#sample-input-files">Sample input files</a></li>
+                
+                    <li><a class="toctree-l4" href="#validation-for-third-party-applications">Validation for third-party applications</a></li>
+                
+                    <li><a class="toctree-l4" href="#set-up-the-sandbox">Set up the sandbox</a></li>
+                
+                    <li><a class="toctree-l4" href="#validate-the-sandbox-setup">Validate the Sandbox setup</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../TopNWords-c2/">Building in Java</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../TopNWords-c3/">Building with dtAssemble</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../TopNWords-c4/">Monitoring with dtManage</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../TopNWords-c5/">Visualizing with dtDashboard</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../TopNWords-c6/">Appendix</a>
+        
+    </li>
+
+        
+    </ul>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../sales_dimensions/">Sales Dimenions</a>
+        
+    </li>
+
+        
+    </ul>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../apex_development_setup/">Apex Development Setup</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">Applications</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../application_packages/">Application Packages</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../configuration_packages/">Configuration Packages</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">Operators</a>
+        
+    </li>
+
+        
+            
+    <ul class="subnav">
+    <li><span>Library Operators</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../operators/io/file_splitter/">File splitter</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../operators/io/block_reader/">Block reader</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">File Input, S3, NFS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">File Output</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">Deduper</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">HDHT</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">DimensionsStore</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">DimenstionComputation</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">KafkaInput</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">KafkaOutput</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">Solace</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">JMS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">HBase</a>
+        
+    </li>
+
+        
+    </ul>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../dtgateway_api/">REST API</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">Scalable Design</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Platform</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../rts/">RTS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">dtManage</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../dtassemble/">dtAssemble</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../dtdashboard/">dtDashboard</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">dtGateway</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../apex/">Apache Apex</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../apex_malhar/">Apache Apex-Malhar</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Deployment and Operations</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">Quick Start</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/">Installation</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">Configuration</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../dtgateway_security/">Security</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">dtCli</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../coming_soon/">Troubleshooting</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../glossary/">Glossary</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../additional_docs/">Resources</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">DataTorrent Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Top N Words &raquo;</li>
+        
+      
+    
+    <li>Development Environment</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="setting-up-your-development-environment">Setting up your development environment</h1>
+<p>This section describes how you can set up your development environment
+including starting the sandbox and downloading some sample input files for
+testing the application.</p>
+<h2 id="sample-input-files">Sample input files</h2>
+<p>For this tutorial, you need some sample text files to use as input application.
+Binary files such as PDF or DOCX files are not suitable since they contain a
+lot of meaningless strings that look like words (for example,  Wqgi ).
+Similarly, files using markup languages such as XML or HTML files are also not
+suitable since the tag names such as  div ,  td  and  p  dominate the word
+counts. The RFC (Request for Comment) files that are used as de-facto
+specifications for internet standards are good candidates since they contain
+pure text; download a few of them as follows:</p>
+<p>Open a terminal and run the following commands to create a directory named
+<code>data</code> under your home directory and download 3 files there:</p>
+<pre><code>cd; mkdir data; cd data  
+wget http://tools.ietf.org/rfc/rfc1945.txt  
+wget https://www.ietf.org/rfc/rfc2616.txt  
+wget https://tools.ietf.org/rfc/rfc4844.txt
+</code></pre>
+<h2 id="validation-for-third-party-applications">Validation for third-party applications</h2>
+<p>If you are using your own installation of DataTorrent RTS instead
+of Sandbox, make sure that you have Java JDK (version 1.7.0_79 or
+later), Maven (version 3.0.5 or later), and Git (version 1.7.1 or later)
+by running the following commands:</p>
+<table>
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left"><p><b>Command</b></p></td>
+<td align="left"><p><b>Expected output</b></p></td>
+</tr>
+<tr class="even">
+<td align="left"><p><tt>java -version</tt></p></td>
+<td align="left"><p>java version &quot;1.7.0_79&quot;</p>
+<p>Java(TM) SE Runtime Environment (build 1.7.0_79-b15) </p>
+<p>Java HotSpot(TM) 64-Bit Server VM (build 24.79-b02, mixed mode)</p></td>
+</tr>
+<tr class="odd">
+<td align="left"><p><tt>mvn --version</tt></p></td>
+<td align="left"><p>Apache Maven 3.0.5 </p>
+<p>Maven home: /usr/share/maven </p>
+<p>Java version: 1.7.0_79, vendor: Oracle Corporation </p>
+<p>Java home: /home/&lt;user&gt;/Software/java/jdk1.7.0_79/jre </p>
+<p>Default locale: en_US, platform encoding: UTF-8 </p>
+<p>OS name: &quot;linux&quot;, version: &quot;3.16.0-44-generic&quot;, arch: &quot;amd64&quot;, family: &quot;unix&quot; </p></td>
+</tr>
+<tr class="even">
+<td align="left"><p><tt>git --version</tt></p></td>
+<td align="left"><p>git version 1.7.1</p></td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<h2 id="set-up-the-sandbox">Set up the sandbox</h2>
+<p>At the time of writing, the sandbox corresponds to version 3.1.1 of DataTorrent
+RTS, which, as noted above, includes a complete, stand-alone, instance of the
+Enterprise Edition configured as a single-node Hadoop cluster.</p>
+<p>Before you begin, ensure that you have Oracle VM VirtualBox version 4.3 or
+later on your development machine. The sandbox is a virtual appliance bundled
+along with Ubuntu 12.0.4 (or later) that needs to be imported into VirtualBox.</p>
+<p>These steps describe how to download, import, and start the sandbox.</p>
+<ol>
+<li>
+<p>Download Sandbox:</p>
+<ol>
+<li>Open <a href="https://www.datatorrent.com/download/">https://www.datatorrent.com/download/</a> in a web browser.</li>
+<li>Under <em>DataTorrent RTS Sandbox</em>, click <strong>DOWNLOAD NOW</strong> button.</li>
+<li>On the contact details form that appears, provide your name, email, and
+   your organization s name, and click <em>Submit</em>.</li>
+<li>Click the link named <em>click here</em> (scroll the page down if necessary to
+   see the link).</li>
+<li>On the Sandbox downloads page that appears, click <strong>Download</strong> under
+    <em>Requirements</em>.</li>
+</ol>
+</li>
+<li>
+<p>Import the sandBox into Oracle VirtualBox:</p>
+<ol>
+<li>Open the VirtualBox Manager.</li>
+<li>In the <em>File</em> menu, choose <em>Import Appliance</em>.  </li>
+<li>On the <em>Appliance to import</em> dialog box, type or select the full path to
+    the OVA template file that you downloaded and click <em>Next</em>.</li>
+<li>Click <em>Import</em>.</li>
+</ol>
+</li>
+<li>
+<p>After the import completes, click the <code>Start</code> button on the VirtualBox
+    Manager. If this is a first-time start, select the default operating
+    system and wait till the virtual machine initializes.</p>
+<p>After the virtual machine initializes, wait for a few minutes to allow all
+Hadoop and Sandbox processes to start.</p>
+</li>
+<li>
+<p>Log on to Sandbox.</p>
+<ol>
+<li>
+<p>In the browser that appears displaying the Readme, click DataTorrent
+    Console. You can also click the <strong>DataTorrent Console</strong> button on the toolbar of your virtual machine.</p>
+</li>
+<li>
+<p>Type the username and password (dtadmin/dtadmin), and click <strong>Login</strong>.</p>
+</li>
+</ol>
+</li>
+</ol>
+<p><img alt="Login dialog" src="../images/image32.png" title="Login dialog" /></p>
+<p>You should see a welcome page with a diagram illustrating the components in the
+platform stack; each block of the diagram is a clickable link for exploring
+that component.</p>
+<h2 id="validate-the-sandbox-setup">Validate the Sandbox setup</h2>
+<p>After setting up the sandbox, validate the installation:</p>
+<ol>
+<li>
+<p>On the top navigation bar, look for links named <em>Configure</em>, <em>Develop</em>,
+   <em>Monitor</em>, <em>Visualize</em> and <em>Learn</em>.</p>
+</li>
+<li>
+<p>If Visualize is not present, click <em>Configure</em>, and then <em>License
+    Information</em>.</p>
+</li>
+</ol>
+<p>A page showing license details including the text: <em>License Edition:
+  enterprise</em> appears.</p>
+<ul>
+<li>If the license details display   <em>community</em> instead of <em>enterprise</em>, wait
+  for a few minutes, refresh the page, and check again.</li>
+<li>If that does not work, navigate to the other tabs, and repeat these steps
+  again. The license edition should be <em>enterprise</em> and you should see the
+  <em>Visualize</em> link on the top navigation bar.</li>
+</ul>
+<p>Note: The enterprise license is present on the Hadoop HDFS file system. To
+retrieve details of this license, the HDFS servers need to be up and running,
+which can take a few minutes.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../TopNWords-c2/" class="btn btn-neutral float-right" title="Building in Java"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../create/" class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../create/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../TopNWords-c2/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
