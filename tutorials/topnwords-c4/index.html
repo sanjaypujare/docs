@@ -8,7 +8,8 @@
   <title>Monitoring with dtManage - DataTorrent Documentation</title>
   
 
-  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <link rel="shortcut icon" href="../../favicon.ico">
+  
 
   
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
@@ -28,6 +29,16 @@
   <script type="text/javascript" src="../../js/highlight.pack.js"></script>
   <script src="../../js/theme.js"></script> 
 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-44586211-1', 'docs.datatorrent.com');
+      ga('send', 'pageview');
+  </script>
   
 </head>
 
@@ -70,7 +81,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../demos/">Applications</a>
+        <a class="" href="../../demos/">Running Apps</a>
         
     </li>
 
@@ -79,52 +90,22 @@
 <li>
           
             <li>
-    <ul class="subnav">
-    <li><span>Sandbox</span></li>
-
-        
-            
     <li class="toctree-l1 ">
-        <a class="" href="../../sandbox/">Welcome to the Sandbox</a>
+        <a class="" href="../../sandbox/">Sandbox</a>
         
     </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../../sandbox_demos/">Sandbox Demos</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../../sandbox_services/">Sandbox Services</a>
-        
-    </li>
-
-        
-    </ul>
 <li>
           
             <li>
     <ul class="subnav">
-    <li><span>Applications</span></li>
+    <li><span>Development</span></li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../dtingest/">dtIngest</a>
+        <a class="" href="../../create/">Creating Applications</a>
         
     </li>
-
-        
-    </ul>
-<li>
-          
-            <li>
-    <ul class="subnav">
-    <li><span>Development and Tutorials</span></li>
 
         
             
@@ -139,28 +120,28 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../create/">Introduction</a>
+        <a class="" href="../topnwords/">Introduction</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../TopNWords-c1/">Development Environment</a>
+        <a class="" href="../topnwords-c1/">Development Environment</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../TopNWords-c2/">Building in Java</a>
+        <a class="" href="../topnwords-c2/">Building in Java</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../TopNWords-c3/">Building with dtAssemble</a>
+        <a class="" href="../topnwords-c3/">Building with dtAssemble</a>
         
     </li>
 
@@ -187,14 +168,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../TopNWords-c5/">Visualizing with dtDashboard</a>
+        <a class="" href="../topnwords-c5/">Visualizing with dtDashboard</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../TopNWords-c6/">Appendix</a>
+        <a class="" href="../topnwords-c6/">Appendix</a>
         
     </li>
 
@@ -204,7 +185,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../sales_dimensions/">Sales Dimenions</a>
+        <a class="" href="../sales_dimensions/">Sales Dimenions</a>
         
     </li>
 
@@ -365,6 +346,21 @@
           
             <li>
     <ul class="subnav">
+    <li><span>Applications</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../dtingest/">dtIngest</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
     <li><span>Platform</span></li>
 
         
@@ -377,7 +373,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../coming_soon/">dtManage</a>
+        <a class="" href="../../dtmanage/">dtManage</a>
         
     </li>
 
@@ -534,7 +530,7 @@ application as well as for troubleshooting problems.</p>
 <li>Click <em>TopNWordsWithQueries</em> to see a page with four tabs: <em>logical</em>,
    <em>physical</em>, <em>physical-dag-view</em>, and <em>metric-view</em>.</li>
 <li>Under <em>StramEvents</em>, ensure that all the operators have started.
-    <img alt="Stram Events" src="../images/image14.png" title="Stram Events" /></li>
+    <img alt="Stram Events" src="../images/topnwords/image14.png" title="Stram Events" /></li>
 </ol>
 <h2 id="dags-and-widgets">DAGs and widgets</h2>
 <p>When monitoring an application, the logical view is selected by default, with
@@ -556,7 +552,7 @@ failure.</p>
 allocated memory, and the number of tuples processed. You can use the kill
 button to terminate the application. The <em>visualize</em> button allows you to
 create one or more custom dashboards to visualize the application output.
-<img alt="Application Overview" src="../images/image24.png" title="Application Overview" /></p>
+<img alt="Application Overview" src="../images/topnwords/image24.png" title="Application Overview" /></p>
 <p><strong>Logical DAG</strong></p>
 <p>The logical DAG illustrates operators and their interconnections. You can
 customize the logical DAG view by selecting operator properties that are
@@ -569,22 +565,22 @@ displayed above and below each operator.</p>
 <li>To display a detail at the bottom of this operator, click the Bottom list
    and select a metric.</li>
 </ol>
-<p><img alt="DAG" src="../images/image47.png" title="DAG" /></p>
+<p><img alt="DAG" src="../images/topnwords/image47.png" title="DAG" /></p>
 <p><strong>Logical Operators</strong></p>
 <p>This panel displays a table with detailed information about each operator such
 as its name, the associated JAVA class, the number of tuples processed, and
 the number of tuples emitted.</p>
-<p><img alt="Logical Operators" src="../images/image48.png" title="Logical Operators" /></p>
+<p><img alt="Logical Operators" src="../images/topnwords/image48.png" title="Logical Operators" /></p>
 <p><strong>Streams</strong></p>
 <p>This panel displays details of each stream such as the name, locality, source,
 and sinks.</p>
-<p><img alt="Streams" src="../images/image49.png" title="Streams" /></p>
+<p><img alt="Streams" src="../images/topnwords/image49.png" title="Streams" /></p>
 <p><strong>Metrics Chart</strong></p>
 <p>This panel displays the number tuples processed and the number of bytes
 processed by some internal components. Since this application has not processed
 any tuples so far (no input file was provided), the green and blue lines
 coincide with the horizontal axis:</p>
-<p><img alt="Metrics" src="../images/image20.png" title="Metrics" /></p>
+<p><img alt="Metrics" src="../images/topnwords/image20.png" title="Metrics" /></p>
 <p>Physical view and associated widgets</p>
 <p>The physical tab displays the <em>Application Overview</em> and <em>Metrics Chart</em>
 discussed above along with additional panels: <em>Physical Operators</em> and
@@ -593,14 +589,14 @@ operator. When partitioning is enabled, some operators can be replicated to
 achieve better resource utilization and hence better throughput so a single
 logical operator may correspond to multiple physical operators.</p>
 <p><strong>Physical Operators</strong></p>
-<p><img alt="Physical Operators" src="../images/image21.png" title="Physical Operators" /></p>
+<p><img alt="Physical Operators" src="../images/topnwords/image21.png" title="Physical Operators" /></p>
 <p><strong>Containers</strong></p>
 <p>For each operator, a crucial piece of information is the process
 (the Java Virtual Machine) running that operator. It is also called a
 container, and shown in a column with that name. Additional information about
 the container (such as the host on which it is running) can be gleaned from the
 matching row in the <em>Containers</em> table.</p>
-<p><img alt="Containers" src="../images/image22.png" title="Containers" /></p>
+<p><img alt="Containers" src="../images/topnwords/image22.png" title="Containers" /></p>
 <p>If the state of all the physical operators and containers is <strong>ACTIVE</strong>
 and green   this is a healthy state. If the memory requirements for all the
 operators in the application exceeds the available memory in the cluster,
@@ -626,7 +622,7 @@ containing a table of all physical operators running in that container.
 In the <em>Container Overview</em> panel, you should see a blue <em>logs</em> dropdown
 button; click on it to see a menu containing three entries: <code>dt.log</code>, <code>stderr</code>,
 and <code>stdout</code>.</p>
-<p><img alt="logs" src="../images/image23.png" title="logs" /></p>
+<p><img alt="logs" src="../images/topnwords/image23.png" title="logs" /></p>
 <p>All messages output using <strong>log4j</strong> classes will appear in <code>dt.log</code>
 whereas messages written directly to the standard error or standard
 output streams will appear in the other two entries. Choose the entry
@@ -638,10 +634,10 @@ you want to view.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../TopNWords-c5/" class="btn btn-neutral float-right" title="Visualizing with dtDashboard"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../topnwords-c5/" class="btn btn-neutral float-right" title="Visualizing with dtDashboard"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../TopNWords-c3/" class="btn btn-neutral" title="Building with dtAssemble"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../topnwords-c3/" class="btn btn-neutral" title="Building with dtAssemble"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -667,10 +663,10 @@ you want to view.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../TopNWords-c3/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../topnwords-c3/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../TopNWords-c5/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../topnwords-c5/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

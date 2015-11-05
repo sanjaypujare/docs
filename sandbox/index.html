@@ -5,10 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to the Sandbox - DataTorrent Documentation</title>
+  <title>Sandbox - DataTorrent Documentation</title>
   
 
-  <link rel="shortcut icon" href="../img/favicon.ico">
+  <link rel="shortcut icon" href="../favicon.ico">
+  
 
   
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
@@ -20,7 +21,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Welcome to the Sandbox";
+    var mkdocs_page_name = "Sandbox";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -28,6 +29,16 @@
   <script type="text/javascript" src="../js/highlight.pack.js"></script>
   <script src="../js/theme.js"></script> 
 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-44586211-1', 'docs.datatorrent.com');
+      ga('send', 'pageview');
+  </script>
   
 </head>
 
@@ -70,7 +81,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../demos/">Applications</a>
+        <a class="" href="../demos/">Running Apps</a>
         
     </li>
 
@@ -79,61 +90,37 @@
 <li>
           
             <li>
-    <ul class="subnav">
-    <li><span>Sandbox</span></li>
-
-        
-            
     <li class="toctree-l1 current">
-        <a class="current" href="./">Welcome to the Sandbox</a>
+        <a class="current" href="./">Sandbox</a>
         
             <ul>
             
                 <li class="toctree-l3"><a href="#datatorrent-rts-sandbox">DataTorrent RTS Sandbox</a></li>
                 
-                    <li><a class="toctree-l4" href="#sandbox-overview">Sandbox Overview</a></li>
+                    <li><a class="toctree-l4" href="#accessing-console">Accessing Console</a></li>
+                
+                    <li><a class="toctree-l4" href="#running-demo-applications">Running Demo Applications</a></li>
+                
+                    <li><a class="toctree-l4" href="#service-management">Service Management </a></li>
+                
+                    <li><a class="toctree-l4" href="#support">Support</a></li>
                 
             
             </ul>
         
     </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../sandbox_demos/">Sandbox Demos</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../sandbox_services/">Sandbox Services</a>
-        
-    </li>
-
-        
-    </ul>
 <li>
           
             <li>
     <ul class="subnav">
-    <li><span>Applications</span></li>
+    <li><span>Development</span></li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../dtingest/">dtIngest</a>
+        <a class="" href="../create/">Creating Applications</a>
         
     </li>
-
-        
-    </ul>
-<li>
-          
-            <li>
-    <ul class="subnav">
-    <li><span>Development and Tutorials</span></li>
 
         
             
@@ -148,49 +135,49 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../create/">Introduction</a>
+        <a class="" href="../tutorials/topnwords/">Introduction</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c1/">Development Environment</a>
+        <a class="" href="../tutorials/topnwords-c1/">Development Environment</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c2/">Building in Java</a>
+        <a class="" href="../tutorials/topnwords-c2/">Building in Java</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c3/">Building with dtAssemble</a>
+        <a class="" href="../tutorials/topnwords-c3/">Building with dtAssemble</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c4/">Monitoring with dtManage</a>
+        <a class="" href="../tutorials/topnwords-c4/">Monitoring with dtManage</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c5/">Visualizing with dtDashboard</a>
+        <a class="" href="../tutorials/topnwords-c5/">Visualizing with dtDashboard</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c6/">Appendix</a>
+        <a class="" href="../tutorials/topnwords-c6/">Appendix</a>
         
     </li>
 
@@ -200,7 +187,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../sales_dimensions/">Sales Dimenions</a>
+        <a class="" href="../tutorials/sales_dimensions/">Sales Dimenions</a>
         
     </li>
 
@@ -361,6 +348,21 @@
           
             <li>
     <ul class="subnav">
+    <li><span>Applications</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../dtingest/">dtIngest</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
     <li><span>Platform</span></li>
 
         
@@ -373,7 +375,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">dtManage</a>
+        <a class="" href="../dtmanage/">dtManage</a>
         
     </li>
 
@@ -501,12 +503,8 @@
     <li><a href="..">Docs</a> &raquo;</li>
     
       
-        
-          <li>Sandbox &raquo;</li>
-        
-      
     
-    <li>Welcome to the Sandbox</li>
+    <li>Sandbox</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -517,13 +515,48 @@
             <div class="section">
               
                 <h1 id="datatorrent-rts-sandbox">DataTorrent RTS Sandbox</h1>
-<p>Welcome to the DataTorrent Sandbox, an introduction to DataTorrent RTS, the industry’s only unified stream and batch processing platform.  For additional information about DataTorrent products, please visit https://www.datatorrent.com/</p>
-<h2 id="sandbox-overview">Sandbox Overview</h2>
-<p>The DataTorrent Sandbox automatically launches Hadoop HDFS and YARN services on startup.  Depending on the host machine capabilities, these may take from several seconds to several minutes to start up.  Until Hadoop services are active and ready, it is normal to see error messages about availability of HDFS and YARN in the Issues section of the DataTorrent console.  Ensure there are no errors remaining in the console by allowing sufficient time for Hadoop services startup prior to launching DataTorrent applications.</p>
-<p><strong>Note</strong>: By default, this sandbox is designed to run with 6 GB of RAM.  Limited resources may cause delays during Hadoop services and DataTorrent applications startup.</p>
-<p>When accessing DataTorrent <a href="http://localhost:9090/#/docs/" target="_blank">console</a> in the sandbox for the first time, you will be required to log in.  Use username <strong>dtadmin</strong> and password <strong>dtadmin</strong>.  Same credentials are also valid for sandbox system access.</p>
-<p><img alt="" src="../images/sandbox/login.png" /></p>
-<p>Once authenticated, you can continue to <a href="..">DataTorrent Docs</a> to explore demo applications, discover features of the RTS platform, or learn how to write your own DataTorrent applications.</p>
+<p>Welcome to the DataTorrent Sandbox, an introduction to DataTorrent RTS, the industry’s only unified stream and batch processing platform.  The Sandbox provides a quick an simple way to experience DataTorrent RTS without setting up and managing a complete Hadoop cluster.  The Sandbox contains pre-installed DataTorrent RTS Enterprise Edition along with all the Hadoop services required to launch and run the included demo applications.</p>
+<p><strong>Installation</strong>: If you have not already, sandbox can be downloaded by visiting <a href="https://www.datatorrent.com/download/">datatorrent.com/download</a>.  To run the DataTorrent Sandbox, ensure you have downloaded and installed <a href="https://www.virtualbox.org/">VirtualBox</a> 4.3 or greater.</p>
+<h2 id="accessing-console">Accessing Console</h2>
+<p>When accessing DataTorrent console in the sandbox for the first time, you will be required to log in.  Use username <strong>dtadmin</strong> and password <strong>dtadmin</strong>.  Same credentials are also valid for sandbox system access.</p>
+<p><a href="http://localhost:9090/" target="\_blank">
+<img alt="" src="../images/sandbox/login.png" />
+</a></p>
+<p>Inside the DataTorrent RTS Sandbox console can be accessed by opening a browser and visiting <a href="http://localhost:9090/" target="\_blank">http://localhost:9090/</a></p>
+<h2 id="running-demo-applications">Running Demo Applications</h2>
+<p>Once authenticated, you can continue to <a href="../demos/">Demo Applications</a> section to learn how to import, launch, and run demo applications.</p>
+<h2 id="service-management">Service Management <a name="service_management"></a></h2>
+<p>The DataTorrent Sandbox automatically launches Hadoop HDFS and YARN, dtGateway, and other required services during startup.  Depending on the host machine capabilities, these may take from several seconds to several minutes to start up.  Until Hadoop services are active and ready, it is normal to see error messages about availability of HDFS and YARN in the Issues section of the DataTorrent console.  Ensure there are no errors remaining in the console by allowing sufficient time for Hadoop services startup prior to launching applications.  </p>
+<blockquote>
+<p><strong>Note</strong>: By default, this sandbox is designed to run with 6 GB of RAM.  Limited resources may cause delays during Hadoop services and applications startup.</p>
+</blockquote>
+<p>DataTorrent Sandbox automatically launches following services on startup.</p>
+<ul>
+<li>Hadoop HDFS NameNode</li>
+<li>Hadoop HDFS DataNode</li>
+<li>Hadoop YARN ResourceManager</li>
+<li>Hadoop YARN NodeManager</li>
+<li>DataTorrent Gateway</li>
+</ul>
+<p>Following service management actions are available:</p>
+<ul>
+<li>Start all Hadoop and DataTorrent services</li>
+<li>Shut down all Hadoop and DataTorrent services</li>
+<li>Rebuild HDFS (deletes all data!) and restart all services.</li>
+</ul>
+<p>To manage the services following desktop launchers have been set up</p>
+<ul>
+<li>
+<p><strong>Ubuntu Sandbox Edition</strong> - right-click on <em>DataTorrent Services</em> desktop launcher</p>
+<p><img alt="" src="../images/sandbox/services.png" /></p>
+</li>
+<li>
+<p><strong>Lubuntu Sandbox Edition</strong> - hover the mouse over Lubuntu launcher hidden in the bottom left corner of the sandbox screen, and navigate to DataTorrent menu</p>
+<p><img alt="" src="../images/sandbox/services_lubuntu.png" /></p>
+</li>
+</ul>
+<h2 id="support">Support</h2>
+<p>If you experience issues while experimenting with the sandbox, or have any feedback and comments, please let us know, and we will be happy to help!  Contact us using one of the methods listed on <a href="https://www.datatorrent.com/contact/">datatorrent.com/contact</a> page.</p>
               
             </div>
           </div>
@@ -531,10 +564,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../sandbox_demos/" class="btn btn-neutral float-right" title="Sandbox Demos"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../create/" class="btn btn-neutral float-right" title="Creating Applications"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../demos/" class="btn btn-neutral" title="Applications"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../demos/" class="btn btn-neutral" title="Running Apps"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -563,7 +596,7 @@
         <span><a href="../demos/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../sandbox_demos/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../create/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

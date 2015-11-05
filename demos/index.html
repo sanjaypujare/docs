@@ -5,10 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Applications - DataTorrent Documentation</title>
+  <title>Running Apps - DataTorrent Documentation</title>
   
 
-  <link rel="shortcut icon" href="../img/favicon.ico">
+  <link rel="shortcut icon" href="../favicon.ico">
+  
 
   
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
@@ -20,7 +21,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Applications";
+    var mkdocs_page_name = "Running Apps";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -28,6 +29,16 @@
   <script type="text/javascript" src="../js/highlight.pack.js"></script>
   <script src="../js/theme.js"></script> 
 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-44586211-1', 'docs.datatorrent.com');
+      ga('send', 'pageview');
+  </script>
   
 </head>
 
@@ -70,17 +81,19 @@
         
             
     <li class="toctree-l1 current">
-        <a class="current" href="./">Applications</a>
+        <a class="current" href="./">Running Apps</a>
         
             <ul>
             
-                <li class="toctree-l3"><a href="#datatorrent-rts-demo-applications">DataTorrent RTS Demo Applications</a></li>
+                <li class="toctree-l3"><a href="#running-demo-applications">Running Demo Applications</a></li>
                 
                     <li><a class="toctree-l4" href="#importing-demo-applications">Importing Demo Applications</a></li>
                 
-                    <li><a class="toctree-l4" href="#basic-demo-applications">Basic Demo Applications</a></li>
+                    <li><a class="toctree-l4" href="#launching-demo-applications">Launching Demo Applications</a></li>
                 
-                    <li><a class="toctree-l4" href="#advanced-demo-applications">Advanced Demo Applications</a></li>
+                    <li><a class="toctree-l4" href="#configuring-launch-parameters">Configuring Launch Parameters</a></li>
+                
+                    <li><a class="toctree-l4" href="#stopping-applications">Stopping Applications</a></li>
                 
             
             </ul>
@@ -92,52 +105,22 @@
 <li>
           
             <li>
-    <ul class="subnav">
-    <li><span>Sandbox</span></li>
-
-        
-            
     <li class="toctree-l1 ">
-        <a class="" href="../sandbox/">Welcome to the Sandbox</a>
+        <a class="" href="../sandbox/">Sandbox</a>
         
     </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../sandbox_demos/">Sandbox Demos</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../sandbox_services/">Sandbox Services</a>
-        
-    </li>
-
-        
-    </ul>
 <li>
           
             <li>
     <ul class="subnav">
-    <li><span>Applications</span></li>
+    <li><span>Development</span></li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../dtingest/">dtIngest</a>
+        <a class="" href="../create/">Creating Applications</a>
         
     </li>
-
-        
-    </ul>
-<li>
-          
-            <li>
-    <ul class="subnav">
-    <li><span>Development and Tutorials</span></li>
 
         
             
@@ -152,49 +135,49 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../create/">Introduction</a>
+        <a class="" href="../tutorials/topnwords/">Introduction</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c1/">Development Environment</a>
+        <a class="" href="../tutorials/topnwords-c1/">Development Environment</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c2/">Building in Java</a>
+        <a class="" href="../tutorials/topnwords-c2/">Building in Java</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c3/">Building with dtAssemble</a>
+        <a class="" href="../tutorials/topnwords-c3/">Building with dtAssemble</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c4/">Monitoring with dtManage</a>
+        <a class="" href="../tutorials/topnwords-c4/">Monitoring with dtManage</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c5/">Visualizing with dtDashboard</a>
+        <a class="" href="../tutorials/topnwords-c5/">Visualizing with dtDashboard</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorial-topNwords/TopNWords-c6/">Appendix</a>
+        <a class="" href="../tutorials/topnwords-c6/">Appendix</a>
         
     </li>
 
@@ -204,7 +187,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../sales_dimensions/">Sales Dimenions</a>
+        <a class="" href="../tutorials/sales_dimensions/">Sales Dimenions</a>
         
     </li>
 
@@ -365,6 +348,21 @@
           
             <li>
     <ul class="subnav">
+    <li><span>Applications</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../dtingest/">dtIngest</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
     <li><span>Platform</span></li>
 
         
@@ -377,7 +375,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">dtManage</a>
+        <a class="" href="../dtmanage/">dtManage</a>
         
     </li>
 
@@ -510,7 +508,7 @@
         
       
     
-    <li>Applications</li>
+    <li>Running Apps</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -520,16 +518,16 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="datatorrent-rts-demo-applications">DataTorrent RTS Demo Applications</h1>
-<p>DataTorrent RTS includes a number of demo applications, which help demonstrate the features of the RTS platform.  These demos are available for import from the <strong>Development &gt; App Packages</strong> section of the DataTorrent management console.</p>
+                <h1 id="running-demo-applications">Running Demo Applications</h1>
+<p>DataTorrent RTS includes a number of demo applications, which help demonstrate the features of the platform.  These demos are available for import from the <strong>Development &gt; App Packages</strong> section of the DataTorrent management console.</p>
 <h2 id="importing-demo-applications">Importing Demo Applications</h2>
 <ol>
 <li>Navigate to <strong>Develop &gt; App Packages &gt; Import</strong> section of the DataTorrent console.</li>
-<li>Select one of the available packages, such as <em>DataTorrent Pi Demo</em> and click <em>Import</em> button.</li>
+<li>Select one of the available packages, such as <em>Apache Apex Malhar Pi Demo</em> and click <em>Import</em> button.</li>
 <li>Imported packages and included applications will be listed under <strong>Develop &gt; App Packages</strong> page.</li>
 </ol>
-<h2 id="basic-demo-applications">Basic Demo Applications</h2>
-<p>These applications require minimal resources and configuration changes and can be launched with a single click.  <em>Note</em>: Ensure Hadoop YARN and HDFS services are active and ready by making sure there are no errors in the DataTorrent console before launching demo applications.</p>
+<h2 id="launching-demo-applications">Launching Demo Applications</h2>
+<p>After the right application packages have been imported, many demo applications can be launched with a single click.  <em>Note</em>: Ensure Hadoop YARN and HDFS services are active and ready by making sure there are no errors in the DataTorrent console before launching demo applications.</p>
 <ol>
 <li>
 <p>Navigate to <strong>App Packages</strong> under <strong>Develop</strong> tab of the DataTorrent console, and select one of the imported demo packages.  In this example we will use <strong>PiDemo</strong> application package.</p>
@@ -546,18 +544,18 @@
 <p><img alt="" src="../images/sandbox/pidemo-success.png" /></p>
 </li>
 </ol>
-<p>More information about using DataTorrent console is available in <a href="https://www.datatorrent.com/docs/guides/ConsoleGuide.html">dtManage Guide</a></p>
-<h2 id="advanced-demo-applications">Advanced Demo Applications</h2>
-<p>These applications may require additional configuration changes prior to launching.  Configuration changes can be made on the launch confirmation screen or manually applied to <code>~/.dt/dt-site.xml</code> configuration file.  These typically include adding Twitter API keys for twitter demo, or changing performance settings for larger applications.  Guides for various demo applications can be found in the <a href="http://docs.datatorrent.com/">docs</a>.</p>
+<p>More information about using DataTorrent console is available in <a href="../dtmanage/">dtManage Guide</a></p>
+<h2 id="configuring-launch-parameters">Configuring Launch Parameters</h2>
+<p>Some applications may require additional configuration changes prior to launching.  Configuration changes can be made on the launch confirmation screen or manually applied to <code>~/.dt/dt-site.xml</code> configuration file.  These typically include adding Twitter API keys for twitter demo, or changing performance settings for larger applications.  Guides for various demo applications can be found in the <a href="../create/">Creating Applications</a> guide.</p>
 <ol>
 <li>
-<p>Navigate to <strong>App Packages</strong> under <strong>Develop</strong> tab of the DataTorrent console.  In this example we will use <strong>DataTorrent Twitter Demo</strong> application package.  Import this package from <em>Develop &gt; App Packages &gt; Import</em> if it is not available.</p>
+<p>Navigate to <strong>App Packages</strong> under <strong>Develop</strong> tab of the DataTorrent console.  In this example we will use <strong>Apache Apex Malhar Twitter Demo</strong> application package.  Import this package from <em>Develop &gt; App Packages &gt; Import</em> if it is not available.</p>
 </li>
 <li>
 <p>From the list of Applications, select TwitterDemo and press the corresponding launch button.</p>
 </li>
 <li>
-<p>Retrieve Twitter API access information by registering for <a href="https://dev.twitter.com/">Twitter Developer</a> account, creating a new <a href="https://apps.twitter.com/app/new">Twitter Application</a>, and navigating to Keys and Access Tokens tab.  Twitter Demo application requires the following to be specified by the user:</p>
+<p>Retrieve Twitter API access information by registering for <a href="https://dev.twitter.com/" target="\_blank">Twitter Developer</a> account, creating a new <a href="https://apps.twitter.com/app/new" target="\_blank">Twitter Application</a>, and navigating to Keys and Access Tokens tab.  Twitter Demo application requires the following to be specified by the user:</p>
 <p>dt.operator.TweetSampler.accessToken
 dt.operator.TweetSampler.accessTokenSecret
 dt.operator.TweetSampler.consumerKey
@@ -571,9 +569,11 @@ dt.operator.TweetSampler.consumerSecret</p>
 <p>Once launched, view the running application by following the link provided in the launch confirmation dialog, or by navigating to the <strong>Monitor</strong> section of the console and selecting the launched application.</p>
 </li>
 <li>
-<p>View the top 10 tweeted hashtags in real time by generating and viewing the <a href="http://localhost:9090/#/dashboards">dashboards</a>.</p>
+<p>View the top 10 tweeted hashtags in real time by generating and viewing the <a href="../dtdashboard/">dashboard</a>.</p>
 </li>
 </ol>
+<h2 id="stopping-applications">Stopping Applications</h2>
+<p>Applications can be shut down or killed from the Monitor section of <a href="../dtmanage/">dtManage</a> by selecting application from the list and clicking <code>shutdown</code> or <code>kill</code> buttons.</p>
               
             </div>
           </div>
@@ -581,7 +581,7 @@ dt.operator.TweetSampler.consumerSecret</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../sandbox/" class="btn btn-neutral float-right" title="Welcome to the Sandbox"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../sandbox/" class="btn btn-neutral float-right" title="Sandbox"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../demo_videos/" class="btn btn-neutral" title="Videos"><span class="icon icon-circle-arrow-left"></span> Previous</a>
