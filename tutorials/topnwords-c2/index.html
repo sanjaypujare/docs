@@ -233,7 +233,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../coming_soon/">Operators</a>
+        <a class="" href="../../operator_development/">Operators</a>
         
     </li>
 
@@ -674,7 +674,7 @@ in Step I to the appropriate subdirectory of the new project.</p>
 <p>Copy the following files from:</p>
 <pre><code>incubator-apex-malhar/demos/wordcount/src/main/java/com/datatorrent/demos/wordcount/
 </code></pre>
-<p>to </p>
+<p>to</p>
 <pre><code>src/main/java/com/example/topnwordcount
 </code></pre>
 <ul>
@@ -688,10 +688,10 @@ in Step I to the appropriate subdirectory of the new project.</p>
 </ul>
 </li>
 <li>
-<p>Copy the file <code>WordDataSchema.json</code> from </p>
+<p>Copy the file <code>WordDataSchema.json</code> from</p>
 <pre><code>incubator-apex-malhar/demos/wordcount/src/main/resources/
 </code></pre>
-<p>to </p>
+<p>to</p>
 <pre><code>src/main/resources/
 </code></pre>
 <p>in the new project.</p>
@@ -738,7 +738,7 @@ dag.addOperator("QueryGlobal", wsQueryGlobal);
 <li>
 <p>Add streams to connect the two query operators to the DAG by adding these
     lines before the four existing <code>addstream()</code> calls:</p>
-<pre><code>dag.addStream("QueryFileStream", wsQueryFile.outputPort, snapshotServerFile.query,
+<pre><code>dag.addStream("QueryFileStream", wsQueryFile.outputPort, snapshotServerFile.query);
 dag.addStream("QueryGlobalStream", wsQueryGlobal.outputPort, snapshotServerGlobal.query);
 </code></pre>
 </li>
