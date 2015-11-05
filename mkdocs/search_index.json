@@ -12,12 +12,12 @@
         }, 
         {
             "location": "/demo_videos/", 
-            "text": "DataTorrent RTS Recorded Demos\n\n\nDataTorrent RTS Elastic Scalability Demo\n\n\n\n\n\nDataTorrent RTS Dimensional Computing Demo\n\n\n\n\n\nDataTorrent RTS Application Builder Demo\n\n\n\n\n\nDataTorrent RTS Fault Tolerance Demo", 
+            "text": "DataTorrent RTS Recorded Demos\n\n\nThe following videos provide an introduction to DataTorrent RTS. Application Builder shows how you can an application and the next 3 videos show how the platform provides built-in dimension computing, elastic scalability and fault tolerance. \n\n\nApplication Builder\n\n\n\n\n\nDimensional Computing\n\n\n\n\n\nElastic Scalability\n\n\n\n\n\nFault Tolerance", 
             "title": "Videos"
         }, 
         {
             "location": "/demo_videos/#datatorrent-rts-recorded-demos", 
-            "text": "DataTorrent RTS Elastic Scalability Demo   DataTorrent RTS Dimensional Computing Demo   DataTorrent RTS Application Builder Demo   DataTorrent RTS Fault Tolerance Demo", 
+            "text": "The following videos provide an introduction to DataTorrent RTS. Application Builder shows how you can an application and the next 3 videos show how the platform provides built-in dimension computing, elastic scalability and fault tolerance.   Application Builder   Dimensional Computing   Elastic Scalability   Fault Tolerance", 
             "title": "DataTorrent RTS Recorded Demos"
         }, 
         {
