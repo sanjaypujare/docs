@@ -534,7 +534,7 @@
 <li><strong>Analyze</strong>, Alert &amp; Visualize - display graphs for selected combinations, perform analysis, and take actions on computed data in real time.</li>
 </ol>
 <h2 id="create-new-application">Create New Application</h2>
-<p>DataTorrent platforms supports building new applications with <a href="dtassemble.md">Graphical Application Builder</a>, which will be used for Sales Dimensions demo.  App Builder is an easy and intuitive way to construct your applications, which provides a great visualization of the logical operator connectivity and application data flow.</p>
+<p>DataTorrent platforms supports building new applications with <a href="../../dtassemble/">Graphical Application Builder</a>, which will be used for Sales Dimensions demo.  App Builder is an easy and intuitive way to construct your applications, which provides a great visualization of the logical operator connectivity and application data flow.</p>
 <p>Go to App Packages section of the Console and make sure DataTorrent Dimensions Demos package is imported.  Use Import Demos button to add it, if not already present.
 Click create new application, and name the application “Sales Dimensions”.</p>
 <p>This will bring up the Application Builder interface</p>
@@ -590,14 +590,14 @@ Click create new application, and name the application “Sales Dimensions”.</
 </li>
 </ol>
 <h2 id="launch-application">Launch Application</h2>
-<p>Once application is constructed, and validation checks are satisfied, a launch button will become available at the top left of the Application Canvas screen.  Clicking it will bring up the application launch dialog, which allows you to further configure the application by changing its name and configuration settings prior to starting it. </p>
+<p>Once application is constructed, and validation checks are satisfied, a launch button will become available at the top left of the Application Canvas screen.  Clicking it will bring up the application launch dialog, which allows you to further configure the application by changing its name and configuration settings prior to starting it.</p>
 <p><img alt="" src="../images/sales_dimensions/image04.png" /></p>
 <p>After launching, go to <em>Sales Dimensions</em> application operations page in the <a href="../../#/ops">Monitor</a> section.</p>
 <p><img alt="" src="../images/sales_dimensions/image06.png" /></p>
 <p>Confirm that the application is launched successfully by looking for <em>Running</em> state in the <strong>Application Overview</strong> section, and all confirming all the operators are successfully started under <strong>Stram Events</strong> section.  By navigating to <strong>Physical</strong> view tab, and looking at <strong>Input</strong>, <strong>Parse</strong>, <strong>Enrich</strong>, or <strong>Compute</strong> operators, notice that they are all deployed to the single container, thanks to the stream locality setting of <code>CONTAINER_LOCAL</code> we applied earlier.  This represents one of the many performance improvement techniques available with the DataTorrent platform, in this case eliminating data serialization and networking stack overhead between a group of adjacent operators.</p>
 <p><img alt="" src="../images/sales_dimensions/image07.png" /></p>
 <h2 id="visualize-data">Visualize Data</h2>
-<p>DataTorrent includes powerful data visualization tools, which allow you to visualize streaming data from multiple sources in real time.  For additional details see <a href="dtdashboard.md">Data Visualization</a> tutorial.</p>
+<p>DataTorrent includes powerful data visualization tools, which allow you to visualize streaming data from multiple sources in real time.  For additional details see <a href="../../dtdashboard/">Data Visualization</a> tutorial.</p>
 <p>After application is started, a <strong>visualize</strong> button, available in the <strong>Application Overview</strong> section, can be used to quickly generate a new dashboard for the Sales Dimensions application.</p>
 <p><img alt="" src="../images/sales_dimensions/image02.png" /></p>
 <p>Once dashboard is created, additional widgets can be added to display various dimensions and combinations of the sales data.  Below is an example of multiple sales combinations displayed in real time.</p>
