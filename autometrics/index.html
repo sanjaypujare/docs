@@ -327,7 +327,7 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#apache-apex-autometric-api">Apache Apex AutoMetric API</a></li>
+                <li class="toctree-l3"><a href="#apache-apex-autometrics">Apache Apex AutoMetrics</a></li>
                 
             
                 <li class="toctree-l3"><a href="#introduction">Introduction</a></li>
@@ -485,7 +485,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Troubleshooting</a>
+        <a class="" href="../troubleshooting/">Troubleshooting</a>
         
     </li>
 
@@ -543,9 +543,9 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="apache-apex-autometric-api">Apache Apex AutoMetric API</h1>
+                <h1 id="apache-apex-autometrics">Apache Apex AutoMetrics</h1>
 <h1 id="introduction">Introduction</h1>
-<p>Metrics help to collect some statistical information about a process which can be very useful for diagnosis. Auto Metrics in Apex can help monitor operators in a running application.  The goal of <em>AutoMetric</em> API is to enable operator developer to define relevant metrics for an operator in a simple way which the platform collects and reports automatically.</p>
+<p>Metrics collect various statistical information about a process which can be very useful for diagnosis. Auto Metrics in Apex can help monitor operators in a running application.  The goal of <em>AutoMetric</em> API is to enable operator developer to define relevant metrics for an operator in a simple way which the platform collects and reports automatically.</p>
 <h1 id="specifying-autometrics-in-an-operator">Specifying AutoMetrics in an Operator</h1>
 <p>An <em>AutoMetric</em> can be any object. It can be of a primitive type - int, long, etc. or a complex one. A field or a <code>get</code> method in an operator can be annotated with <code>@AutoMetric</code> to specify that its value is a metric. After every application end window, the platform collects the values of these fields/methods in a map and sends it to application master.</p>
 <pre><code class="java">public class LineReceiver extends BaseOperator
