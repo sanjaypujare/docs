@@ -261,7 +261,7 @@
                 
                     <li><a class="toctree-l4" href="#checkpointing">Checkpointing</a></li>
                 
-                    <li><a class="toctree-l4" href="#recovery-mechanisms_1">Recovery Mechanisms</a></li>
+                    <li><a class="toctree-l4" href="#recovery-mechanisms">Recovery Mechanisms</a></li>
                 
             
                 <li class="toctree-l3"><a href="#9-dynamic-application-modifications">9: Dynamic Application Modifications</a></li>
@@ -271,9 +271,6 @@
                 
             
                 <li class="toctree-l3"><a href="#demos">Demos</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#related-documents">Related Documents</a></li>
                 
             
             </ul>
@@ -504,7 +501,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Configuration</a>
+        <a class="" href="../configuration/">Configuration</a>
         
     </li>
 
@@ -518,7 +515,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">dtCli</a>
+        <a class="" href="../dtcli/">dtCli</a>
         
     </li>
 
@@ -611,9 +608,8 @@ automatically.</p>
 <p>DataTorrent is a native Hadoop application. It runs as a YARN
 (Hadoop 2.x) application and leverages Hadoop as a distributed operating
 system. All the basic distributed operating system capabilities of
-Hadoop like resource allocation ( <a href="#h.1ksv4uv">Resource Manager</a> <a href="#h.1ksv4uv">)</a>,
-distributed file system (<a href="#h.3j2qqm3">HDFS</a><a href="#h.3j2qqm3">)</a>, <a href="#h.3q5sasy">multi-tenancy</a><a href="#h.3q5sasy">,</a> 
-<a href="#h.3q5sasy">security</a> <a href="#h.3q5sasy">,</a> <a href="#h.2nusc19">fault-tolerance</a><a href="#h.2nusc19">,</a> <a href="#h.34g0dwd">scalability</a><a href="#h.34g0dwd">,</a> etc.
+Hadoop like resource allocation (Resource Manager, distributed file system (HDFS),
+multi-tenancy, security, fault-tolerance, scalability, etc.
 are supported natively in all streaming applications.  Just as Hadoop
 for map-reduce handles all the details of the application allowing you
 to only focus on writing the application (the mapper and reducer
@@ -623,9 +619,8 @@ removes the need to maintain separate clusters for real-time
 applications.</p>
 <p>In the platform, building a streaming application can be extremely
 easy and intuitive.  The application is represented as a Directed
-Acyclic Graph (DAG) of computation units called <a href="#h.3o7alnk">operators</a><a href="#h.3o7alnk"> </a>interconnected
-by the data-flow edges called  <a href="#h.nmf14n">streams</a>
-<a href="#h.nmf14n">.</a> The operators process input
+Acyclic Graph (DAG) of computation units called <em>Operators</em> interconnected
+by the data-flow edges called  <em>Streams</em>. The operators process input
 streams and produce output streams. A library of common operators is
 provided to enable quick application development.  In case the desired
 processing is not available in the Operator Library, one can easily
@@ -1515,7 +1510,7 @@ in the development environment before launching on the Hadoop cluster.
 This way some of the external system integration and correct
 functionality of the application can be verified in an easier to debug
 environment before testing distributed mode.</p>
-<p>For more details on CLI please refer to the <a href="dtcli.md">dtCli Guide</a>.</p>
+<p>For more details on CLI please refer to the <a href="../dtcli/">dtCli Guide</a>.</p>
 <h2 id="application-api">Application API</h2>
 <p>This section introduces the API to write a streaming application.
 The work involves connecting operators via streams to form the logical
@@ -1571,7 +1566,9 @@ DAG in local mode within the IDE.</p>
 <p>Let us revisit how the Yahoo! Finance test application constructs the DAG:</p>
 <pre><code class="java">public class Application implements StreamingApplication
 {
-[...CUT...]
+
+  ...
+
   @Override
   public void populateDAG(DAG dag, Configuration conf)
   {
@@ -1653,9 +1650,7 @@ an operator developer, all that is needed is to figure out what to do
 with the incoming tuple and when (and which output port) to send out a
 particular output tuple. Correctly designed operators will most likely
 get reused. Operator design needs care and foresight. For details, refer
-to the  <a href="https://www.datatorrent.com/docs/guides/OperatorDeveloperGuide.html">Operator Developer
-Guide</a>
-. As an application developer you need to connect operators
+to the  <a href="../operator_development/">Operator Developer Guide</a>. As an application developer you need to connect operators
 in a way that it implements your business logic. You may also require
 operator customization for functionality and use attributes for
 performance/scalability etc.</p>
@@ -1767,8 +1762,7 @@ not impact functionality of the operator. Users can change certain
 attributes in runtime. Users cannot add attributes to operators; they
 are pre-defined by the platform. They are interpreted by the platform
 and thus cannot be defined in user created code (like properties).
-Details of attributes are covered in  <a href="http://docs.google.com/OperationandInstallationGuide.html">Operation and Installation Guide</a>
-.</p>
+Details of attributes are covered in  <a href="../configuration/">Configuration Guide</a>.</p>
 <h3 id="operator-state">Operator State</h3>
 <p>The state of an operator is defined as the data that it transfers
 from one window to a future window. Since the computing model of the
@@ -1819,27 +1813,21 @@ in the section.</p>
 <h4 id="streaming-window">Streaming Window</h4>
 <p>Streaming window is atomic micro-batch computation period. The API
 methods relating to a streaming window are as follows</p>
-<p><a href="#"></a> <a href="#"></a></p>
-<table>
-<colgroup>
-<col width="100%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td align="left"><p>public void process(&lt;tuple_type&gt; tuple) // Called on the input port on which the tuple arrives</p>
-<p>public void beginWindow(long windowId) // Called at the start of the window as soon as the first begin_window tuple arrives</p>
-<p>public void endWindow() // Called at the end of the window after end_window tuples arrive on all input ports</p>
-<p>public void setup(OperatorContext context) // Called once during initialization of the operator</p>
-<p>public void teardown() // Called once when the operator is being shutdown</p></td>
-</tr>
-</tbody>
-</table>
+<pre><code class="java">public void process(&lt;tuple_type&gt; tuple) // Called on the input port on which the tuple arrives
+public void beginWindow(long windowId) // Called at the start of the window as soon as the first begin_window tuple arrives
+public void endWindow() // Called at the end of the window after end_window tuples arrive on all input ports
+public void setup(OperatorContext context) // Called once during initialization of the operator
+public void teardown() // Called once when the operator is being shutdown
+````
 
-<p>A tuple can be emitted in any of the three streaming run-time
+
+A tuple can be emitted in any of the three streaming run-time
 calls, namely beginWindow, process, and endWindow but not in setup or
-teardown.</p>
-<h4 id="aggregate-application-window">Aggregate Application Window</h4>
-<p>An operator with an aggregate window is stateful within the
+teardown.
+
+#### Aggregate Application Window
+
+An operator with an aggregate window is stateful within the
 application window timeframe and possibly stateless at the end of that
 application window. An size of an aggregate application window is an
 operator attribute and is defined as a multiple of the streaming window
@@ -1847,7 +1835,7 @@ size. The platform recognizes this attribute and optimizes the operator.
 The beginWindow, and endWindow calls are not invoked for those streaming
 windows that do not align with the application window. For example in
 case of streaming window of 0.5 second and application window of 5
-minute, an application window spans 600 streaming windows (5*60*2 =
+minute, an application window spans 600 streaming windows (5\*60\*2 =
 600). At the start of the sequence of these 600 atomic streaming
 windows, a beginWindow gets invoked, and at the end of these 600
 streaming windows an endWindow gets invoked. All the intermediate
@@ -1855,9 +1843,11 @@ streaming windows do not invoke beginWindow or endWindow. Bookkeeping,
 node recovery, stats, UI, etc. continue to work off streaming windows.
 For example if operators are being checkpointed say on an average every
 30th window, then the above application window would have about 20
-checkpoints.</p>
-<h4 id="sliding-application-window">Sliding Application Window</h4>
-<p>A sliding window is computations that requires previous N
+checkpoints.
+
+#### Sliding Application Window
+
+A sliding window is computations that requires previous N
 streaming windows. After each streaming window the Nth past window is
 dropped and the new window is added to the computation. An operator with
 sliding window is a stateful operator at end of any window. The sliding
@@ -1870,9 +1860,11 @@ at least once (data loss
 intolerant), and exactly once (data
 loss intolerant and no extra computations) is same as recovery
 mechanisms based on streaming window. STRAM is not able to leverage this
-operator for any extra optimization.</p>
-<h3 id="single-vs-multi-input-operator">Single vs Multi-Input Operator</h3>
-<p>A single-input operator by definition has a single upstream
+operator for any extra optimization.
+
+### Single vs Multi-Input Operator
+
+A single-input operator by definition has a single upstream
 operator, since there can only be one writing port for a stream.  If an
 operator has a single upstream operator, then the beginWindow on the
 upstream also blocks the beginWindow of the single-input operator. For
@@ -1889,34 +1881,42 @@ ahead in processing) upstream operators are queued up till the slower
 upstream operator catches up. STRAM monitors such bottlenecks and takes
 corrective actions. The platform ensures minimal delay, i.e processing
 starts as long as at least one upstream operator has started
-processing.</p>
-<h3 id="recovery-mechanisms">Recovery Mechanisms</h3>
-<p>Application developers can set any of the recovery mechanisms
+processing.
+
+### Recovery Mechanisms
+
+Application developers can set any of the recovery mechanisms
 below to deal with node outage. In general, the cost of recovery depends
 on the state of the operator, while data integrity is dependant on the
 application. The mechanisms are per window as the platform treats
 windows as atomic compute units. Three recovery mechanisms are
-supported, namely</p>
-<ul>
-<li>At-least-once: All atomic batches are processed at least once.
-    No data loss occurs.</li>
-<li>At-most-once: All atomic batches are processed at most once.
-    Data loss is possible; this is the most efficient setting.</li>
-<li>Exactly-once: All atomic batches are processed exactly once.
+supported, namely
+
+-   At-least-once: All atomic batches are processed at least once.
+    No data loss occurs.
+-   At-most-once: All atomic batches are processed at most once.
+    Data loss is possible; this is the most efficient setting.
+-   Exactly-once: All atomic batches are processed exactly once.
     No data loss occurs; this is the least efficient setting since
-    additional work is needed to ensure proper semantics.</li>
-</ul>
-<p>At-least-once is the default. During a recovery event, the
+    additional work is needed to ensure proper semantics.
+
+At-least-once is the default. During a recovery event, the
 operator connects to the upstream buffer server and asks for windows to
 be replayed. At-least-once and exactly-once mechanisms start from its
 checkpointed state. At-most-once starts from the next begin-window
-event.</p>
-<p>Recovery mechanisms can be specified per Operator while writing
-the application as shown below.</p>
-<p>Operator o = dag.addOperator(“operator”, …);</p>
-<p>dag.setAttribute(o,</p>
-<p>OperatorContext.PROCESSING_MODE,</p>
-<p>ProcessingMode.AT_MOST_ONCE);</p>
+event.
+
+
+
+Recovery mechanisms can be specified per Operator while writing
+the application as shown below.
+
+
+```java
+Operator o = dag.addOperator(“operator”, …);
+dag.setAttribute(o,  OperatorContext.PROCESSING_MODE,  ProcessingMode.AT_MOST_ONCE);
+</code></pre>
+
 <p>Also note that once an operator is attributed to AT_MOST_ONCE,
 all the operators downstream to it have to be AT_MOST_ONCE. The client
 will give appropriate warnings or errors if that’s not the case.</p>
@@ -1945,12 +1945,10 @@ following characteristics</p>
     an application.</li>
 <li>Has an unique name within an application.</li>
 <li>Has attributes which act as hints to STRAM.</li>
-<li>Streams have four modes, namely in-line, in-node, in-rack,
+<li>
+<p>Streams have four modes, namely in-line, in-node, in-rack,
     and other. Modes may be overruled (for example due to lack
-    of containers). They are defined as follows:</li>
-</ul>
-<!-- -->
-
+    of containers). They are defined as follows:</p>
 <ul>
 <li>THREAD_LOCAL: In the same thread, uses thread
     stack (intra-thread). This mode can only be used for a downstream
@@ -1965,21 +1963,14 @@ following characteristics</p>
 <li>unspecified: No guarantee. Could be anywhere within the
     cluster</li>
 </ul>
+</li>
+</ul>
 <p>An example of a stream declaration is given below</p>
-<p><a href="#"></a> <a href="#"></a></p>
-<table>
-<colgroup>
-<col width="100%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td align="left"><p>DAG dag = new DAG();</p>
-<p> …</p>
-<p>dag.addStream(&quot;views&quot;, viewAggregate.sum, cost.data).setLocality(CONTAINER_LOCAL); // A container local  stream</p>
-<p>dag.addStream(“clicks”, clickAggregate.sum, rev.data); // An example of unspecified locality</p></td>
-</tr>
-</tbody>
-</table>
+<pre><code class="java">DAG dag = new DAG();
+ …
+dag.addStream(&quot;views&quot;, viewAggregate.sum, cost.data).setLocality(CONTAINER_LOCAL); // A container local  stream
+dag.addStream(“clicks”, clickAggregate.sum, rev.data); // An example of unspecified locality
+</code></pre>
 
 <p>The platform guarantees in-order delivery of tuples in a stream.
 STRAM views each stream as collection of ordered windows. Since no tuple
@@ -2064,18 +2055,11 @@ nature. These checks are as critical to proper functionality of the
 application as the compile time validations.</p>
 <p>Examples include</p>
 <ul>
-<li><a href="http://docs.oracle.com/javaee/6/tutorial/doc/gircz.html">JavaBeans
-    Validation</a>:
-    Examples include</li>
-</ul>
-<!-- -->
-
+<li>
+<p><a href="http://docs.oracle.com/javaee/6/tutorial/doc/gircz.html">JavaBeans Validation</a>:
+    Examples include</p>
 <ul>
 <li>@Max(): Value must be less than or equal to the number</li>
-</ul>
-<!-- -->
-
-<ul>
 <li>@Min(): Value must be greater than or equal to the
     number</li>
 <li>@NotNull: The value of the field or property must not be
@@ -2089,11 +2073,11 @@ application as the compile time validations.</p>
 <li>Output Port Connectivity: Similar. The annotation here is:    
     @OutputPortFieldAnnotation(name = "...", optional = true)</li>
 </ul>
-<!-- -->
-
-<ul>
-<li>Unique names in application scope: Operators, streams, must have
-    unique names.</li>
+</li>
+<li>
+<p>Unique names in application scope: Operators, streams, must have
+    unique names.</p>
+</li>
 <li>Cycles in the dag: DAG cannot have a cycle.</li>
 <li>Unique names in operator scope: Ports, properties, annotations
     must have unique names.</li>
@@ -2397,20 +2381,10 @@ Parallel partition is not used by default, users have to specify it
 explicitly via an attribute of the input port (reader) of the stream as
 shown below.</p>
 <p><img alt="" src="../images/application_development/ApplicationDeveloperGuide.html-image06.png" /></p>
-<p>The following code shows an example of creating a parallel
-partition.</p>
-<p><a href="#"></a> <a href="#"></a></p>
-<table>
-<colgroup>
-<col width="100%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td align="left"><p>dag.addStream(&quot;DenormalizedUserId&quot;, idAssigner.userid, uniqUserCount.data);</p>
-<p>dag.setInputPortAttribute(uniqUserCount.data, PortContext.PARTITION_PARALLEL, partitionParallel);</p></td>
-</tr>
-</tbody>
-</table>
+<p>The following code shows an example of creating a parallel partition.</p>
+<pre><code class="java">dag.addStream(&quot;DenormalizedUserId&quot;, idAssigner.userid, uniqUserCount.data);
+dag.setInputPortAttribute(uniqUserCount.data, PortContext.PARTITION_PARALLEL, partitionParallel);
+</code></pre>
 
 <p>Parallel partitions can be used with other partitions, for example
 a parallel partition could be sticky key or load balanced.</p>
@@ -2608,10 +2582,7 @@ platform is designed to handle these and features would be released in
 future as they get developed. At a top level, STRAM monitors throughput
 per operator, computes latency per operator, manages uptime and supports
 various recovery mechanisms to handle data loss. A lot of this decision
-making and algorithms will be customizable. Those interested in details
-should refer to the  <a href="https://www.datatorrent.com/docs/guides/OperationandInstallationGuide.html">Operation and Installation
-Guide</a>
-.</p>
+making and algorithms will be customizable.</p>
 <hr />
 <h1 id="fault-tolerance">Fault Tolerance</h1>
 <p>Fault tolerance in the platform is defined as the ability to
@@ -2735,7 +2706,7 @@ windows replayed by the upstream buffer server(s). The above design
 keeps the bookkeeping cost low with quick catch up time. In the next
 section we will see how this simple abstraction allows applications to
 recover under different requirements.</p>
-<h2 id="recovery-mechanisms_1">Recovery Mechanisms</h2>
+<h2 id="recovery-mechanisms">Recovery Mechanisms</h2>
 <p>Recovery mechanism are ways to recover from a container (or an
 operator) outage. In this section we discuss a single container outage.
 Multiple container outages are handled as independent events. Recovery
@@ -2782,16 +2753,14 @@ application can handle loss of data, then this is not the most optimal
 recovery mechanism.</p>
 <p>In general for this recovery mode, the average time lag on a node
 outage is</p>
-<p>= (CP/2*SW)*T + HC</p>
-<p>Where</p>
-<p>CP        - Checkpointing period (default value is 30
-seconds)</p>
-<p>SW        - Streaming window period (default value is 0.5
-seconds)</p>
-<p>T        -  Time taken to re-compute one lost window from data in
-memory</p>
-<p>HC        - Time it takes to get a new Hadoop Container, or make
-do with the current ones</p>
+<p><strong>= (CP/2*SW)*T + HC</strong></p>
+<p>where</p>
+<ul>
+<li><strong>CP</strong>  - Checkpointing period (default value is 30 seconds)</li>
+<li><strong>SW</strong>  - Streaming window period (default value is 0.5 seconds)</li>
+<li><strong>T</strong>   -  Time taken to re-compute one lost window from data in memory</li>
+<li><strong>HC</strong>  - Time it takes to get a new Hadoop Container, or make do with the current ones</li>
+</ul>
 <p>A lower CP is a trade off between cost of checkpointing and the
 need to have to use it in case of outage. Input adapters cannot use
 at-least-once recovery without the support from sources outside Hadoop.
@@ -2828,12 +2797,18 @@ need to be checkpointed. Currently the option to not do checkpoint in
 such cases is not available.</p>
 <p>In general, in this recovery mode, the average time lag on a node
 outage is</p>
-<p>= SW/2 + HC</p>
-<p>Where</p>
-<p>SW        - Streaming window period (default value is 0.5
+<p><strong>= SW/2 + HC</strong></p>
+<p>where</p>
+<ul>
+<li>
+<p><strong>SW</strong> - Streaming window period (default value is 0.5
 seconds)</p>
-<p>HC        - Time it takes to get a new Hadoop Container, or make
+</li>
+<li>
+<p><strong>HC</strong> - Time it takes to get a new Hadoop Container, or make
 do with the current ones</p>
+</li>
+</ul>
 <h3 id="exactly-once">Exactly Once</h3>
 <p>This recovery mechanism is for applications that require no
 data-loss as well are no recomputation. Since a window is an atomic
@@ -2850,30 +2825,27 @@ application window; if the application window size is substantially
 larger than the streaming window size (which typically is the case) the
 cost of running an operator in this recovery mode may not be as
 high.</p>
-<p>Speculative Execution</p>
-<p>In future we intend to provide speculative execution for the
-applications. This would be enabled in multiple ways.</p>
+<h3 id="speculative-execution">Speculative Execution</h3>
+<p>In future we looking at possibility of adding speculative execution for the applications. This would be enabled in multiple ways.</p>
 <ol>
-<li>At an operator level: The upstream operator would emit to
+<li>
+<p>At an operator level: The upstream operator would emit to
     two copies. The downstream operator would receive from both copies
     and pick a winner. The winner (primary) would be picked in either of
-    the following ways</li>
-</ol>
-<!-- -->
-
-<ol>
+    the following ways</p>
+<ul>
 <li>Statically as dictated by STRAM</li>
 <li>Dynamically based on whose tuple arrives first. This mode
     needs both copies to guarantee that the computation result would
     have identical functionality</li>
-</ol>
-<!-- -->
-
-<ol>
-<li>At a sub-query level: A part of the application DAG would be
+</ul>
+</li>
+<li>
+<p>At a sub-query level: A part of the application DAG would be
     run in parallel and all upstream operators would feed to two copies
     and all downstream operators would receive from both copies. The
-    winners would again be picked in a static or dynamic manner</li>
+    winners would again be picked in a static or dynamic manner</p>
+</li>
 <li>Entire DAG: Another copy of the application would be run by
     STRAM and the winner would be decided outside the application. In
     this mode the output adapters would both be writing
@@ -2894,8 +2866,7 @@ STRAM will instrument the changes and the streaming will catch-up and
 continue.</p>
 <p>Some examples are</p>
 <ul>
-<li><a href="#h.3hv69ve">Dynamic
-    Partitioning</a><a href="#h.3hv69ve">:</a> Automatic
+<li>Dynamic Partitioning: Automatic
     changes in partitioning of computations to match constraints on a
     run time basis. Examples includes STRAM adding resource during spike
     in streams and returning them once spike is gone. Scale up and scale
@@ -2925,8 +2896,7 @@ continue.</p>
 platform. They enable users to build layers over the applications. Users
 can also save all the changes done since the application launch, and
 therefore predictably get the application to its current state. For
-details refer to  <a href="https://www.datatorrent.com/docs/guides/OperationandInstallationGuide.html">Operations and Installation
-Guide</a>
+details refer to  <a href="configuraiton.md">Configuration Guide</a>
 .</p>
 <hr />
 <h1 id="user-interface">User Interface</h1>
@@ -2934,14 +2904,11 @@ Guide</a>
 to monitor the application system metrics (throughput, latency, resource
 utilization, etc.); dashboards for application data, replay, errors; and
 a Developer studio for application creation, launch etc. For details
-refer to  <a href="https://www.datatorrent.com/docs/guides/ConsoleGuide.html">UI Console
-Guide</a>
-.</p>
+refer to  <a href="../dtmanage/">UI Console Guide</a>.</p>
 <h1 id="demos">Demos</h1>
 <p>In this section we list some of the demos that come packaged with
 installer. The source code for the demos is available in the open-source
-<a href="https://github.com/apache/incubator-apex-malhar">Apache Apex-Malhar
-repository</a>.
+<a href="https://github.com/apache/incubator-apex-malhar">Apache Apex-Malhar repository</a>.
 All of these do computations in real-time. Developers are encouraged to
 review them as they use various features of the platform and provide an
 opportunity for quick learning.</p>
@@ -2974,25 +2941,8 @@ opportunity for quick learning.</p>
     eruption event data for the Old Faithful
     geyser (https://en.wikipedia.org/wiki/Old_Faithful).</li>
 <li>Machinedata: Analyzes a synthetic
-    stream of events to determine health of a machine.</li>
+    stream of events to determine health of a machine.  </li>
 </ol>
-<hr />
-<h1 id="related-documents">Related Documents</h1>
-<ol>
-<li><a href="https://www.datatorrent.com/docs/guides/ApplicationPackages.html">Application Packages
-    Guide</a></li>
-<li><a href="https://www.datatorrent.com/docs/guides/OperatorDeveloperGuide.html">Operator Developer
-    Guide</a></li>
-<li><a href="https://www.datatorrent.com/docs/guides/OperationandInstallationGuide.html">Operation and Installation
-    Guide</a></li>
-<li><a href="https://www.datatorrent.com/docs/guides/ConsoleGuide.html">dtManage User
-    Guide</a></li>
-<li><a href="https://www.datatorrent.com/docs/guides/GraphicalApplicationAssemblyGuide.html">dtAssemble User
-    Guide</a></li>
-<li><a href="https://www.datatorrent.com/docs/guides/dtDashboardUsersGuide.html">dtDashboard User
-    Guide</a></li>
-</ol>
-<p>© 2012-2015 DataTorrent Inc.  Patent pending         </p>
               
             </div>
           </div>
