@@ -261,7 +261,7 @@
                 
                     <li><a class="toctree-l4" href="#checkpointing">Checkpointing</a></li>
                 
-                    <li><a class="toctree-l4" href="#recovery-mechanisms">Recovery Mechanisms</a></li>
+                    <li><a class="toctree-l4" href="#recovery-mechanisms_1">Recovery Mechanisms</a></li>
                 
             
                 <li class="toctree-l3"><a href="#9-dynamic-application-modifications">9: Dynamic Application Modifications</a></li>
@@ -1818,16 +1818,13 @@ public void beginWindow(long windowId) // Called at the start of the window as s
 public void endWindow() // Called at the end of the window after end_window tuples arrive on all input ports
 public void setup(OperatorContext context) // Called once during initialization of the operator
 public void teardown() // Called once when the operator is being shutdown
-````
+</code></pre>
 
-
-A tuple can be emitted in any of the three streaming run-time
+<p>A tuple can be emitted in any of the three streaming run-time
 calls, namely beginWindow, process, and endWindow but not in setup or
-teardown.
-
-#### Aggregate Application Window
-
-An operator with an aggregate window is stateful within the
+teardown.</p>
+<h4 id="aggregate-application-window">Aggregate Application Window</h4>
+<p>An operator with an aggregate window is stateful within the
 application window timeframe and possibly stateless at the end of that
 application window. An size of an aggregate application window is an
 operator attribute and is defined as a multiple of the streaming window
@@ -1835,7 +1832,7 @@ size. The platform recognizes this attribute and optimizes the operator.
 The beginWindow, and endWindow calls are not invoked for those streaming
 windows that do not align with the application window. For example in
 case of streaming window of 0.5 second and application window of 5
-minute, an application window spans 600 streaming windows (5\*60\*2 =
+minute, an application window spans 600 streaming windows (5*60*2 =
 600). At the start of the sequence of these 600 atomic streaming
 windows, a beginWindow gets invoked, and at the end of these 600
 streaming windows an endWindow gets invoked. All the intermediate
@@ -1843,11 +1840,9 @@ streaming windows do not invoke beginWindow or endWindow. Bookkeeping,
 node recovery, stats, UI, etc. continue to work off streaming windows.
 For example if operators are being checkpointed say on an average every
 30th window, then the above application window would have about 20
-checkpoints.
-
-#### Sliding Application Window
-
-A sliding window is computations that requires previous N
+checkpoints.</p>
+<h4 id="sliding-application-window">Sliding Application Window</h4>
+<p>A sliding window is computations that requires previous N
 streaming windows. After each streaming window the Nth past window is
 dropped and the new window is added to the computation. An operator with
 sliding window is a stateful operator at end of any window. The sliding
@@ -1860,11 +1855,9 @@ at least once (data loss
 intolerant), and exactly once (data
 loss intolerant and no extra computations) is same as recovery
 mechanisms based on streaming window. STRAM is not able to leverage this
-operator for any extra optimization.
-
-### Single vs Multi-Input Operator
-
-A single-input operator by definition has a single upstream
+operator for any extra optimization.</p>
+<h3 id="single-vs-multi-input-operator">Single vs Multi-Input Operator</h3>
+<p>A single-input operator by definition has a single upstream
 operator, since there can only be one writing port for a stream.  If an
 operator has a single upstream operator, then the beginWindow on the
 upstream also blocks the beginWindow of the single-input operator. For
@@ -1881,39 +1874,31 @@ ahead in processing) upstream operators are queued up till the slower
 upstream operator catches up. STRAM monitors such bottlenecks and takes
 corrective actions. The platform ensures minimal delay, i.e processing
 starts as long as at least one upstream operator has started
-processing.
-
-### Recovery Mechanisms
-
-Application developers can set any of the recovery mechanisms
+processing.</p>
+<h3 id="recovery-mechanisms">Recovery Mechanisms</h3>
+<p>Application developers can set any of the recovery mechanisms
 below to deal with node outage. In general, the cost of recovery depends
 on the state of the operator, while data integrity is dependant on the
 application. The mechanisms are per window as the platform treats
 windows as atomic compute units. Three recovery mechanisms are
-supported, namely
-
--   At-least-once: All atomic batches are processed at least once.
-    No data loss occurs.
--   At-most-once: All atomic batches are processed at most once.
-    Data loss is possible; this is the most efficient setting.
--   Exactly-once: All atomic batches are processed exactly once.
+supported, namely</p>
+<ul>
+<li>At-least-once: All atomic batches are processed at least once.
+    No data loss occurs.</li>
+<li>At-most-once: All atomic batches are processed at most once.
+    Data loss is possible; this is the most efficient setting.</li>
+<li>Exactly-once: All atomic batches are processed exactly once.
     No data loss occurs; this is the least efficient setting since
-    additional work is needed to ensure proper semantics.
-
-At-least-once is the default. During a recovery event, the
+    additional work is needed to ensure proper semantics.</li>
+</ul>
+<p>At-least-once is the default. During a recovery event, the
 operator connects to the upstream buffer server and asks for windows to
 be replayed. At-least-once and exactly-once mechanisms start from its
 checkpointed state. At-most-once starts from the next begin-window
-event.
-
-
-
-Recovery mechanisms can be specified per Operator while writing
-the application as shown below.
-
-
-```java
-Operator o = dag.addOperator(“operator”, …);
+event.</p>
+<p>Recovery mechanisms can be specified per Operator while writing
+the application as shown below.</p>
+<pre><code class="java">Operator o = dag.addOperator(“operator”, …);
 dag.setAttribute(o,  OperatorContext.PROCESSING_MODE,  ProcessingMode.AT_MOST_ONCE);
 </code></pre>
 
@@ -2706,7 +2691,7 @@ windows replayed by the upstream buffer server(s). The above design
 keeps the bookkeeping cost low with quick catch up time. In the next
 section we will see how this simple abstraction allows applications to
 recover under different requirements.</p>
-<h2 id="recovery-mechanisms">Recovery Mechanisms</h2>
+<h2 id="recovery-mechanisms_1">Recovery Mechanisms</h2>
 <p>Recovery mechanism are ways to recover from a container (or an
 operator) outage. In this section we discuss a single container outage.
 Multiple container outages are handled as independent events. Recovery
