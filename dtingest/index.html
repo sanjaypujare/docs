@@ -172,7 +172,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorials/sales_dimensions/">Sales Dimenions</a>
+        <a class="" href="../tutorials/sales_dimensions/">Sales Dimensions</a>
         
     </li>
 
@@ -189,7 +189,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Applications</a>
+        <a class="" href="../application_development/">Applications</a>
         
     </li>
 
@@ -222,14 +222,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../operators/io/file_splitter/">File splitter</a>
+        <a class="" href="../operators/file_splitter/">File splitter</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../operators/io/block_reader/">Block reader</a>
+        <a class="" href="../operators/block_reader/">Block reader</a>
         
     </li>
 
@@ -243,14 +243,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">File Output</a>
+        <a class="" href="../operators/file_output/">File Output</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Deduper</a>
+        <a class="" href="../operators/deduper/">Deduper</a>
         
     </li>
 
@@ -264,14 +264,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">DimensionsStore</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">DimenstionComputation</a>
+        <a class="" href="../operators/dimensions_computation/">DimenstionComputation</a>
         
     </li>
 
@@ -353,15 +346,15 @@
                 
                     <li><a class="toctree-l4" href="#pre-requisites">Pre-requisites</a></li>
                 
-                    <li><a class="toctree-l4" href="#launching-ingestion-application">Launching ingestion application</a></li>
+                    <li><a class="toctree-l4" href="#launching-dtingest">Launching dtIngest</a></li>
                 
-                    <li><a class="toctree-l4" href="#configuring-dtingest-instance-properties">Configuring dtingest instance properties</a></li>
+                    <li><a class="toctree-l4" href="#configuring-dtingest-instance-properties">Configuring dtIngest Instance Properties</a></li>
                 
-                    <li><a class="toctree-l4" href="#configuring-input-source">Configuring input source</a></li>
+                    <li><a class="toctree-l4" href="#configuring-input-source">Configuring Input Source</a></li>
                 
-                    <li><a class="toctree-l4" href="#configuring-output-destination">Configuring output destination</a></li>
+                    <li><a class="toctree-l4" href="#configuring-output-destination">Configuring Output Destination</a></li>
                 
-                    <li><a class="toctree-l4" href="#configuring-processing-steps">Configuring processing steps</a></li>
+                    <li><a class="toctree-l4" href="#configuring-processing-steps">Configuring Processing Steps</a></li>
                 
             
             </ul>
@@ -523,8 +516,8 @@
             <div class="section">
               
                 <h1 id="dtingest-tutorial">dtIngest Tutorial</h1>
-<p>"dtIngest" is a datatorrent application that can read data from various
-sources and store the processed data to various sinks. The data movement
+<p>"dtIngest" is a DataTorrent application that ingest data from various
+sources and egress the processed data to various sinks. The data movement
 happens at scale and in parallel. To know more about dtIngest please
 refer the <a href="https://www.datatorrent.com/dtingest-unified-streaming-batch-data-ingestion-hadoop/">dtIngest
 blog</a>.</p>
@@ -532,26 +525,26 @@ blog</a>.</p>
 <h2 id="pre-requisites">Pre-requisites</h2>
 <ul>
 <li>
-<p>Datatorrent RTS should be installed on your hadoop cluster. Please
-    refer <a href="https://www.datatorrent.com/docs/README.html">Installation
+<p>Datatorrent RTS on a Hadoop cluster. Please
+    refer to <a href="http://docs.datatorrent.com/installation/">Installation
     guide</a> for
-    installation steps.</p>
+    details.</p>
 </li>
 <li>
-<p>Source and destination file systems should be accessible from all
-    nodes of the cluster running DataTorrent RTS. It can be any of HDFS,
+<p>Source and destination file systems must be accessible from all
+    DataTorrent RTS nodes. It can be any of HDFS,
     NFS, S3, FTP. For sandbox image or single node hadoop cluster you can also use local
     files as source. But, for multi-node cluster local files cannot be used as source.</p>
 </li>
 <li>
-<p>In case your source or destination file system is NFS; then NFS
-    should be mounted on all the nodes within the hadoop cluster at a
+<p>If source or destination file system is NFS; then NFS
+    should be mounted on all the nodes within the Hadoop cluster at a
     common mount point and should have read/write permission to the user
     running dtIngest application.</p>
 </li>
 </ul>
-<h2 id="launching-ingestion-application">Launching ingestion application</h2>
-<p>dtIngest application can be configured and launched from <a href="https://www.datatorrent.com/docs/guides/ConsoleGuide.html">Datatorrent
+<h2 id="launching-dtingest">Launching dtIngest</h2>
+<p>dtIngest application can be configured and launched from <a href="http://docs.datatorrent.com/dtmanage/">Datatorrent
 Management
 Console</a>.</p>
 <ol>
@@ -564,42 +557,34 @@ Console</a>.</p>
     to use under 'Application Packages' section. </p>
 </li>
 <li>
-<p>Select 'Ingestion Application' from list of App packages. And click
+<p>Select 'Ingestion Application' from the list of App packages. And click
     on ‘launch application’ button.
     <img alt="Screenshot from 2015-09-24 16:37:23.png" src="../images/dtingest/image13.png" /></p>
 </li>
 <li>
 <p>Configuration page for dtingest is displayed after the 'launch'.
-    Just provide desired values for the configuration and click
+    Enter the configuration values and click
     'Launch' to ingest your data.</p>
 </li>
 </ol>
-<h2 id="configuring-dtingest-instance-properties">Configuring dtingest instance properties</h2>
+<h2 id="configuring-dtingest-instance-properties">Configuring dtIngest Instance Properties</h2>
 <ol>
 <li>
-<p>In the 'Name this application' textbox; enter suitable name of
-    your choice for this ingestion instance. For example, 'Ingestion
+<p>In the 'Name this application' textbox; name the application instance. For example, 'Ingestion
     test'
     <img alt="Screenshot from 2015-10-15 13:58:10.png" src="../images/dtingest/image33.png" /></p>
 </li>
 <li>
-<p>Under 'Specify a queue' option; keep the 'Specify a queue'
-    checkbox unselected if you want to use default queue.</p>
-<p>If you want to specify some specific queue to launch this application; then
-select the 'Specify a queue' checkbox and select desired queue from the
-dropdown. To know more about this read <a href="https://hadoop.apache.org/docs/r2.4.1/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html">Hadoop Capacity Scheduler Docs</a>
+<p>Leave 'Specify a queue' unchecked to use default queue.</p>
+<p>If you want to specify a queue to launch this application, check 'Specify a queue' checkbox and select queue from the
+dropdown. For more information, go to <a href="https://hadoop.apache.org/docs/r2.4.1/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html">Hadoop Capacity Scheduler Docs</a>
 <img alt="Screenshot from 2015-10-15 15:20:19.png" src="../images/dtingest/image10.png" /></p>
 </li>
 <li>
-<p>Under 'Use config a file' option; select the checkbox if you wish
-    to use some configuration which is already saved. In the drop down
-    select the desired configuration.
-    After selection, all the input options will load the values saved in the configuration.
+<p>Under 'Use config a file' option, check the box to use existing configuration file. Select file from drop down to load the configuration file.
     <img alt="Screenshot from 2015-10-15 16:10:03.png" src="../images/dtingest/image32.png" /></p>
-<p>After values are loaded you can modify the values of any option to the
-desired value. You can also save this new combination of values as a
-configuration under the same name or different name.</p>
-<p>If you want to specify all the options from scratch without using any pre-saved configuration; then unselect a checkbox 'Use a config file'</p>
+<p>Once it is loaded, you can modify the values. You can save the new configuration as a new file or overwrite the existing one. </p>
+<p>Leave 'Use a config file' unchecked to create a new one. </p>
 </li>
 <li>
 <p>Configure input source, refer to <a href="#configuring-input-source">Configuring input
@@ -619,7 +604,7 @@ configuration under the same name or different name.</p>
     You may keep this blank if you do not want to save this for future use. </p>
 </li>
 </ol>
-<h2 id="configuring-input-source">Configuring input source</h2>
+<h2 id="configuring-input-source">Configuring Input Source</h2>
 <h3 id="configuring-hdfs-input">Configuring HDFS input</h3>
 <ol>
 <li>
@@ -643,15 +628,15 @@ configuration under the same name or different name.</p>
 <li><code>/user/john/data</code> indicates full path for destination directory  </li>
 </ul>
 <p><img alt="" src="../images/dtingest/image14.png" /></p>
-<p>If there are more than one directories/file to be ingested; click on
-'Add directory' button. Then specify complete URL for the file path to be
-ingested as specified above</p>
+<p>If there are more than one directories/file to be ingested, click on
+'Add directory' button and specify complete URL file path to be
+ingested.</p>
 </li>
 <li>
-<p>In the 'Filtering criteria' field; specify regular expression for
+<p>In the 'Filtering criteria' field, specify regular expression for
     files to be copied.  For regular expression syntax, please refer to
     <a href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">Java regular expression  documentation</a>.
-    For example, if only <code>.log</code> files need to be ingested; then use <code>.*\.log</code> as regular expression.  </p>
+     For example, if only <code>.log</code> files need to be ingested, then use <code>.*\.log</code> as regular expression.  </p>
 <p><img alt="Screenshot from 2015-09-24 19:36:18.png" src="../images/dtingest/image02.png" /></p>
 <p>Where,
 -   <code>.*</code> indicates any character zero or more times
@@ -661,14 +646,12 @@ ingested as specified above</p>
 directories.</p>
 </li>
 <li>
-<p>Under 'Runs' field, select 'Single run' if you expect
-    application to shutdown after ingesting files currently present in
-    the directory.</p>
+<p>Under 'Runs' field, select 'Single run' if you want
+    application to shutdown after completing files ingestion.</p>
 <p>Select 'Polling' if you expect application to periodically poll the
-directory/file for the changes. Change of file is detected based on
-'modification timestamp'. Entire file will be ingested again in case of
+directory/file for changes. File change is based on timestamp difference. Entire file will be ingested again in case of
 any change.</p>
-<p>If 'Polling' mode is selected; then 'Polling interval' should be specified.
+<p>If 'Polling' mode is selected, then 'Polling interval' should be specified.
 This is the time interval between sub-sequent scans for detecting
 new/modified files.  </p>
 <p><img alt="Screenshot from 2015-09-24 20:03:57.png" src="../images/dtingest/image17.png" /></p>
@@ -681,8 +664,7 @@ new/modified files.  </p>
     drop-down. <img alt="Screenshot from 2015-09-24 15:23:24.png" src="../images/dtingest/image31.png" /></p>
 </li>
 <li>
-<p>Under 'Source directories'; specify complete URL for the file path
-    to be ingested.</p>
+<p>Under 'Source directories'; specify complete URL file path.</p>
 <p>For example, if the NFS mount is located at '/disk5/nfsmount' and
 'path/to/data/directory' is the directory under this mount which needs
 to be ingested; then complete URL in this case will be <code>file:///disk5/nfsmount/path/to/data/directory</code>.
@@ -696,19 +678,19 @@ to be uniform across all the nodes in the cluster
 after <code>file:</code>.</p>
 </li>
 <li>
-<p>If there are more than one directories to be ingested; click on
-    'Add directory' button. Then specify complete URL for the file
-    path to be ingested as specified in point 3.</p>
+<p>If there are more than one directories to be ingested, click on
+    'Add directory' button and specify complete URL file
+    path.</p>
 </li>
 <li>
-<p>If there are specific files to be ingested; then specify complete
-    URL for the file path to be ingested.</p>
+<p>If there are specific files, as opposed to a directory,specify complete
+    URL file path.</p>
 <p>For example,  if some other NFS mount is located at '/disk6/nfsmount2' and 'path/to/file/to/copy/datafile.txt' is a file under this mount which needs
 to be ingested; then complete URL in this case will be <code>file:///disk6/nfsmount2/path/to/file/to/copy/datafile.txt</code>.</p>
 <p><img alt="Screenshot from 2015-09-24 17:36:06.png" src="../images/dtingest/image39.png" /></p>
 </li>
 <li>
-<p>In the 'Filtering criteria' field; specify regular expression for
+<p>In the 'Filtering criteria' field, specify regular expression for
     files to be copied.
     For example, if only <code>.log</code> files need to be ingested; then use <code>.*\.log</code> as regular expression.</p>
 <p><img alt="Screenshot from 2015-09-24 19:36:18.png" src="../images/dtingest/image02.png" /></p>
@@ -716,14 +698,13 @@ to be ingested; then complete URL in this case will be <code>file:///disk6/nfsmo
 -   <code>.\*</code> indicates any character zero or more times
 -   <code>\\.</code> indicates dot escaped with backslash '\'
 -   <code>log</code> indicates desired extension which is 'log'</p>
-<p>In this case, dtingest ingests only <code>.log</code> files from the source directories.</p>
+<p>Therefore, dtingest ingests only <code>.log</code> files from the source directories.</p>
 </li>
 <li>
-<p>Under 'Runs' field, select 'Single run' if you expect application
+<p>Under 'Runs' field, select 'Single run' if you want application
     to shutdown after ingesting files currently present in the directory.</p>
 <p>Select 'Polling' if you expect application to periodically poll the
-directory/file for the changes. Change of file is detected based
-on 'modification timestamp'. Entire file will be ingested again in case
+directory/file for changes. File change detection is based on timestamp. Entire file will be ingested again in case
 of any change.</p>
 <p>If 'Polling' mode is selected; then 'Polling interval' should be specified.
 This is the time interval between sub-sequent scans for detecting
@@ -732,10 +713,7 @@ new/modified files.</p>
 </li>
 </ol>
 <h3 id="configuring-ftp-input">Configuring FTP input</h3>
-<p>FTP is most widely used transfer protocol, used for transfer files from
-one host to another. Use dtIngest, to copy files/directory from ftp
-source location to some destination. This section gives details about
-how to ingest files/directories from FTP using dtIngest.  </p>
+<p>This section gives details about how to ingest files/directories from FTP using dtIngest.  </p>
 <ol>
 <li>
 <p>Select  FTP as input type
@@ -745,8 +723,7 @@ how to ingest files/directories from FTP using dtIngest.  </p>
 <p>After selecting the FTP as input type, snapshot of UI as below:     <img alt="FTP1.png" src="../images/dtingest/image15.png" /></p>
 </li>
 <li>
-<p>Configure FTP input url
-    Input url for FTP needs to be provided in following format,  <code>ftp://username:password@host:port/path</code>
+<p>The format for FTP URL input is as follows:  <code>ftp://username:password@host:port/path</code>
     where,</p>
 <ul>
 <li><code>ftp</code> :  protocol name</li>
@@ -757,21 +734,15 @@ how to ingest files/directories from FTP using dtIngest.  </p>
 <li><code>path</code> : path to either file / directory</li>
 </ul>
 <p><img alt="FTP2.png" src="../images/dtingest/image05.png" /></p>
-<p>If you want to copy multiple files/directories, click on (+) button. If
-you are copying multiple files, then UI would be as follows:
+<p>To copy multiple files/directories, see below: 
 <img alt="ftp2.png" src="../images/dtingest/image03.png" /></p>
-<p>If you are copying multiple directories, then UI would be as follows:
+<p>To copy multiple directories, see below:
 <img alt="ftp3.png" src="../images/dtingest/image24.png" /></p>
 </li>
 </ol>
 <h3 id="configuring-amazon-s3-input">Configuring Amazon S3 input</h3>
-<p>S3 is clustered storage service of Amazon. Amazon s3 provides a web
-services interface that can be used to store and retrieve any amount of
-data, at any time, from anywhere on web. For more details about Amazon
-S3, please refer to <a href="https://aws.amazon.com/documentation/s3/">Amazon S3
-Documentation</a>.</p>
-<p>Use dtIngest, you can copy files/directory efficiently from S3 source
-location to some destination. This section gives details about how to
+<p>For details on Amazon Simple Storage Service (S3), please go to <a href="https://aws.amazon.com/documentation/s3/">Amazon S3
+Documentation</a>. This section gives details about how to
 ingest files/directories from S3 using dtIngest.  </p>
 <ol>
 <li>
@@ -799,26 +770,21 @@ ingest files/directories from S3 using dtIngest.  </p>
 specify the url’s, UI would be as below:
   <img alt="s3_2.png" src="../images/dtingest/image48.png" /></p>
 <h3 id="configuring-kafka-input">Configuring Kafka input</h3>
-<p>Kafka is a distributed publish subscribe messaging system. Since kafka
-is distributed system, topics are partitioned and replicated across
-nodes. Messages in kafka are expired after some time. For more details
-about Kafka, please refer to <a href="http://kafka.apache.org/documentation.html">Apache Kafka
+<p>For more details on Kafka, please refer to <a href="http://kafka.apache.org/documentation.html">Apache Kafka
 Documentation</a>.</p>
-<p>We need to copy messages from multiple partitions to one destination
-before expiry. This section gives details about how to ingest messages
-from kafka using dtIngest.</p>
+<p>This section gives details about how to ingest messages from Kafka using dtIngest.</p>
 <ol>
 <li>
-<p>Select kafka as input type
+<p>Select Kafka as input type
     <img alt="kafkaInput1.png" src="../images/dtingest/image46.png" /></p>
 </li>
 <li>
-<p>After selecting kafka as input type then UI looks like as below:
+<p>After selecting Kafka as input type then UI looks like as below:
     <img alt="Kafka1.png" src="../images/dtingest/image23.png" /></p>
 </li>
 <li>
-<p>Configure topic name and zookeeper quorum.
-    zookeeper quorum  is a string in the form of
+<p>Configure topic name and Zookeeper quorum.
+    Zookeeper quorum  is a string in the form of
     <code>hostname1:port1,hostname2:port2,hostname3:port3</code></p>
 <p>where,</p>
 <ul>
@@ -829,28 +795,26 @@ from kafka using dtIngest.</p>
 <img alt="Kafka.png" src="../images/dtingest/image44.png" /></p>
 </li>
 <li>
-<p>Select the offset type. By default, “Latest” offset is enabled. If
-    you want to consume messages from beginning of kafka queue, then
+<p>Select the offset type (default is “Latest”). If
+    you want to consume messages from beginning of Kafka queue, then
     select “Earliest” offset option.</p>
 </li>
 <li>
-<p>If the topic name is same across the kafka clusters and want to
-    ingest data from these clusters, then configure the zookeeper quorum
+<p>If the topic name is same across the Kafka clusters and want to
+    ingest data from these clusters, then configure the Zookeeper quorum
     as follows:</p>
 <p><code>c1::hs1:p1,hs2:p2,hs3:p3;c2::hs4:p4,hs5:p5,c3::hs6:p6</code></p>
 <p>where,
 - <code>c1,c2,c3</code> indicates the cluster names,
 - <code>hs1,hs2,hs3,hs4,hs5,hs6</code> are zookeeper host names
 - <code>p1,p2,p3,p4,p5,p6</code> are corresponding ports.</p>
-<p>For example, ClusterA and ClusterB are 2 kafka clusters as below, then
-zookeeper quorum would be as <code>ClusterA::node3.example.com:2181,node4.example.com:2181;ClusterB::node8.example.com:2181</code></p>
+<p>For example, ClusterA and ClusterB are 2 Kafka clusters as below, then
+Zookeeper quorum would be as <code>ClusterA::node3.example.com:2181,node4.example.com:2181;ClusterB::node8.example.com:2181</code></p>
 <p><img alt="KafkaCluster.png" src="../images/dtingest/image04.png" /></p>
 </li>
 </ol>
 <h3 id="configuring-jms-input">Configuring JMS input</h3>
-<p>JMS provides the facility to create, send and read messages. You can
-copy messages from JMS source location to some destination using
-dtIngest. This section gives details about how to ingest messages from
+<p>This section gives details about how to ingest messages from
 JMS using dtIngest.  </p>
 <ol>
 <li>
@@ -862,23 +826,20 @@ JMS using dtIngest.  </p>
     <img alt="jms1.png" src="../images/dtingest/image25.png" /></p>
 </li>
 <li>
-<p>Configure Broker URL and topic name.
-    Broker url would be in the form of tcp://hostName:port
+<p>Configure Broker URL and topic name as tcp://hostName:port
     <img alt="JMS2.png" src="../images/dtingest/image38.png" /></p>
 </li>
 </ol>
-<h2 id="configuring-output-destination">Configuring output destination</h2>
+<h2 id="configuring-output-destination">Configuring Output Destination</h2>
 <h3 id="configuring-hdfs-output">Configuring HDFS output</h3>
 <ol>
 <li>
-<p>For 'Output Location' field; select 'HDFS' option from the
+<p>For 'Output Location' field, select 'HDFS' option from the
     drop-down.</p>
 <p><img alt="Screenshot from 2015-09-24 20:08:49.png" src="../images/dtingest/image08.png" /></p>
 </li>
 <li>
-<p>Under 'Target directory' specify complete URL for the HDFS path
-    for the destination directory. For example, URL should be like
-<code>hdfs://namenode1.cluster.company.org:8020/user/username/path/to/destination/directory</code></p>
+<p>Under 'Target directory' specify complete HDFS path URL of the destination directory. For example,   <code>hdfs://namenode1.cluster.company.org:8020/user/username/path/to/destination/directory</code></p>
 <p><img alt="Screenshot from 2015-09-24 20:51:55.png" src="../images/dtingest/image47.png" /></p>
 </li>
 </ol>
@@ -902,16 +863,15 @@ JMS using dtIngest.  </p>
 </li>
 </ol>
 <h4 id="compact-files">Compact files</h4>
-<p>If you want to copy the data to the HDFS and partition the data into
-partitions of fixed size; use 'Compact files' feature to do this. This
+<p>Use 'Compact files' feature if you want to partition data into fix size. This
 can be used to combine large number of small files into partitions of
-manageable size. Additionally, you may also use this to breakdown very
+manageable size. Vice versa, you can break down a very
 large file into partitions of manageable size.</p>
 <p><img alt="Screenshot from 2015-10-16 11:04:39.png" src="../images/dtingest/image28.png" /></p>
 <ol>
 <li>
 <p>Select 'yes' for radio button under 'Compact files' option. This
-    will display other additional options for compaction. If you do not
+    will display additional options for compaction. If you do not
     want to compact files but copy them as they are; then select 'no'
     for 'Compact files' option. If you select 'no' ; additional
     options for compaction will be hidden.</p>
@@ -943,8 +903,7 @@ incoming data will be spilled to the next partition.</p>
 <p><img alt="" src="../images/dtingest/image00.png" /></p>
 </li>
 <li>
-<p>Under ‘Target directory’ specify complete URL for NFS path for
-    destination directory.<br />
+<p>Under ‘Target directory’ specify complete NFS path URL of the destination directory.<br />
     For example,  if the NFS mount is located at '/disk5/nfsmount' and
     'path/to/data/directory' is the directory under this mount which
     needs to be ingested; then complete URL in this case will be
@@ -971,8 +930,8 @@ after <code>file:</code>.</p>
 <p>After selecting FTP as output type then UI looks like as below:   <img alt="FTPOUtput3.png" src="../images/dtingest/image42.png" /></p>
 </li>
 <li>
-<p>Specify the destination url below the “Output directory” label.
-    Output url for FTP needs to be provided in following format,  <code>ftp://username:password@host:port/path</code></p>
+<p>Specify the destination URL below the “Output directory” label.
+    The FTP Output URL is as follows: <code>ftp://username:password@host:port/path</code></p>
 <p>Where,
 - <code>ftp</code> :  protocol name
 - <code>username</code> : username for ftp server
@@ -994,9 +953,8 @@ after <code>file:</code>.</p>
     <img alt="H2S3_12.png" src="../images/dtingest/image36.png" /></p>
 </li>
 <li>
-<p>Specify the destination url below the 'Output directory' label.
-output url for S3 needs to be provided in following format,<br />
-<code>s3n://ukey:upass@bucketName/path</code>
+<p>Specify URL destination below the 'Output directory' label.
+The S3 output URL is as follows: <code>s3n://ukey:upass@bucketName/path</code>
     Where,</p>
 <ul>
 <li><code>s3n</code> : protocol name</li>
@@ -1010,11 +968,11 @@ output url for S3 needs to be provided in following format,<br />
 <h3 id="configuring-kafka-output">Configuring Kafka output</h3>
 <ol>
 <li>
-<p>Select kafka as output type.
+<p>Select Kafka as output type.
     <img alt="KafkaOutput1.png" src="../images/dtingest/image35.png" /></p>
 </li>
 <li>
-<p>After Selecting kafka as output then UI looks like as below:
+<p>After selecting Kafka as output then UI looks like as below:
     <img alt="K2K2.png" src="../images/dtingest/image22.png" /></p>
 </li>
 <li>
@@ -1032,11 +990,11 @@ output url for S3 needs to be provided in following format,<br />
 <img alt="K2J1.png" src="../images/dtingest/image21.png" /></p>
 </li>
 <li>
-<p>Configure Broker URL and topic name. Broker URL would be in the form of tcp://host:port
+<p>Configure Broker URL and topic name as tcp://host:port
 <img alt="K2J2.png" src="../images/dtingest/image40.png" /></p>
 </li>
 </ol>
-<h2 id="configuring-processing-steps">Configuring processing steps</h2>
+<h2 id="configuring-processing-steps">Configuring Processing Steps</h2>
 <h3 id="configuring-compression">Configuring compression</h3>
 <p>Select compression type on configuration page       <br />
 <img alt="" src="../images/dtingest/image07.png" /></p>
@@ -1054,7 +1012,7 @@ https://oss.sonatype.org/content/repositories/releases/com/datatorrent/dtIngest-
 <img alt="" src="../images/dtingest/image12.png" /></li>
 </ol>
 <h3 id="configuring-encryption">Configuring encryption</h3>
-<p>Select type of encryption on configuration page.
+<p>Select encryption type on configuration page.
 <img alt="" src="../images/dtingest/image27.png" /></p>
 <ol>
 <li>Apply AES encryption:</li>

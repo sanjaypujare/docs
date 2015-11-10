@@ -172,7 +172,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../tutorials/sales_dimensions/">Sales Dimenions</a>
+        <a class="" href="../tutorials/sales_dimensions/">Sales Dimensions</a>
         
     </li>
 
@@ -189,7 +189,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Applications</a>
+        <a class="" href="../application_development/">Applications</a>
         
     </li>
 
@@ -278,14 +278,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../operators/io/file_splitter/">File splitter</a>
+        <a class="" href="../operators/file_splitter/">File splitter</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../operators/io/block_reader/">Block reader</a>
+        <a class="" href="../operators/block_reader/">Block reader</a>
         
     </li>
 
@@ -299,14 +299,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">File Output</a>
+        <a class="" href="../operators/file_output/">File Output</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Deduper</a>
+        <a class="" href="../operators/deduper/">Deduper</a>
         
     </li>
 
@@ -320,14 +320,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">DimensionsStore</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">DimenstionComputation</a>
+        <a class="" href="../operators/dimensions_computation/">DimenstionComputation</a>
         
     </li>
 
@@ -797,17 +790,16 @@ will go out.</p>
 <p>The operator will exist physically as a class which implements the
 Operator interface. This interface will require implementations for the
 following method calls:</p>
-<pre><code class="java">-   setup(OperatorContext context)
--   beginWindow(long windowId)
--   endWindow()
--   tearDown()
-</code></pre>
-
+<ul>
+<li>setup(OperatorContext context)</li>
+<li>beginWindow(long windowId)</li>
+<li>endWindow()</li>
+<li>tearDown()</li>
+</ul>
 <p>In order to simplify the creation of an operator, the Apache Apex
 library also provides a base class “BaseOperator” which has empty
-implementations for these methods. Please refer to the <a href="#h.dbmfyx6yasqs">Getting
-Started</a> section and the
-<a href="#h.z10k75daf2xl">Reference</a> section for details on these.</p>
+implementations for these methods. Please refer to the <a href="#apex_operators">Apex Operators</a> section and the
+<a href="#operator_reference">Reference</a> section for details on these.</p>
 <p>We extend the class “BaseOperator” to create our own operator
 “WordCountOperator”.</p>
 <pre><code class="java">public class WordCountOperator extends BaseOperator
@@ -963,7 +955,7 @@ replaced.</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../operators/io/file_splitter/" class="btn btn-neutral float-right" title="File splitter"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../operators/file_splitter/" class="btn btn-neutral float-right" title="File splitter"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../configuration_packages/" class="btn btn-neutral" title="Configuration Packages"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -995,7 +987,7 @@ replaced.</li>
         <span><a href="../configuration_packages/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../operators/io/file_splitter/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../operators/file_splitter/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
