@@ -236,13 +236,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">File Input, S3, NFS</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../operators/file_output/">File Output</a>
         
     </li>
@@ -257,49 +250,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">HDHT</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../operators/dimensions_computation/">DimenstionComputation</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">KafkaInput</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">KafkaOutput</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Solace</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">JMS</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">HBase</a>
         
     </li>
 
@@ -317,13 +268,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../autometrics/">AutoMetric API</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Scalable Design</a>
         
     </li>
 
@@ -381,7 +325,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">dtGateway</a>
+        <a class="" href="../dtgateway/">dtGateway</a>
         
     </li>
 
@@ -487,8 +431,6 @@
                 
             
                 <li class="toctree-l3"><a href="#log-analysis">Log analysis</a></li>
-                
-                    <li><a class="toctree-l4" href="#how-to-set-custom-log4j-properties-for-an-app-package">How to set custom log4j properties for an app package</a></li>
                 
                     <li><a class="toctree-l4" href="#how-to-check-stram-logs">How to check STRAM logs</a></li>
                 
@@ -819,46 +761,7 @@ $ hadoop dfs -chown &lt;USER&gt; /user/&lt;USER&gt;/datatorrent
 </code></pre>
 <p>Check if the host where gateway is running has yarn-site.xml file. You need to have all Hadoop configuration files accessible to dtGateway for it to run successfully.</p>
 <h1 id="log-analysis">Log analysis</h1>
-<h3 id="how-to-set-custom-log4j-properties-for-an-app-package">How to set custom log4j properties for an app package</h3>
-<p>There are two ways of setting custom log4j.properties in Apex</p>
-<ol>
-<li>
-<p>Setting custom log4j.properties at the Application level.  This will ensure that custom log4j properties is used for all containers including Application Master.  Following attribute should be set at application level:</p>
-<pre><code>&lt;property&gt;
-  &lt;name&gt;dt.attr.CONTAINER_JVM_OPTIONS&lt;/name&gt;
-  &lt;value&gt;-Dlog4j.configuration=custom_log4j.properties&lt;/value&gt;
-&lt;/property&gt;
-</code></pre>
-</li>
-<li>
-<p>Setting custom log4j.properties at an individual operator level.  This sets the custom log4j properties only on the container that is hosting the operator.  Following attribute should be set at an operator level:</p>
-<pre><code>&lt;property&gt;
-  &lt;name&gt;dt.operator.&lt;OPERATOR_NAME&gt;.attr.JVM_OPTIONS&lt;/name&gt;
-  &lt;value&gt; -Dlog4j.configuration=custom_log4j.properties&lt;/value&gt;
-&lt;/property&gt;
-</code></pre>
-</li>
-</ol>
-<p>Make sure that custom_log4j.properties is part of your application jar and is located under <code>src/main/resources</code>.  Following are examples of custom log4j properties files</p>
-<ol>
-<li>
-<p>Writing to a file</p>
-<pre><code>log4j.rootLogger=${hadoop.root.logger} // this is set to INFO / DEBUG, RFA
-log4j.appender.RFA=org.apache.log4j.RollingFileAppender
-log4j.appender.RFA.layout=org.apache.log4j.PatternLayout
-log4j.appender.RFA.layout.ConversionPattern=%d{ISO8601} [%t] %-5p %c{2} %M - %m%n
-log4j.appender.RFA.File=${hadoop.log.dir}/${hadoop.log.file}
-</code></pre>
-</li>
-<li>
-<p>Writing to Console</p>
-<pre><code>log4j.rootLogger=${hadoop.root.logger} // this is set to INFO / DEBUG, RFA
-log4j.appender.RFA=org.apache.log4j.ConsoleAppender
-log4j.appender.RFA.layout.ConversionPattern=%d{ISO8601} [%t] %-5p %c{2} %M - %m%n
-log4j.appender.RFA.layout=org.apache.log4j.PatternLayout
-</code></pre>
-</li>
-</ol>
+<p>There are multiple ways to adjust logging levels.  For details see <a href="../configuration/#logging">configuraiton guide</a>.</p>
 <h3 id="how-to-check-stram-logs">How to check STRAM logs</h3>
 <p>You can get STRAM logs by retrieving YARN logs from command line, or by using dtManage web interface.  </p>
 <p>In dtManage console, select first container from the Containers List in Physical application view.  The first container is numbered 000001. Then click the logs dropdown and select the log you want to look at.  </p>

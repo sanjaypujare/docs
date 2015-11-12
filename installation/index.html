@@ -236,13 +236,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">File Input, S3, NFS</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../operators/file_output/">File Output</a>
         
     </li>
@@ -257,49 +250,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">HDHT</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../operators/dimensions_computation/">DimenstionComputation</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">KafkaInput</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">KafkaOutput</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Solace</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">JMS</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">HBase</a>
         
     </li>
 
@@ -317,13 +268,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../autometrics/">AutoMetric API</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Scalable Design</a>
         
     </li>
 
@@ -381,7 +325,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">dtGateway</a>
+        <a class="" href="../dtgateway/">dtGateway</a>
         
     </li>
 
@@ -415,6 +359,8 @@
             <ul>
             
                 <li class="toctree-l3"><a href="#datatorrent-rts-installation-guide">DataTorrent RTS Installation Guide</a></li>
+                
+                    <li><a class="toctree-l4" href="#planning">Planning</a></li>
                 
                     <li><a class="toctree-l4" href="#requirements">Requirements</a></li>
                 
@@ -517,6 +463,17 @@
               
                 <h1 id="datatorrent-rts-installation-guide">DataTorrent RTS Installation Guide</h1>
 <p>This guide covers installation of the DataTorrent RTS platform.</p>
+<h2 id="planning">Planning</h2>
+<p>Installation will extract library files and executables into an installation directory, as
+well as start a process called dtGateway, which used to configure the
+system, communicate with running applications, and serve the dtManage dashboard UI.  Installation
+is typically performed on one of the Hadoop cluster edge nodes, meeting the following criteria:</p>
+<ul>
+<li>Accessible by users who will launch and manage applications</li>
+<li>Accessible by all YARN nodes running Apache Apex applications</li>
+</ul>
+<p><em>Note</em>: With <a href="../dtgateway_security/">dtGatway security</a> configuration disabled, the applications launched
+through dtManage interface will appear as started by dtGateway user.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>Linux operating system (tested on CentOS 6.x and Ubuntu 12.04)</li>

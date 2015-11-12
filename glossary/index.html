@@ -236,13 +236,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">File Input, S3, NFS</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../operators/file_output/">File Output</a>
         
     </li>
@@ -257,49 +250,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">HDHT</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../operators/dimensions_computation/">DimenstionComputation</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">KafkaInput</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">KafkaOutput</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Solace</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">JMS</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">HBase</a>
         
     </li>
 
@@ -317,13 +268,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../autometrics/">AutoMetric API</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Scalable Design</a>
         
     </li>
 
@@ -381,7 +325,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">dtGateway</a>
+        <a class="" href="../dtgateway/">dtGateway</a>
         
     </li>
 
@@ -507,29 +451,29 @@
 <h2 id="apache-apex">Apache Apex</h2>
 <ul>
 <li><strong>Apache Hadoop</strong> -  <a href="http://hadoop.apache.org/">Apache Hadoop</a> is a programming framework that supports the processing of large data sets in a distributed computing environment.</li>
-<li><strong>YARN</strong> - <a href="http://hadoop.apache.org/docs/current2/hadoop-yarn/hadoop-yarn-site/YARN.html">Apache Hadoop YARN</a> (Yet Another Resource Negotiator) is a cluster resource management technology, introduced with Hadoop 2.0.</li>
-<li><strong>Resource Manager</strong> - YARN component that allocates and arbitrates the resources such as CPU, Memory and Network.</li>
-<li><strong>Container</strong> - A physical resource with CPU and memory constraints allocated by YARN’s Resource Manager.</li>
 <li><strong>Application</strong> - unified batch and real-time stream processing application running on Apache Apex platform.</li>
+<li><strong>Container</strong> - A physical resource with CPU and memory constraints allocated by YARN’s Resource Manager.</li>
+<li><strong>Current Window Id</strong> - Sequentially increasing identifier for a specific computation time period within Apache Apex platform.</li>
+<li><strong>DAG</strong> - Directed Acyclic Graph, formed by a collection of vertices and directed edges without cycles.  Sometimes interchangeably used to describe Apache Apex applications, specifically referring to their <em>Logical</em> / <em>Physical</em> plans, composed of operators connected by streams.</li>
+<li><strong>Data Tuples Emitted</strong> - Number of data objects emitted by the operators with an output port.</li>
+<li><strong>Data Tuples Processed</strong> - Number of data objects processed by the operators in an Apache Apex application.</li>
+<li><strong>Logical Plan</strong> - Logical representation of an Apache Apex application, where the computational nodes are called <em>Operators</em> and the data-flow edges are called <em>Streams</em>.</li>
 <li><strong>Operator</strong> - An entity that holds a computational logic to process the data tuples. It is part of a real-time stream processing application. The Operator computational logic gets executed inside a YARN Container.</li>
 <li><strong>Physical Operator</strong> - Physical representation of the operator, which contains information such as the name of container and the Hadoop node where operator instance is running.</li>
-<li><strong>Port</strong> - Each operator can have ports on which it can receive input data tuples and also output processed data tuples.</li>
-<li><strong>Stream</strong> - A stream consists of data tuples that flow from one port of an operator to another.</li>
-<li><strong>STRAM</strong> - Streaming Application Manager is the first process that is activated upon application launch and orchestrates the deployment, management, and monitoring of the Apache Apex applications throughout their lifecycle.</li>
-<li><strong>Logical Plan</strong> - Logical representation of an Apache Apex application, where the computational nodes are called <em>Operators</em> and the data-flow edges are called <em>Streams</em>.</li>
 <li><strong>Physical Plan</strong> - Physical representation of the Logical Plan of the application and is a blueprint of how the application will run inside YARN containers deployed across nodes in a Hadoop cluster.</li>
-<li><strong>DAG</strong> - Directed Acyclic Graph, formed by a collection of vertices and directed edges without cycles.  Sometimes interchangeably used to describe Apache Apex applications, specifically referring to their <em>Logical</em> / <em>Physical</em> plans, composed of operators connected by streams.</li>
-<li><strong>Data Tuples Processed</strong> - Number of data objects processed by the operators in an Apache Apex application.</li>
-<li><strong>Data Tuples Emitted</strong> - Number of data objects emitted by the operators with an output port.</li>
-<li><strong>Current Window Id</strong> - Sequentially increasing identifier for a specific computation time period within Apache Apex platform.</li>
+<li><strong>Port</strong> - Each operator can have ports on which it can receive input data tuples and also output processed data tuples.</li>
 <li><strong>Recovery Window Id</strong> - Identifier for the last computational window at which the operator state was check-pointed into HFDS.</li>
+<li><strong>Resource Manager</strong> - YARN component that allocates and arbitrates the resources such as CPU, Memory and Network.</li>
+<li><strong>STRAM</strong> - Streaming Application Manager is the first process that is activated upon application launch and orchestrates the deployment, management, and monitoring of the Apache Apex applications throughout their lifecycle.</li>
+<li><strong>Stream</strong> - A stream consists of data tuples that flow from one port of an operator to another.</li>
+<li><strong>YARN</strong> - <a href="http://hadoop.apache.org/docs/current2/hadoop-yarn/hadoop-yarn-site/YARN.html">Apache Hadoop YARN</a> (Yet Another Resource Negotiator) is a cluster resource management technology, introduced with Hadoop 2.0.</li>
 </ul>
 <h2 id="datatorrent-rts">DataTorrent RTS</h2>
 <ul>
-<li><strong>dtGateway</strong> - HTTP server used by dtManage to interact with STRAM, YARN Resource Manager, and HDFS</li>
-<li><strong>dtManage</strong> - the web based interface to install, configure, manage &amp; monitor Apache Apex applications running in a Hadoop Cluster</li>
 <li><strong>dtAssemble</strong> - graphical application assembly tool used to develop applications.</li>
 <li><strong>dtDashboard</strong> - graphical visualization tool to view and query system and application data.</li>
+<li><strong>dtGateway</strong> - HTTP server used by dtManage to interact with STRAM, YARN Resource Manager, and HDFS</li>
+<li><strong>dtManage</strong> - the web based interface to install, configure, manage &amp; monitor Apache Apex applications running in a Hadoop Cluster</li>
 </ul>
               
             </div>

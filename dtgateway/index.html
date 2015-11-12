@@ -236,13 +236,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="./">File Input, S3, NFS</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../operators/file_output/">File Output</a>
         
     </li>
@@ -257,49 +250,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="./">HDHT</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../operators/dimensions_computation/">DimenstionComputation</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="./">KafkaInput</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="./">KafkaOutput</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="./">Solace</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="./">JMS</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="./">HBase</a>
         
     </li>
 
@@ -317,13 +268,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../autometrics/">AutoMetric API</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="./">Scalable Design</a>
         
     </li>
 
@@ -385,7 +329,11 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#coming-soon">Coming Soon</a></li>
+                <li class="toctree-l3"><a href="#dtgateway">dtGateway</a></li>
+                
+                    <li><a class="toctree-l4" href="#security">Security</a></li>
+                
+                    <li><a class="toctree-l4" href="#rest-api">Rest API</a></li>
                 
             
             </ul>
@@ -503,7 +451,72 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="coming-soon">Coming Soon</h1>
+                <h1 id="dtgateway">dtGateway</h1>
+<p>One of the main components of DataTorrent RTS is dtGateway.  dtGateway is a window on your DataTorrent RTS platform. It is a Java-based multithreaded web server that allows you to easily access information and perform various operations on DataTorrent RTS, and it is the server behind <a href="../dtmanage/">dtManage</a>. It can run on any node in your Hadoop cluster or any other node that can access your Hadoop nodes, and is installed as a system service automatically by the RTS <a href="../installation/">installer</a>.</p>
+<p>dtGateway constantly communicates with all the running Apex App Masters, as well as the Node Managers and the Resource Manager in the Hadoop cluster, in order to gather all the information and to perform all the operations users may need.</p>
+<p><img alt="dtGateway diagram" src="../images/dtgateway/dtgateway-01.png" /></p>
+<p>These features are exposed through a <a href="../dtgateway_api/">REST API</a>. Here are some of things you can do with the REST API:</p>
+<ul>
+<li>Get performance metrics (e.g. CPU, memory usage, tuples per second, latency, etc.) and other details of all Apex application instances</li>
+<li>Get performance metrics and other details of physical and logical operators of each Apex application instance</li>
+<li>Get performance metrics and other details of individual containers used by each Apex application instance</li>
+<li>Retrieve container logs</li>
+<li>Dynamically change operator properties, and add and remove operators from the DAG of a running Apex application</li>
+<li>Record and retrieve tuples on the fly</li>
+<li>Shutdown a running container or an entire Apex application</li>
+<li>Dynamically change logging level of a container</li>
+<li>Create, manage, and view custom system alerts</li>
+<li>Create, manage, and interact with dtDashboard</li>
+<li>Create, manage, and launch Apex App Packages</li>
+<li>Basic health checks of the cluster</li>
+</ul>
+<h2 id="security">Security</h2>
+<p>With all the information dtGateway has and what dtGateway can do, the admin of DataTorrent RTS may want to restrict access to certain information and operations to only certain group of users. This means dtGateway must support authentication and authorization.  For authentication, dtGateway can easily be integrated with existing LDAP, Kerberos, or PAM framework.  You can also choose to have dtGateway manage its own user database.</p>
+<p>For authorization, dtGateway provides built-in role-based access control. The admin can decide which roles can view what information and perform what operations in dtGateway. The user-to-role mapping can be managed by dtGateway, or be integrated with LDAP roles.  In addition, we provide access control with granularity to the application instance level as well as to the application package level. For example, you can control which users and which roles have read or write access to which application instances and to which application packages.</p>
+<p>For information on configuring security see <a href="../dtgateway_security/">dtGateway security</a> guide.</p>
+<h2 id="rest-api">Rest API</h2>
+<p>Here is an example of using the curl command to access dtGateway’s REST API to get the details of a physical operator with ID=40 of application instance with ID=application_1442448722264_14891, assuming dtGateway is listening at localhost:9090</p>
+<pre><code class="bash">$ curl http://localhost:9090/ws/v2/applications/application_1442448722264_14891/physicalPlan/operators/40
+{
+  &quot;checkpointStartTime&quot;: &quot;1442512091772&quot;,
+  &quot;checkpointTime&quot;: &quot;175&quot;,
+  &quot;checkpointTimeMA&quot;: &quot;164&quot;,
+  &quot;className&quot;: &quot;com.datatorrent.contrib.kafka.KafkaSinglePortOutputOperator&quot;,
+  &quot;container&quot;: &quot;container_e08_1442448722264_14891_01_000017&quot;,
+  &quot;counters&quot;: null,
+  &quot;cpuPercentageMA&quot;: &quot;0.2039266316727741&quot;,
+  &quot;currentWindowId&quot;: &quot;6195527785184762469&quot;,
+  &quot;failureCount&quot;: &quot;0&quot;,
+  &quot;host&quot;: &quot;node22.morado.com:8041&quot;,
+  &quot;id&quot;: &quot;40&quot;,
+  &quot;lastHeartbeat&quot;: &quot;1442512100742&quot;,
+  &quot;latencyMA&quot;: &quot;5&quot;,
+  &quot;logicalName&quot;: &quot;QueryResult&quot;,
+  &quot;metrics&quot;: {},
+  &quot;name&quot;: &quot;QueryResult&quot;,
+  &quot;ports&quot;: [
+    {
+      &quot;bufferServerBytesPSMA&quot;: &quot;0&quot;,
+      &quot;name&quot;: &quot;inputPort&quot;,
+      &quot;queueSizeMA&quot;: &quot;1&quot;,
+      &quot;recordingId&quot;: null,
+      &quot;totalTuples&quot;: &quot;6976&quot;,
+      &quot;tuplesPSMA&quot;: &quot;0&quot;,
+      &quot;type&quot;: &quot;input&quot;
+    }
+  ],
+  &quot;recordingId&quot;: null,
+  &quot;recoveryWindowId&quot;: &quot;6195527785184762451&quot;,
+  &quot;status&quot;: &quot;ACTIVE&quot;,
+  &quot;totalTuplesEmitted&quot;: &quot;0&quot;,
+  &quot;totalTuplesProcessed&quot;: &quot;6976&quot;,
+  &quot;tuplesEmittedPSMA&quot;: &quot;0&quot;,
+  &quot;tuplesProcessedPSMA&quot;: &quot;20&quot;,
+  &quot;unifierClass&quot;: null
+}
+</code></pre>
+
+<p>For the complete spec of the REST API, please refer to dtGateway <a href="../dtgateway_api/">REST API</a>.</p>
               
             </div>
           </div>

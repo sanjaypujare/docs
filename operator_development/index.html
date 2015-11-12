@@ -225,14 +225,14 @@
                 
                     <li><a class="toctree-l4" href="#types-of-operators">Types of Operators</a></li>
                 
-                    <li><a class="toctree-l4" href="#positioning-of-operators-in-the-dag">Positioning of Operators in the DAG</a></li>
+                    <li><a class="toctree-l4" href="#operators-position-in-a-dag">Operators Position in a DAG</a></li>
                 
                     <li><a class="toctree-l4" href="#ports">Ports</a></li>
                 
-                    <li><a class="toctree-l4" href="#working-of-an-operator">Working of an Operator</a></li>
+                    <li><a class="toctree-l4" href="#how-operator-works">How Operator Works</a></li>
                 
             
-                <li class="toctree-l3"><a href="#writing-custom-operators">Writing Custom Operators </a></li>
+                <li class="toctree-l3"><a href="#developing-custom-operators">Developing Custom Operators </a></li>
                 
                     <li><a class="toctree-l4" href="#about-this-tutorial">About this tutorial</a></li>
                 
@@ -292,13 +292,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">File Input, S3, NFS</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../operators/file_output/">File Output</a>
         
     </li>
@@ -313,49 +306,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">HDHT</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../operators/dimensions_computation/">DimenstionComputation</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">KafkaInput</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">KafkaOutput</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Solace</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">JMS</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">HBase</a>
         
     </li>
 
@@ -373,13 +324,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../autometrics/">AutoMetric API</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">Scalable Design</a>
         
     </li>
 
@@ -437,7 +381,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../coming_soon/">dtGateway</a>
+        <a class="" href="../dtgateway/">dtGateway</a>
         
     </li>
 
@@ -601,11 +545,10 @@ an operator as some piece of code that runs on some machine of a YARN
 cluster.</p>
 <h2 id="types-of-operators">Types of Operators</h2>
 <p>An operator works on one tuple at a time. These tuples may be supplied
-by some other operator in the application or by some external source,
-like a database or a message bus. Similarly, after the tuples are
-processed, these may be passed on to some other operator, or may be
-stored into some external system. Based on the functions that the
-Operator performs, we have the following types of operators:</p>
+by other operators in the application or by external sources,
+such as a database or a message bus. Similarly, after the tuples are
+processed, these may be passed on to other operators, or stored into an external system. 
+Therea are 3 type of operators based on function: </p>
 <ol>
 <li><strong>Input Adapter</strong> - This is one of the starting points in
     the application DAG and is responsible for getting tuples from an
@@ -622,10 +565,9 @@ Operator performs, we have the following types of operators:</p>
 </ol>
 <p>Note: There can be multiple operators of all types in an application
 DAG.</p>
-<h2 id="positioning-of-operators-in-the-dag">Positioning of Operators in the DAG</h2>
-<p>We may refer to operators depending on their positioning with respect to
-one another. For any operator opr, we have the following types of
-operators.</p>
+<h2 id="operators-position-in-a-dag">Operators Position in a DAG</h2>
+<p>We may refer to operators depending on their position with respect to
+one another. For any operator opr (see image below), there are two types of operators.</p>
 <ol>
 <li><strong>Upstream operators</strong> - These are the operators from which there is a
     directed path to opr in the application DAG.</li>
@@ -635,9 +577,9 @@ operators.</p>
 <p>Note that there are no cycles formed in the application DAG.</p>
 <p><img alt="" src="../images/operator/image00.png" /></p>
 <h2 id="ports">Ports</h2>
-<p>The operators in the DAG are connected together via directed flows
+<p>Operators in a DAG are connected together via directed flows
 called streams. Each stream has end-points located on the operators
-called ports. The ports again fall into two types.</p>
+called ports. Therea are 2 types of ports.</p>
 <ol>
 <li><strong>Input Port</strong> - This is a port through which an operator accepts input
     tuples from an upstream operator.</li>
@@ -653,9 +595,9 @@ different sources, viz. the input stream from the input port and an
 external source.</p>
 <p><img alt="" src="../images/operator/image02.png" /></p>
 <hr />
-<h2 id="working-of-an-operator">Working of an Operator</h2>
+<h2 id="how-operator-works">How Operator Works</h2>
 <p>An operator passes through various stages during its lifetime. Each
-stage is an API call that the streaming application master makes for an
+stage is an API call that the Streaming Application Master makes for an
 operator.  The following figure illustrates the stages through which an
 operator passes.</p>
 <p><img alt="" src="../images/operator/image01.png" /></p>
@@ -682,11 +624,11 @@ operator passes.</p>
 <li>The <em>teardown()</em> call is used for gracefully shutting down the
     operator and releasing any resources held by the operator.</li>
 </ul>
-<h1 id="writing-custom-operators">Writing Custom Operators <a name="writing_custom_operators"></a></h1>
+<h1 id="developing-custom-operators">Developing Custom Operators <a name="writing_custom_operators"></a></h1>
 <h2 id="about-this-tutorial">About this tutorial</h2>
 <p>This tutorial will guide the user towards developing a operator from
-scratch. It will include all aspects of writing an operator including
-design, code as well as unit tests.</p>
+scratch. It includes all aspects of writing an operator including
+design, code and unit testing.</p>
 <h2 id="introduction">Introduction</h2>
 <p>In this tutorial, we will design and write, from scratch, an operator
 called Word Count. This operator will accept tuples of type String,
@@ -796,7 +738,7 @@ following method calls:</p>
 <li>endWindow()</li>
 <li>tearDown()</li>
 </ul>
-<p>In order to simplify the creation of an operator, the Apache Apex
+<p>In order to simplify the creation of an operator, Apache Apex
 library also provides a base class “BaseOperator” which has empty
 implementations for these methods. Please refer to the <a href="#apex_operators">Apex Operators</a> section and the
 <a href="#operator_reference">Reference</a> section for details on these.</p>
@@ -810,8 +752,7 @@ implementations for these methods. Please refer to the <a href="#apex_operators"
 <h3 id="class-operator-properties">Class (Operator) properties</h3>
 <p>We define the following class variables:</p>
 <ul>
-<li><em>sendPerTuple</em> - Needed for configuring the frequency of output from
-    the operator</li>
+<li><em>sendPerTuple</em> - Configures the output frequency from the operator</li>
 </ul>
 <pre><code class="java">private boolean sendPerTuple = true; // default
 </code></pre>
@@ -829,19 +770,17 @@ implementations for these methods. Please refer to the <a href="#apex_operators"
 </code></pre>
 
 <ul>
-<li><em>globalCounts</em> - A Map which stores the counts for all the words
+<li><em>globalCounts</em> - A Map which stores the counts of all the words
     encountered so far. Note that this variable is non transient, which
-    means that this variable is saved as part of the checkpointing state
-    and can be recovered in event of a crash.</li>
+    means that this variable is saved as part of the checkpoint and can be recovered in event of a crash.</li>
 </ul>
 <pre><code class="java">private Map&lt;String, Long&gt; globalCounts;
 </code></pre>
 
 <ul>
-<li><em>updatedCounts</em> - A map which stores the counts for only the most
-    recent tuple(s). Whether to store the most recent or the recent
-    window worth of tuples will be determined by the configuration
-    parameter sendPerTuple.</li>
+<li><em>updatedCounts</em> - A Map which stores the counts for only the most
+    recent tuple(s). sendPerTuple configuration determines whether to store the most recent or the recent
+    window worth of tuples.</li>
 </ul>
 <pre><code class="java">private transient Map&lt;String, Long&gt; updatedCounts;
 </code></pre>
@@ -879,36 +818,27 @@ DefaultOutputPort&lt;Entry&lt;String,Long&gt;&gt;();
 <h3 id="the-constructor">The Constructor</h3>
 <p>The constructor is the place where we initialize the non-transient data
 structures, since
-constructor is called just once per activation of an operator. In case
-of Word Count operator, we initialize the globalCounts variable in the
-constructor.</p>
+constructor is called just once per activation of an operator. With regards to Word Count operator, we initialize the globalCounts variable in the constructor.</p>
 <pre><code class="java">globalCounts = Maps.newHashMap();
 </code></pre>
 
 <h3 id="setup-call">Setup call</h3>
-<p>The setup method is called only once during the lifetime of an operator.
-The purpose of the setup call is to allow the operator to set itself up
-for processing incoming streams. Transient objects in the operator are
-not serialized and checkpointed. Hence it is essential that such objects
-must be initialized in the setup call. In case of operator failure, the
-operator will be redeployed, most likely on a different container. In
-this case, it is the setup method which will be called by the Apache
-Apex engine to allow the operator to prepare for execution in the new
-container.</p>
-<p>We perform the following tasks as part of the setup call:</p>
+<p>The setup method is called only once during an operator lifetime and its purpose is to allow 
+the operator to set itself up for processing incoming streams. Transient objects in the operator are
+not serialized and checkpointed. Hence, it is essential that such objects initialized in the setup call. 
+In case of operator failure, the operator will be redeployed (most likely on a different container). The setup method called by the Apache Apex engine allows the operator to prepare for execution in the new container.</p>
+<p>The following tasks are executed as part of the setup call:</p>
 <ol>
 <li>Read the stop-word list from HDFS and store it in the
     stopWords array</li>
 <li>Initialize updatedCounts variable. This will store the updated
     counts for words in most recent tuples processed by the operator.
-    This is a transient variable, hence the value of this variable will
-    be lost in case of operator failure.</li>
+    As a transient variable, the value will be lost when operator fails.</li>
 </ol>
 <h3 id="begin-window-call">Begin Window call</h3>
-<p>The begin window call signals the start of an application window. In
-case of Word Count Operator, if the sendPerTuple is set to false, it
-means that we are expecting updated counts for the most recent window of
-data. Hence, we clear the updatedCounts variable in the begin window
+<p>The begin window call signals the start of an application window. With 
+regards to Word Count Operator, we are expecting updated counts for the most recent window of
+data if the sendPerTuple is set to false. Hence, we clear the updatedCounts variable in the begin window
 call and start accumulating the counts till the end window call.</p>
 <h3 id="process-tuple-call">Process Tuple call</h3>
 <p>The processTuple method is called by the process method of the input
@@ -921,18 +851,16 @@ updatedCounts to the output port. Note that in this case (sendPerTuple =
 true), we clear the updatedCounts variable in every call to
 processTuple.</p>
 <h3 id="end-window-call">End Window call</h3>
-<p>This call signals the end of an application window. In case of Word
+<p>This call signals the end of an application window. With regards to Word
 Count Operator, we emit the updatedCounts to the output port if the
 sendPerTuple flag is set to false.</p>
 <h3 id="teardown-call">Teardown call</h3>
 <p>This method allows the operator to gracefully shut down itself after
-releasing the resources that it has acquired. In case of our operator,
+releasing the resources that it has acquired. With regards to our operator,
 we call the shutDown method which shuts down the operator along with any
 downstream operators.</p>
 <h2 id="testing-your-operator">Testing your Operator</h2>
-<p>Testing an operator after development is essential to ensure that he
-required functionality is indeed correctly implemented. As part of
-testing our operator, we test the following two facets:</p>
+<p>As part of testing our operator, we test the following two facets:</p>
 <ol>
 <li>Test output of the operator after processing a single tuple</li>
 <li>Test output of the operator after processing of a window of tuples</li>
