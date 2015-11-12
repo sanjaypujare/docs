@@ -87,7 +87,7 @@
         }, 
         {
             "location": "/create/", 
-            "text": "Getting Started\n\n\nGet started quickly by following one of these tutorials, and create your first Apache Apex application today!\n\n\nTop N Words\n\n\nTop N Words\n is a complete guide to writing your first Apache Apex application using \nJava\n or \ndtAssemble\n\n\n\n\nSales Dimensions\n\n\nSales Dimensions\n is an introduction to assembling and visualizing sales analytics applicaiton with \ndtAssemble\n \n\n\n\n\n\n\nAdvanced Topics\n\n\n\n\nApplication Development\n - comprehensive guide to developing Apache Apex applications\n\n\nApplication Packaging\n - creating application packages, changing settings, and launching application packages \n\n\nOperator Development\n - creating new operators for Apache Apex applications\n\n\ndtGateway REST API\n - complete listing of all services offered by dtGateway", 
+            "text": "Getting Started\n\n\nGet started quickly by following one of these tutorials, and create your first Apache Apex application today!\n\n\nTop N Words\n\n\nTop N Words\n is a complete guide to writing your first Apache Apex application using \nJava\n or \ndtAssemble\n\n\n\n\nSales Dimensions\n\n\nSales Dimensions\n is an introduction to assembling and visualizing sales analytics applicaiton with \ndtAssemble\n\n\n\n\n\n\nAdvanced Topics\n\n\n\n\nApplication Development\n - comprehensive guide to developing Apache Apex applications\n\n\nApplication Packaging\n - creating application packages, changing settings, and launching application packages\n\n\nOperator Development\n - creating new operators for Apache Apex applications\n\n\ndtGateway REST API\n - complete listing of all services offered by dtGateway", 
             "title": "Creating Applications"
         }, 
         {
@@ -107,7 +107,7 @@
         }, 
         {
             "location": "/create/#advanced-topics", 
-            "text": "Application Development  - comprehensive guide to developing Apache Apex applications  Application Packaging  - creating application packages, changing settings, and launching application packages   Operator Development  - creating new operators for Apache Apex applications  dtGateway REST API  - complete listing of all services offered by dtGateway", 
+            "text": "Application Development  - comprehensive guide to developing Apache Apex applications  Application Packaging  - creating application packages, changing settings, and launching application packages  Operator Development  - creating new operators for Apache Apex applications  dtGateway REST API  - complete listing of all services offered by dtGateway", 
             "title": "Advanced Topics"
         }, 
         {
