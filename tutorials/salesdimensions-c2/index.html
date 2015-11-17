@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Development Environment - DataTorrent Documentation</title>
+  <title>Building with dtAssemble - DataTorrent Documentation</title>
   
 
   <link rel="shortcut icon" href="../../favicon.ico">
@@ -21,7 +21,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Development Environment";
+    var mkdocs_page_name = "Building with dtAssemble";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -126,23 +126,8 @@
 
         
             
-    <li class="toctree-l1 current">
-        <a class="current" href="./">Development Environment</a>
-        
-            <ul>
-            
-                <li class="toctree-l3"><a href="#setting-up-your-development-environment">Setting up your development environment</a></li>
-                
-                    <li><a class="toctree-l4" href="#sample-input-files">Sample input files</a></li>
-                
-                    <li><a class="toctree-l4" href="#validation-for-third-party-applications">Validation for third-party applications</a></li>
-                
-                    <li><a class="toctree-l4" href="#set-up-the-sandbox">Set up the sandbox</a></li>
-                
-                    <li><a class="toctree-l4" href="#validate-the-sandbox-setup">Validate the Sandbox setup</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l1 ">
+        <a class="" href="../topnwords-c1/">Development Environment</a>
         
     </li>
 
@@ -198,8 +183,23 @@
 
         
             
-    <li class="toctree-l1 ">
-        <a class="" href="../salesdimensions-c2/">Building with dtAssemble</a>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Building with dtAssemble</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#building-the-sales-dimensions-application-using-dtassemble">Building the Sales Dimensions application using dtAssemble</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-1-open-the-application-builder-interface">Step 1: Open the Application Builder interface</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-2-add-and-connect-operators">Step 2: Add and connect operators</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-3-customize-application-and-operator-settings">Step 3: Customize application and operator settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-4-launch-the-application">Step 4: Launch the application</a></li>
+                
+            
+            </ul>
         
     </li>
 
@@ -470,11 +470,11 @@
     
       
         
-          <li>Top N Words &raquo;</li>
+          <li>Sales Dimensions &raquo;</li>
         
       
     
-    <li>Development Environment</li>
+    <li>Building with dtAssemble</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -484,144 +484,145 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="setting-up-your-development-environment">Setting up your development environment</h1>
-<p>This section describes how you can set up your development environment
-including starting the sandbox and downloading some sample input files for
-testing the application.</p>
-<h2 id="sample-input-files">Sample input files</h2>
-<p>For this tutorial, you need some sample text files to use as input application.
-Binary files such as PDF or DOCX files are not suitable since they contain a
-lot of meaningless strings that look like words (for example,  Wqgi ).
-Similarly, files using markup languages such as XML or HTML files are also not
-suitable since the tag names such as  div ,  td  and  p  dominate the word
-counts. The RFC (Request for Comment) files that are used as de-facto
-specifications for internet standards are good candidates since they contain
-pure text; download a few of them as follows:</p>
-<p>Open a terminal and run the following commands to create a directory named
-<code>data</code> under your home directory and download 3 files there:</p>
-<pre><code>cd; mkdir data; cd data  
-wget http://tools.ietf.org/rfc/rfc1945.txt  
-wget https://www.ietf.org/rfc/rfc2616.txt  
-wget https://tools.ietf.org/rfc/rfc4844.txt
+                <h1 id="building-the-sales-dimensions-application-using-dtassemble">Building the Sales Dimensions application using dtAssemble</h1>
+<p>The DataTorrent RTS platform supports building new applications using <strong>dtAssemble</strong>, the Graphical
+Application Builder which we will use for the Sales Dimensions application. <strong>dtAssemble</strong>
+is an easy and intuitive tool for constructing applications,
+while providing a great visualization of the logical operator connectivity and the
+application data flow.</p>
+<p><em>Note</em>: You can also find these instructions in the UI console. Click <em>Learn</em> in the menu
+bar, and then click the first link in the left panel: <em>Transform, Analyze, Alert</em>.</p>
+<h2 id="step-1-open-the-application-builder-interface">Step 1: Open the Application Builder interface</h2>
+<ol>
+<li>On the DataTorrent RTS console, navigate to <em>App Packages</em>.</li>
+<li>Make sure that the DataTorrent Dimensions Demos package is imported (if
+    not, use the Import Demos button to import it).</li>
+<li>Click the green <em>Create new application</em> button, and name the application
+    Sales Dimensions. The Application Canvas window should open.
+    <img alt="Canvas" src="../images/sales_dimensions/image23.png" title="Canvas" /></li>
+</ol>
+<h2 id="step-2-add-and-connect-operators">Step 2: Add and connect operators</h2>
+<ol>
+<li>
+<p>Under <em>Operator Library</em> in the left panel, select the following
+    operators and drag them to the Application Canvas. Rename them to
+    the names given in parentheses.</p>
+<ol>
+<li><strong>JSON Sales Event Generator (Input)</strong> – This operator generates
+   synthetic sales events and emits them as JSON string bytes.</li>
+<li><strong>JSON to Map Parser (Parse)</strong> – This operator transforms JSON
+   data to Java maps for convenience in manipulating the sales data
+   in Java code.</li>
+<li><strong>Enrichment (Enrich)</strong> – This operator performs category lookup based on
+   incoming product IDs, and adds the category ID to the output maps.</li>
+<li><strong>Dimension Computation Map (Compute)</strong> – This operator performs dimensions
+   computations, also known as cubing, on the incoming data. It
+   pre-computes the sales numbers by region, product category, customer,
+   and sales channel, and all combinations of the above. Having these
+   numbers available in advance, allows for viewing and taking action on
+   any of these combinations in real time.</li>
+<li><strong>Simple App Data Dimensions Store (Store)</strong> &ndash; This operator
+   stores the computed dimensional information on HDFS in an optimized manner.</li>
+<li><strong>App Data Pub Sub Query (Query)</strong> &ndash; The dashboard connector for
+   visualization queries.</li>
+<li><strong>App Data Pub Sub Result (Result)</strong> &ndash; The dashboard connector for
+   visualization data results.</li>
+</ol>
+</li>
+<li>
+<p>To connect the operators, click the output port of each upstream operator,
+    and drag the connector to the input stream of the downstream operator as shown
+    in the diagram below:
+    <img alt="streams" src="../images/sales_dimensions/image01.png" title="streams" /></p>
+</li>
+</ol>
+<h2 id="step-3-customize-application-and-operator-settings">Step 3: Customize application and operator settings</h2>
+<p>Customize the operators and streams as described in each item below; to do that,
+click the individual operator or stream and use the <em>Operator Inspector</em> panel
+on the right to edit the operator and stream settings as described in the item:</p>
+<ol>
+<li>
+<p>Copy this Sales schema below into the <em>Event Schema JSON</em> field of <strong>Input</strong>
+    operator, and the <em>Configuration Schema JSON</em> of the <strong>Compute</strong> and <strong>Store</strong>
+    operators.</p>
+<pre><code>{
+  "keys": [
+    {"name":"channel","type":"string","enumValues":["Mobile","Online","Store"]},
+    {"name":"region","type":"string",
+     "enumValues":["Atlanta","Boston","Chicago","Cleveland","Dallas","Minneapolis",
+                   "New York","Philadelphia","San Francisco","St. Louis"]},
+    {"name":"product","type":"string",
+     "enumValues":["Laptops","Printers","Routers","Smart Phones","Tablets"]}],
+  "timeBuckets":["1m", "1h", "1d"],
+  "values": [
+    {"name":"sales","type":"double","aggregators":["SUM"]},
+    {"name":"discount","type":"double","aggregators":["SUM"]},
+    {"name":"tax","type":"double","aggregators":["SUM"]}],
+  "dimensions": [
+    {"combination":[]},
+    {"combination":["channel"]},
+    {"combination":["region"]},
+    {"combination":["product"]},
+    {"combination":["channel","region"]},
+    {"combination":["channel","product"]},
+    {"combination":["region","product"]},
+    {"combination":["channel","region","product"]}]
+}
 </code></pre>
-<h2 id="validation-for-third-party-applications">Validation for third-party applications</h2>
-<p>If you are using your own installation of DataTorrent RTS instead
-of Sandbox, make sure that you have Java JDK (version 1.7.0_79 or
-later), Maven (version 3.0.5 or later), and Git (version 1.7.1 or later)
-by running the following commands:</p>
-<table>
-<colgroup>
-<col width="22%" />
-<col width="78%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td align="left"><p><b>Command</b></p></td>
-<td align="left"><p><b>Expected output</b></p></td>
-</tr>
-<tr class="even">
-<td align="left"><p><tt>java -version</tt></p></td>
-<td align="left"><p>java version &quot;1.7.0_79&quot;</p>
-<p>Java(TM) SE Runtime Environment (build 1.7.0_79-b15) </p>
-<p>Java HotSpot(TM) 64-Bit Server VM (build 24.79-b02, mixed mode)</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p><tt>mvn --version</tt></p></td>
-<td align="left"><p>Apache Maven 3.0.5 </p>
-<p>Maven home: /usr/share/maven </p>
-<p>Java version: 1.7.0_79, vendor: Oracle Corporation </p>
-<p>Java home: /home/&lt;user&gt;/Software/java/jdk1.7.0_79/jre </p>
-<p>Default locale: en_US, platform encoding: UTF-8 </p>
-<p>OS name: &quot;linux&quot;, version: &quot;3.16.0-44-generic&quot;, arch: &quot;amd64&quot;, family: &quot;unix&quot; </p></td>
-</tr>
-<tr class="even">
-<td align="left"><p><tt>git --version</tt></p></td>
-<td align="left"><p>git version 1.7.1</p></td>
-</tr>
-</tbody>
-</table>
-
-<hr />
-<h2 id="set-up-the-sandbox">Set up the sandbox</h2>
-<p>At the time of writing, the sandbox corresponds to version 3.1.1 of DataTorrent
-RTS, which, as noted above, includes a complete, stand-alone, instance of the
-Enterprise Edition configured as a single-node Hadoop cluster.</p>
-<p>Before you begin, ensure that you have Oracle VM VirtualBox version 4.3 or
-later on your development machine. The sandbox is a virtual appliance bundled
-along with Ubuntu 12.0.4 (or later) that needs to be imported into VirtualBox.</p>
-<p>These steps describe how to download, import, and start the sandbox.</p>
-<ol>
+</li>
 <li>
-<p>Download Sandbox:</p>
-<ol>
-<li>Open <a href="https://www.datatorrent.com/download/">https://www.datatorrent.com/download/</a> in a web browser.</li>
-<li>Under <em>DataTorrent RTS Sandbox</em>, click <strong>DOWNLOAD NOW</strong> button.</li>
-<li>On the contact details form that appears, provide your name, email, and
-   your organization s name, and click <em>Submit</em>.</li>
-<li>Click the link named <em>click here</em> (scroll the page down if necessary to
-   see the link).</li>
-<li>On the Sandbox downloads page that appears, click <strong>Download</strong> under
-    <em>Requirements</em>.</li>
+<p>Set the <em>Topic</em> property for <strong>Query</strong> and <strong>Result</strong> operators to
+    <code>SalesDimensionsQuery</code> and <code>SalesDimensionsResult</code> respectively.</p>
+</li>
+<li>Select the <strong>Store</strong> operator, and edit the <em>File Store</em> property.
+    Set <em>Base Path</em> value to <code>SalesDimensionsDemoStore</code>. This sets the HDHT
+    storage path to write dimensions computation results to
+    <code>/user/&lt;username&gt;/SalesDimensionsDemoStore</code> on HDFS.
+    <img alt="filestore" src="../images/sales_dimensions/image05.png" title="filestore" /></li>
+<li>Click the stream, and set the Stream Locality to CONTAINER_LOCAL
+    for all the streams between Input and Compute operators.</li>
 </ol>
-</li>
-<li>
-<p>Import the sandBox into Oracle VirtualBox:</p>
+<p><em>Note</em>: Changing stream locality controls which container operators
+get deployed to, and can lead to significant performance improvements
+for an application. Once set, the connection will be represented by a
+dashed line to indicate the new locality setting.</p>
+<h2 id="step-4-launch-the-application">Step 4: Launch the application</h2>
+<p>Once the application is constructed, and validation checks are
+satisfied, a launch button will become available at the top left of the
+<em>Application Canvas</em> window. Clicking this button to open the application
+launch dialog box. You can use this dialog box to perform additional
+configuration of the application such as changing its name or modifying
+properties.</p>
+<p>To launch the Sales Dimension application</p>
 <ol>
-<li>Open the VirtualBox Manager.</li>
-<li>In the <em>File</em> menu, choose <em>Import Appliance</em>.  </li>
-<li>On the <em>Appliance to import</em> dialog box, type or select the full path to
-    the OVA template file that you downloaded and click <em>Next</em>.</li>
-<li>Click <em>Import</em>.</li>
+<li>Click the launch button at the top left of the application canvas screen.</li>
+<li>Type a name for the application in the <em>Name this application</em> box.</li>
+<li>(Optional) To configure the application using a configuration file, select
+    <em>Use a config file</em> checkbox.</li>
+<li>(Optional) To specify individual properties, select
+    <em>Specify custom properties</em> checkbox.</li>
+<li>Click Launch.</li>
 </ol>
-</li>
-<li>
-<p>After the import completes, click the <code>Start</code> button on the VirtualBox
-    Manager. If this is a first-time start, select the default operating
-    system and wait till the virtual machine initializes.</p>
-<p>After the virtual machine initializes, wait for a few minutes to allow all
-Hadoop and Sandbox processes to start.</p>
-</li>
-<li>
-<p>Log on to Sandbox.</p>
+<p><img alt="Launch" src="../images/sales_dimensions/image21.png" title="Launch" /></p>
+<p>Once the application is successfully launched, you can check its
+health and view some runtime statistics using the steps below.
+Additional details are in the chapter entitled <em>Monitoring the Sales
+Dimensions Application with dtManage</em>.</p>
 <ol>
-<li>
-<p>In the browser that appears displaying the Readme, click DataTorrent
-    Console. You can also click the <strong>DataTorrent Console</strong> button on the toolbar of your virtual machine.</p>
-</li>
-<li>
-<p>Type the username and password (dtadmin/dtadmin), and click <strong>Login</strong>.</p>
-</li>
+<li>Go to the Sales Dimensions application operations page under the <em>Monitor</em> tab.</li>
+<li>Confirm that the application is launched successfully by validating that
+    the state of the application under the <em>Application Overview</em> section
+    is <em>Running</em>.</li>
+<li>Make sure that all the operators are successfully started under the
+    <em>Stram Events</em> section.</li>
+<li>Navigate to the <em>Physical view</em> tab, observe the Input, Parse, Enrich, or
+    Compute operators, and ensure that they are deployed to a single container,
+    because of the stream locality setting of CONTAINER_LOCAL.</li>
 </ol>
-</li>
-</ol>
-<p><img alt="Login dialog" src="../images/topnwords//image32.png" title="Login dialog" /></p>
-<p>You should see a welcome page with a diagram illustrating the components in the
-platform stack; each block of the diagram is a clickable link for exploring
-that component.</p>
-<h2 id="validate-the-sandbox-setup">Validate the Sandbox setup</h2>
-<p>After setting up the sandbox, validate the installation:</p>
-<ol>
-<li>
-<p>On the top navigation bar, look for links named <em>Configure</em>, <em>Develop</em>,
-   <em>Monitor</em>, <em>Visualize</em> and <em>Learn</em>.</p>
-</li>
-<li>
-<p>If Visualize is not present, click <em>Configure</em>, and then <em>License
-    Information</em>.</p>
-</li>
-</ol>
-<p>A page showing license details including the text: <em>License Edition:
-  enterprise</em> appears.</p>
-<ul>
-<li>If the license details display   <em>community</em> instead of <em>enterprise</em>, wait
-  for a few minutes, refresh the page, and check again.</li>
-<li>If that does not work, navigate to the other tabs, and repeat these steps
-  again. The license edition should be <em>enterprise</em> and you should see the
-  <em>Visualize</em> link on the top navigation bar.</li>
-</ul>
-<p>Note: The enterprise license is present on the Hadoop HDFS file system. To
-retrieve details of this license, the HDFS servers need to be up and running,
-which can take a few minutes.</p>
+<p><em>Note</em>: This is one of the many performance improvement techniques
+available with the DataTorrent platform; in this case eliminating data
+serialization and networking stack overhead between groups of adjacent
+operators.</p>
               
             </div>
           </div>
@@ -629,10 +630,10 @@ which can take a few minutes.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../topnwords-c2/" class="btn btn-neutral float-right" title="Building in Java"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../salesdimensions-c3/" class="btn btn-neutral float-right" title="Visualizing with dtDashboard"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../topnwords/" class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../salesdimensions/" class="btn btn-neutral" title="Building in Java"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -658,10 +659,10 @@ which can take a few minutes.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../topnwords/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../salesdimensions/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../topnwords-c2/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../salesdimensions-c3/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

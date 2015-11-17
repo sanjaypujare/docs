@@ -171,10 +171,39 @@
 
         
             
+    <ul class="subnav">
+    <li><span>Sales Dimensions</span></li>
+
+        
+            
     <li class="toctree-l1 ">
-        <a class="" href="../tutorials/sales_dimensions/">Sales Dimensions</a>
+        <a class="" href="../tutorials/salesdimensions/">Building in Java</a>
         
     </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../tutorials/salesdimensions-c2/">Building with dtAssemble</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../tutorials/salesdimensions-c3/">Visualizing with dtDashboard</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../tutorials/salesdimensions-c4/">Monitoring with dtManage</a>
+        
+    </li>
+
+        
+    </ul>
 
         
     </ul>
@@ -428,6 +457,8 @@
                     <li><a class="toctree-l4" href="#how-to-setup-debug-level-while-running-an-application">How to setup DEBUG level while running an application?</a></li>
                 
                     <li><a class="toctree-l4" href="#my-gateway-is-throwing-the-following-exception">My gateway is throwing the following exception.</a></li>
+                
+                    <li><a class="toctree-l4" href="#application-throws-following-kryo-exception">Application throws following Kryo exception.</a></li>
                 
             
                 <li class="toctree-l3"><a href="#log-analysis">Log analysis</a></li>
@@ -760,6 +791,45 @@ $ hadoop dfs -chown &lt;USER&gt; /user/&lt;USER&gt;/datatorrent
   ...
 </code></pre>
 <p>Check if the host where gateway is running has yarn-site.xml file. You need to have all Hadoop configuration files accessible to dtGateway for it to run successfully.</p>
+<h3 id="application-throws-following-kryo-exception">Application throws following Kryo exception.</h3>
+<pre><code>  com.esotericsoftware.kryo.KryoException: Class cannot be created (missing no-arg constructor):
+</code></pre>
+<p>This means that Kryo is not able to deserialize the object because the type is missing default constructor. There are couple of ways to address this exception</p>
+<ol>
+<li>Add default constructor to the type in question. </li>
+<li>
+<p>Using <a href="https://github.com/EsotericSoftware/kryo#serializers">custom serializer</a> for the type in question. Some existing alternative serializers can be found at <a href="https://github.com/magro/kryo-serializers">https://github.com/magro/kryo-serializers</a>. A custom serializer can be used as follows:</p>
+<p>2.1 Using Kryo's @FieldSerializer.Bind annotation for the field causing the exception. Here is how to bind custom serializer.
+<code>java
+@FieldSerializer.Bind(CustomSerializer.class)
+SomeType someType</code>
+Kryo will use this CustomSerializer to serialize and deserialize type SomeType.</p>
+<p>2.2 Using custom serializer with stream codec. You need to define custom stream codec and attach this custome codec to the input port that is expecting the type in question. Following is an example of creating custom stream codec:
+```java
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.UUID;</p>
+<p>import com.esotericsoftware.kryo.Kryo;</p>
+<p>public class CustomSerializableStreamCodec<T> extends com.datatorrent.lib.codec.KryoSerializableStreamCodec<T>
+{
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
+    {
+        in.defaultReadObject();
+        this.kryo = new Kryo();
+        this.kryo.setClassLoader(Thread.currentThread().getContextClassLoader());
+        this.kryo.register(SomeType.class, new CustomSerializer()); // Register the types along with custom serializers
+    }</p>
+<pre><code>private static final long serialVersionUID = 201411031405L;
+</code></pre>
+<p>}
+<code>Let's say there is an Operator `CustomOperator` with an input port `input` that expects type SomeType. Following is how to use above defined custom stream codec</code>java
+CustomOperator op = dag.addOperator("CustomOperator", new CustomOperator());
+CustomSerializableStreamCodec<SomeType> codec = new CustomSerializableStreamCodec<SomeType>();
+dag.setInputPortAttribute(op.input, Context.PortContext.STREAM_CODEC, codec);
+```
+This works only when the type is passed between different operators. If the type is part of the operator state, please use one of the above two ways. </p>
+</li>
+</ol>
 <h1 id="log-analysis">Log analysis</h1>
 <p>There are multiple ways to adjust logging levels.  For details see <a href="../configuration/#logging">configuraiton guide</a>.</p>
 <h3 id="how-to-check-stram-logs">How to check STRAM logs</h3>

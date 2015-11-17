@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Development Environment - DataTorrent Documentation</title>
+  <title>Monitoring with dtManage - DataTorrent Documentation</title>
   
 
   <link rel="shortcut icon" href="../../favicon.ico">
@@ -21,7 +21,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Development Environment";
+    var mkdocs_page_name = "Monitoring with dtManage";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -126,23 +126,8 @@
 
         
             
-    <li class="toctree-l1 current">
-        <a class="current" href="./">Development Environment</a>
-        
-            <ul>
-            
-                <li class="toctree-l3"><a href="#setting-up-your-development-environment">Setting up your development environment</a></li>
-                
-                    <li><a class="toctree-l4" href="#sample-input-files">Sample input files</a></li>
-                
-                    <li><a class="toctree-l4" href="#validation-for-third-party-applications">Validation for third-party applications</a></li>
-                
-                    <li><a class="toctree-l4" href="#set-up-the-sandbox">Set up the sandbox</a></li>
-                
-                    <li><a class="toctree-l4" href="#validate-the-sandbox-setup">Validate the Sandbox setup</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l1 ">
+        <a class="" href="../topnwords-c1/">Development Environment</a>
         
     </li>
 
@@ -212,8 +197,21 @@
 
         
             
-    <li class="toctree-l1 ">
-        <a class="" href="../salesdimensions-c4/">Monitoring with dtManage</a>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Monitoring with dtManage</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#monitoring-the-sales-dimension-application-using-dtmanage">Monitoring the Sales Dimension application using dtManage</a></li>
+                
+                    <li><a class="toctree-l4" href="#the-monitor-menu-option">The Monitor menu option</a></li>
+                
+                    <li><a class="toctree-l4" href="#monitor-sales-dimension-using-the-monitor-menu">Monitor Sales Dimension using the Monitor menu</a></li>
+                
+                    <li><a class="toctree-l4" href="#create-additional-tabs">Create additional tabs</a></li>
+                
+            
+            </ul>
         
     </li>
 
@@ -470,11 +468,11 @@
     
       
         
-          <li>Top N Words &raquo;</li>
+          <li>Sales Dimensions &raquo;</li>
         
       
     
-    <li>Development Environment</li>
+    <li>Monitoring with dtManage</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -484,144 +482,134 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="setting-up-your-development-environment">Setting up your development environment</h1>
-<p>This section describes how you can set up your development environment
-including starting the sandbox and downloading some sample input files for
-testing the application.</p>
-<h2 id="sample-input-files">Sample input files</h2>
-<p>For this tutorial, you need some sample text files to use as input application.
-Binary files such as PDF or DOCX files are not suitable since they contain a
-lot of meaningless strings that look like words (for example,  Wqgi ).
-Similarly, files using markup languages such as XML or HTML files are also not
-suitable since the tag names such as  div ,  td  and  p  dominate the word
-counts. The RFC (Request for Comment) files that are used as de-facto
-specifications for internet standards are good candidates since they contain
-pure text; download a few of them as follows:</p>
-<p>Open a terminal and run the following commands to create a directory named
-<code>data</code> under your home directory and download 3 files there:</p>
-<pre><code>cd; mkdir data; cd data  
-wget http://tools.ietf.org/rfc/rfc1945.txt  
-wget https://www.ietf.org/rfc/rfc2616.txt  
-wget https://tools.ietf.org/rfc/rfc4844.txt
-</code></pre>
-<h2 id="validation-for-third-party-applications">Validation for third-party applications</h2>
-<p>If you are using your own installation of DataTorrent RTS instead
-of Sandbox, make sure that you have Java JDK (version 1.7.0_79 or
-later), Maven (version 3.0.5 or later), and Git (version 1.7.1 or later)
-by running the following commands:</p>
-<table>
-<colgroup>
-<col width="22%" />
-<col width="78%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td align="left"><p><b>Command</b></p></td>
-<td align="left"><p><b>Expected output</b></p></td>
-</tr>
-<tr class="even">
-<td align="left"><p><tt>java -version</tt></p></td>
-<td align="left"><p>java version &quot;1.7.0_79&quot;</p>
-<p>Java(TM) SE Runtime Environment (build 1.7.0_79-b15) </p>
-<p>Java HotSpot(TM) 64-Bit Server VM (build 24.79-b02, mixed mode)</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p><tt>mvn --version</tt></p></td>
-<td align="left"><p>Apache Maven 3.0.5 </p>
-<p>Maven home: /usr/share/maven </p>
-<p>Java version: 1.7.0_79, vendor: Oracle Corporation </p>
-<p>Java home: /home/&lt;user&gt;/Software/java/jdk1.7.0_79/jre </p>
-<p>Default locale: en_US, platform encoding: UTF-8 </p>
-<p>OS name: &quot;linux&quot;, version: &quot;3.16.0-44-generic&quot;, arch: &quot;amd64&quot;, family: &quot;unix&quot; </p></td>
-</tr>
-<tr class="even">
-<td align="left"><p><tt>git --version</tt></p></td>
-<td align="left"><p>git version 1.7.1</p></td>
-</tr>
-</tbody>
-</table>
-
-<hr />
-<h2 id="set-up-the-sandbox">Set up the sandbox</h2>
-<p>At the time of writing, the sandbox corresponds to version 3.1.1 of DataTorrent
-RTS, which, as noted above, includes a complete, stand-alone, instance of the
-Enterprise Edition configured as a single-node Hadoop cluster.</p>
-<p>Before you begin, ensure that you have Oracle VM VirtualBox version 4.3 or
-later on your development machine. The sandbox is a virtual appliance bundled
-along with Ubuntu 12.0.4 (or later) that needs to be imported into VirtualBox.</p>
-<p>These steps describe how to download, import, and start the sandbox.</p>
-<ol>
-<li>
-<p>Download Sandbox:</p>
-<ol>
-<li>Open <a href="https://www.datatorrent.com/download/">https://www.datatorrent.com/download/</a> in a web browser.</li>
-<li>Under <em>DataTorrent RTS Sandbox</em>, click <strong>DOWNLOAD NOW</strong> button.</li>
-<li>On the contact details form that appears, provide your name, email, and
-   your organization s name, and click <em>Submit</em>.</li>
-<li>Click the link named <em>click here</em> (scroll the page down if necessary to
-   see the link).</li>
-<li>On the Sandbox downloads page that appears, click <strong>Download</strong> under
-    <em>Requirements</em>.</li>
-</ol>
-</li>
-<li>
-<p>Import the sandBox into Oracle VirtualBox:</p>
-<ol>
-<li>Open the VirtualBox Manager.</li>
-<li>In the <em>File</em> menu, choose <em>Import Appliance</em>.  </li>
-<li>On the <em>Appliance to import</em> dialog box, type or select the full path to
-    the OVA template file that you downloaded and click <em>Next</em>.</li>
-<li>Click <em>Import</em>.</li>
-</ol>
-</li>
-<li>
-<p>After the import completes, click the <code>Start</code> button on the VirtualBox
-    Manager. If this is a first-time start, select the default operating
-    system and wait till the virtual machine initializes.</p>
-<p>After the virtual machine initializes, wait for a few minutes to allow all
-Hadoop and Sandbox processes to start.</p>
-</li>
-<li>
-<p>Log on to Sandbox.</p>
-<ol>
-<li>
-<p>In the browser that appears displaying the Readme, click DataTorrent
-    Console. You can also click the <strong>DataTorrent Console</strong> button on the toolbar of your virtual machine.</p>
-</li>
-<li>
-<p>Type the username and password (dtadmin/dtadmin), and click <strong>Login</strong>.</p>
-</li>
-</ol>
-</li>
-</ol>
-<p><img alt="Login dialog" src="../images/topnwords//image32.png" title="Login dialog" /></p>
-<p>You should see a welcome page with a diagram illustrating the components in the
-platform stack; each block of the diagram is a clickable link for exploring
-that component.</p>
-<h2 id="validate-the-sandbox-setup">Validate the Sandbox setup</h2>
-<p>After setting up the sandbox, validate the installation:</p>
-<ol>
-<li>
-<p>On the top navigation bar, look for links named <em>Configure</em>, <em>Develop</em>,
-   <em>Monitor</em>, <em>Visualize</em> and <em>Learn</em>.</p>
-</li>
-<li>
-<p>If Visualize is not present, click <em>Configure</em>, and then <em>License
-    Information</em>.</p>
-</li>
-</ol>
-<p>A page showing license details including the text: <em>License Edition:
-  enterprise</em> appears.</p>
+                <h1 id="monitoring-the-sales-dimension-application-using-dtmanage">Monitoring the Sales Dimension application using dtManage</h1>
+<p>Recall that after the application is built and validated, it can be
+launched from the <em>App Packages</em> page as described in an earlier chapter;
+applications built with <strong>dtAssemble</strong> can also, optionally, be launched
+from the <em>Application Canvas</em> page as described earlier. This section
+describes how you can monitor the running Sales Dimension application
+using <strong>dtManage</strong>.</p>
+<h2 id="the-monitor-menu-option">The Monitor menu option</h2>
+<p>You can monitor the Sales Dimension application by clicking
+Monitor on the menu bar. After you click <em>Monitor</em>, you can choose between
+4 tabs. Under each tab, you can see multiple widgets, which you can
+resize, move around, configure, or remove.</p>
+<p><strong>logical</strong></p>
+<p>This image of the logical tab shows 4 widgets; additional widgets can be
+added by clicking the <strong>+</strong> button at the top-left corner and choosing
+from the resulting dropdown list.</p>
+<p><img alt="Logical.png" src="../images/sales_dimensions/image28.png" /></p>
 <ul>
-<li>If the license details display   <em>community</em> instead of <em>enterprise</em>, wait
-  for a few minutes, refresh the page, and check again.</li>
-<li>If that does not work, navigate to the other tabs, and repeat these steps
-  again. The license edition should be <em>enterprise</em> and you should see the
-  <em>Visualize</em> link on the top navigation bar.</li>
+<li>
+<p><strong>Application Overview</strong></p>
+<p>This widget has the shutdown and kill buttons for shutting down or
+killing an application. This widget also displays the state of the
+application, the window IDs, the number of physical operators,
+containers, allocated memory, and statistics on the number of
+events handled.</p>
+</li>
+<li>
+<p><strong>StramEvents</strong></p>
+<p>This widget displays all the operators, containers, and nodes that
+are running. This widget also displays additional information,
+such as errors encountered and timestamps.</p>
+</li>
+<li>
+<p><strong>Logical DAG</strong></p>
+<p>This widget displays operators and their
+connections in the logical dag (as defined in the application)
+without partitions, that is, if an operator is partitioned to run
+multiple copies to increase throughput, only one copy is displayed.
+The Physical DAG (the physical-dag-view) shows the actual
+physical operators. For each operator, you can choose to include
+additional statistics.</p>
+<p>To include additional details</p>
+<ol>
+<li>Click an operator for which you want to display additional details.</li>
+<li>To display a detail on the top of this operator representation,
+    click the Top list, and select a metric.</li>
+<li>To display a detail at the bottom of this operator representation,
+    click the Bottom list, and select a metric.</li>
+</ol>
+</li>
+<li>
+<p><strong>Logical Operators</strong></p>
+<p>This widget displays a table of operators
+for: the name, the Java class, status, and additional statistics for
+latency and processed events.</p>
+</li>
+<li>
+<p><strong>Streams</strong> (not shown in the image)</p>
+<p>This operator displays a table with one row per stream showing:
+the name, locality, source, and sinks.</p>
+</li>
+<li>
+<p><strong>Metrics Chart</strong> (not shown in the image)</p>
+<p>This widget displays moving averages of tuples processed and latencies.</p>
+</li>
 </ul>
-<p>Note: The enterprise license is present on the Hadoop HDFS file system. To
-retrieve details of this license, the HDFS servers need to be up and running,
-which can take a few minutes.</p>
+<p><strong>physical</strong></p>
+<p>The physical tab displays, in addition to <em>Application Overview</em>
+and <em>Metrics Chart</em>, 2 more widgets:</p>
+<p><img alt="Physical.png" src="../images/sales_dimensions/image29.png" /></p>
+<ul>
+<li>
+<p><strong>Physical Operators</strong></p>
+<p>This widget displays a table of physical operators for:
+name, status, host, container ID, and some additional statistics. The
+container ID is a numeric value and a clickable link that takes you to a
+page showing additional details about that specific instance of the
+operator.</p>
+</li>
+<li>
+<p><strong>Containers</strong></p>
+<p>This widget displays a table of containers (the Java Virtual
+Machine processes) and for each process: the ID, the process ID,
+host, the number of hosted operators, and some additional memory
+statistics.</p>
+</li>
+</ul>
+<p><strong>physical-dag-view</strong></p>
+<p>The physical-dag-view tab displays the Physical DAG widget, which
+shows all the partitioned copies of operators and their
+interconnections:</p>
+<p><img alt="Physical-dag.png" src="../images/sales_dimensions/image30.png" /></p>
+<p><strong>metric-view</strong></p>
+<p>The metric-view tab displays only the <em>Metrics Chart</em> widget.</p>
+<h2 id="monitor-sales-dimension-using-the-monitor-menu">Monitor Sales Dimension using the Monitor menu</h2>
+<p>To monitor the application</p>
+<ol>
+<li>Click <em>Monitor</em> on the menu bar to open the logical view of the DAG.
+    <img alt="monitor" src="../images/sales_dimensions/image31.png" title="monitor" /></li>
+<li>Ensure that the <em>State</em> is <em>Running</em>, indicating that the application
+    is launched successfully.</li>
+<li>Under <em>StramEvents</em>, ensure that the operators from within the
+    application have started.</li>
+<li>Click <em>physical</em> tab to open the physical view.</li>
+<li>
+<p>Ensure that the Input, Parse, Enrich, and
+    Compute operators are deployed to a single container.
+    <img alt="physical" src="../images/sales_dimensions/image32.png" title="physical" /></p>
+<p>Note: This is because we set the corresponding stream locality to
+<code>CONTAINER_LOCAL</code> earlier. This parameter is an example of performance
+improvement technique, which eliminates data serialization and
+networking stack overhead between a group of adjacent operators.</p>
+</li>
+</ol>
+<h2 id="create-additional-tabs">Create additional tabs</h2>
+<p>You can create custom tabs in addition to logical, physical,
+physical-dag-view, and metric-view. Under each tab, you can add
+widgets, and customize these widgets according to your requirements.
+This enables a deeper insight into how the Sales Dimension application
+works. Each tab, default or otherwise, contains the <em>Application
+Overview</em> widget.</p>
+<p>To create additional tabs</p>
+<ol>
+<li>Next to the <em>metric-view</em> tab, look for the plus sign (+) button.</li>
+<li>Click this button to create an additional tab.</li>
+<li>Provide a name for your tab.</li>
+<li>Add widgets to your tab.</li>
+</ol>
               
             </div>
           </div>
@@ -629,10 +617,10 @@ which can take a few minutes.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../topnwords-c2/" class="btn btn-neutral float-right" title="Building in Java"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../apex_development_setup/" class="btn btn-neutral float-right" title="Apex Development Setup"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../topnwords/" class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../salesdimensions-c3/" class="btn btn-neutral" title="Visualizing with dtDashboard"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -658,10 +646,10 @@ which can take a few minutes.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../topnwords/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../salesdimensions-c3/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../topnwords-c2/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../../apex_development_setup/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

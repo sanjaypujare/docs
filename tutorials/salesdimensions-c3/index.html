@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Development Environment - DataTorrent Documentation</title>
+  <title>Visualizing with dtDashboard - DataTorrent Documentation</title>
   
 
   <link rel="shortcut icon" href="../../favicon.ico">
@@ -21,7 +21,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Development Environment";
+    var mkdocs_page_name = "Visualizing with dtDashboard";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -126,23 +126,8 @@
 
         
             
-    <li class="toctree-l1 current">
-        <a class="current" href="./">Development Environment</a>
-        
-            <ul>
-            
-                <li class="toctree-l3"><a href="#setting-up-your-development-environment">Setting up your development environment</a></li>
-                
-                    <li><a class="toctree-l4" href="#sample-input-files">Sample input files</a></li>
-                
-                    <li><a class="toctree-l4" href="#validation-for-third-party-applications">Validation for third-party applications</a></li>
-                
-                    <li><a class="toctree-l4" href="#set-up-the-sandbox">Set up the sandbox</a></li>
-                
-                    <li><a class="toctree-l4" href="#validate-the-sandbox-setup">Validate the Sandbox setup</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l1 ">
+        <a class="" href="../topnwords-c1/">Development Environment</a>
         
     </li>
 
@@ -205,8 +190,21 @@
 
         
             
-    <li class="toctree-l1 ">
-        <a class="" href="../salesdimensions-c3/">Visualizing with dtDashboard</a>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Visualizing with dtDashboard</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#visualizing-data-from-the-sales-dimension-application-using-dtdashboard">Visualizing data from the Sales Dimension application using dtDashboard</a></li>
+                
+                    <li><a class="toctree-l4" href="#generate-dashboards">Generate dashboards</a></li>
+                
+                    <li><a class="toctree-l4" href="#adding-widgets">Adding widgets</a></li>
+                
+                    <li><a class="toctree-l4" href="#edit-a-widget">Edit a widget</a></li>
+                
+            
+            </ul>
         
     </li>
 
@@ -470,11 +468,11 @@
     
       
         
-          <li>Top N Words &raquo;</li>
+          <li>Sales Dimensions &raquo;</li>
         
       
     
-    <li>Development Environment</li>
+    <li>Visualizing with dtDashboard</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -484,144 +482,65 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="setting-up-your-development-environment">Setting up your development environment</h1>
-<p>This section describes how you can set up your development environment
-including starting the sandbox and downloading some sample input files for
-testing the application.</p>
-<h2 id="sample-input-files">Sample input files</h2>
-<p>For this tutorial, you need some sample text files to use as input application.
-Binary files such as PDF or DOCX files are not suitable since they contain a
-lot of meaningless strings that look like words (for example,  Wqgi ).
-Similarly, files using markup languages such as XML or HTML files are also not
-suitable since the tag names such as  div ,  td  and  p  dominate the word
-counts. The RFC (Request for Comment) files that are used as de-facto
-specifications for internet standards are good candidates since they contain
-pure text; download a few of them as follows:</p>
-<p>Open a terminal and run the following commands to create a directory named
-<code>data</code> under your home directory and download 3 files there:</p>
-<pre><code>cd; mkdir data; cd data  
-wget http://tools.ietf.org/rfc/rfc1945.txt  
-wget https://www.ietf.org/rfc/rfc2616.txt  
-wget https://tools.ietf.org/rfc/rfc4844.txt
-</code></pre>
-<h2 id="validation-for-third-party-applications">Validation for third-party applications</h2>
-<p>If you are using your own installation of DataTorrent RTS instead
-of Sandbox, make sure that you have Java JDK (version 1.7.0_79 or
-later), Maven (version 3.0.5 or later), and Git (version 1.7.1 or later)
-by running the following commands:</p>
-<table>
-<colgroup>
-<col width="22%" />
-<col width="78%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td align="left"><p><b>Command</b></p></td>
-<td align="left"><p><b>Expected output</b></p></td>
-</tr>
-<tr class="even">
-<td align="left"><p><tt>java -version</tt></p></td>
-<td align="left"><p>java version &quot;1.7.0_79&quot;</p>
-<p>Java(TM) SE Runtime Environment (build 1.7.0_79-b15) </p>
-<p>Java HotSpot(TM) 64-Bit Server VM (build 24.79-b02, mixed mode)</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p><tt>mvn --version</tt></p></td>
-<td align="left"><p>Apache Maven 3.0.5 </p>
-<p>Maven home: /usr/share/maven </p>
-<p>Java version: 1.7.0_79, vendor: Oracle Corporation </p>
-<p>Java home: /home/&lt;user&gt;/Software/java/jdk1.7.0_79/jre </p>
-<p>Default locale: en_US, platform encoding: UTF-8 </p>
-<p>OS name: &quot;linux&quot;, version: &quot;3.16.0-44-generic&quot;, arch: &quot;amd64&quot;, family: &quot;unix&quot; </p></td>
-</tr>
-<tr class="even">
-<td align="left"><p><tt>git --version</tt></p></td>
-<td align="left"><p>git version 1.7.1</p></td>
-</tr>
-</tbody>
-</table>
-
-<hr />
-<h2 id="set-up-the-sandbox">Set up the sandbox</h2>
-<p>At the time of writing, the sandbox corresponds to version 3.1.1 of DataTorrent
-RTS, which, as noted above, includes a complete, stand-alone, instance of the
-Enterprise Edition configured as a single-node Hadoop cluster.</p>
-<p>Before you begin, ensure that you have Oracle VM VirtualBox version 4.3 or
-later on your development machine. The sandbox is a virtual appliance bundled
-along with Ubuntu 12.0.4 (or later) that needs to be imported into VirtualBox.</p>
-<p>These steps describe how to download, import, and start the sandbox.</p>
+                <h1 id="visualizing-data-from-the-sales-dimension-application-using-dtdashboard">Visualizing data from the Sales Dimension application using dtDashboard</h1>
+<p>DataTorrent includes powerful data visualization tools, which
+allow you to visualize streaming data from multiple sources in real
+time. For additional details see the tutorial entitled <em>dtDashboard
+- Application Data Visualization</em> at <a href="https://docs.datatorrent.com">https://docs.datatorrent.com</a>.</p>
+<p>After the application is started, a visualize button, available in
+the Application Overview section, can be used to quickly generate a new
+dashboard for the Sales Dimensions application.</p>
+<h2 id="generate-dashboards">Generate dashboards</h2>
+<p><img alt="dashboard" src="../images/sales_dimensions/image22.png" title="dashboard" /></p>
+<p>If you created dashboards already, the dashboards appear in the
+dropdown list. You can select one, or generate a new dashboard by
+selecting the generate new dashboard option from the dropdown list.</p>
+<p>After the dashboard is created, you can add additional widgets for
+displaying dimensions and combinations of the sales data. Here is an
+example:</p>
+<p><img alt="widgets" src="../images/sales_dimensions/image25.png" title="widgets" /></p>
+<h2 id="adding-widgets">Adding widgets</h2>
+<p>To derive more value out of application dashboards, you can add
+widgets to the dashboards. Widgets are charts in addition to the default
+charts that you can see on the dashboard. DataTorrent RTS supports five
+widgets: <code>bar chart</code>, <code>pie chart</code>, <code>horizontal bar chart</code>, <code>table</code>, and
+<code>note</code>.</p>
+<p>To add a widget</p>
+<ol>
+<li>Click the add widget button below the name of the dashboard, for example,
+    Sales Dimension.
+    <img alt="AddWidgetButton" src="../images/sales_dimensions/image24.png" title="AddWidgetButton" /></li>
+<li>In the Data Source list, click a data source for your widget.</li>
+<li>Select a widget type under <em>Available Widgets</em>.
+    <img alt="AddWidget.png" src="../images/sales_dimensions/image34.png" title="AddWidget" /></li>
+<li>Click <em>add widget</em> button.</li>
+</ol>
+<p>The widget is added to your dashboard.</p>
+<h2 id="edit-a-widget">Edit a widget</h2>
+<p>After you add a widget to your dashboard, you can update it at any
+time. Each widget has a title that appears in gray. If you hover over
+the title, the pointer changes to a hand.</p>
+<p>To edit a widget</p>
 <ol>
 <li>
-<p>Download Sandbox:</p>
-<ol>
-<li>Open <a href="https://www.datatorrent.com/download/">https://www.datatorrent.com/download/</a> in a web browser.</li>
-<li>Under <em>DataTorrent RTS Sandbox</em>, click <strong>DOWNLOAD NOW</strong> button.</li>
-<li>On the contact details form that appears, provide your name, email, and
-   your organization s name, and click <em>Submit</em>.</li>
-<li>Click the link named <em>click here</em> (scroll the page down if necessary to
-   see the link).</li>
-<li>On the Sandbox downloads page that appears, click <strong>Download</strong> under
-    <em>Requirements</em>.</li>
-</ol>
+<p>Change the size and position of the widget:
+    a. To change the size of the widget, click the
+       border of the widget, and resize it.
+    b. To move the widget around, click the widget, and
+       drag it to the desired location.</p>
 </li>
 <li>
-<p>Import the sandBox into Oracle VirtualBox:</p>
-<ol>
-<li>Open the VirtualBox Manager.</li>
-<li>In the <em>File</em> menu, choose <em>Import Appliance</em>.  </li>
-<li>On the <em>Appliance to import</em> dialog box, type or select the full path to
-    the OVA template file that you downloaded and click <em>Next</em>.</li>
-<li>Click <em>Import</em>.</li>
-</ol>
+<p>Edit the widget:
+    a.  In the top-right corner of the widget, click <em>edit</em>.
+    b.  Type a new title in the <em>Title</em> box.
+    c.  Use the remaining options to configure the widget.
+    d.  Click <em>OK</em>.
+    <img alt="WidgetOptions.png" src="../images/sales_dimensions/image26.png" /></p>
 </li>
 <li>
-<p>After the import completes, click the <code>Start</code> button on the VirtualBox
-    Manager. If this is a first-time start, select the default operating
-    system and wait till the virtual machine initializes.</p>
-<p>After the virtual machine initializes, wait for a few minutes to allow all
-Hadoop and Sandbox processes to start.</p>
-</li>
-<li>
-<p>Log on to Sandbox.</p>
-<ol>
-<li>
-<p>In the browser that appears displaying the Readme, click DataTorrent
-    Console. You can also click the <strong>DataTorrent Console</strong> button on the toolbar of your virtual machine.</p>
-</li>
-<li>
-<p>Type the username and password (dtadmin/dtadmin), and click <strong>Login</strong>.</p>
+<p>To remove a widget, in the top-right corner, click the <em>delete</em> button.</p>
 </li>
 </ol>
-</li>
-</ol>
-<p><img alt="Login dialog" src="../images/topnwords//image32.png" title="Login dialog" /></p>
-<p>You should see a welcome page with a diagram illustrating the components in the
-platform stack; each block of the diagram is a clickable link for exploring
-that component.</p>
-<h2 id="validate-the-sandbox-setup">Validate the Sandbox setup</h2>
-<p>After setting up the sandbox, validate the installation:</p>
-<ol>
-<li>
-<p>On the top navigation bar, look for links named <em>Configure</em>, <em>Develop</em>,
-   <em>Monitor</em>, <em>Visualize</em> and <em>Learn</em>.</p>
-</li>
-<li>
-<p>If Visualize is not present, click <em>Configure</em>, and then <em>License
-    Information</em>.</p>
-</li>
-</ol>
-<p>A page showing license details including the text: <em>License Edition:
-  enterprise</em> appears.</p>
-<ul>
-<li>If the license details display   <em>community</em> instead of <em>enterprise</em>, wait
-  for a few minutes, refresh the page, and check again.</li>
-<li>If that does not work, navigate to the other tabs, and repeat these steps
-  again. The license edition should be <em>enterprise</em> and you should see the
-  <em>Visualize</em> link on the top navigation bar.</li>
-</ul>
-<p>Note: The enterprise license is present on the Hadoop HDFS file system. To
-retrieve details of this license, the HDFS servers need to be up and running,
-which can take a few minutes.</p>
               
             </div>
           </div>
@@ -629,10 +548,10 @@ which can take a few minutes.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../topnwords-c2/" class="btn btn-neutral float-right" title="Building in Java"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../salesdimensions-c4/" class="btn btn-neutral float-right" title="Monitoring with dtManage"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../topnwords/" class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../salesdimensions-c2/" class="btn btn-neutral" title="Building with dtAssemble"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -658,10 +577,10 @@ which can take a few minutes.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../topnwords/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../salesdimensions-c2/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../topnwords-c2/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../salesdimensions-c4/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
