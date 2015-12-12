@@ -251,14 +251,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../operators/file_splitter/">File splitter</a>
+        <a class="" href="../operators/file_splitter/">File Splitter</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../operators/block_reader/">Block reader</a>
+        <a class="" href="../operators/block_reader/">Block Reader</a>
         
     </li>
 
@@ -279,7 +279,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../operators/dimensions_computation/">DimenstionComputation</a>
+        <a class="" href="../operators/dimensions_computation/">Dimension Computation</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../operators/kafkaInputOperator/">Kafka Input</a>
         
     </li>
 
@@ -442,6 +449,8 @@
             
                 <li class="toctree-l3"><a href="#configuration">Configuration</a></li>
                 
+                    <li><a class="toctree-l4" href="#configuring-memory">Configuring Memory</a></li>
+                
             
                 <li class="toctree-l3"><a href="#development">Development</a></li>
                 
@@ -458,7 +467,7 @@
                 
                     <li><a class="toctree-l4" href="#my-gateway-is-throwing-the-following-exception">My gateway is throwing the following exception.</a></li>
                 
-                    <li><a class="toctree-l4" href="#application-throws-following-kryo-exception">Application throws following Kryo exception.</a></li>
+                    <li><a class="toctree-l4" href="#application-throwing-following-kryo-exception">Application throwing following Kryo exception.</a></li>
                 
             
                 <li class="toctree-l3"><a href="#log-analysis">Log analysis</a></li>
@@ -763,10 +772,85 @@ $ hadoop dfs -chown &lt;USER&gt; /user/&lt;USER&gt;/datatorrent
 <h3 id="license-agent-errors-cause-problems-during-upgrade-from-datatorrent-rts-20-to-30">License agent errors cause problems during upgrade from DataTorrent RTS 2.0 to 3.0.</h3>
 <p>If your applications are being launched continuously, or you are unable to launch apps due to licensing errors, try running complete uninstall and re-installation of DataTorrent RTS.  See <a href="../installation/">installation guide</a> for details.</p>
 <h1 id="configuration">Configuration</h1>
-<p>Coming soon.</p>
+<h3 id="configuring-memory">Configuring Memory</h3>
+<h5 id="configuring-operator-memory">Configuring Operator Memory:</h5>
+<p>Operator memory for an operator can be configured in one of the following two ways:</p>
+<p>1 Using the same default values for all the operators: </p>
+<pre><code>&lt;property&gt;
+  &lt;name&gt;dt.application.&lt;APPLICATION_NAME&gt;.operator.*.attr.MEMORY_MB&lt;/name&gt;
+  &lt;value&gt;2048&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+<p>This would set 2GB as size of all the operators in the given application.</p>
+<p>2 Setting specific value for a particular operator: Following example will set 8GB as the operator memory for operator <code>Op</code>.</p>
+<pre><code>&lt;property&gt;
+  &lt;name&gt;dt.application.&lt;APPLICATION_NAME&gt;.operator.Op.attr.MEMORY_MB&lt;/name&gt;
+  &lt;value&gt;8192&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+<p>The amount of memory required by an operator should be based on maximum amount of data that operator will be storing in-memory for all the fields -- both transient and non-transient. Default value for this attribute is 1024 MB.</p>
+<h5 id="configuring-buffer-server-memory">Configuring Buffer Server Memory:</h5>
+<p>There is a buffer server in each container hosting an operator with an output port connected to an input port outside the container. The buffer server memory of a container can be controlled by BUFFER_MEMORY_MB. This can be configured in one of the following ways:</p>
+<p>1 Using the same default values for all the output ports of all the operators</p>
+<pre><code>&lt;property&gt;
+  &lt;name&gt;dt.application.&lt;APPLICATION_NAME&gt;.operator.*.port.*.attr.BUFFER_MEMORY_MB&lt;/name&gt;
+  &lt;value&gt;128&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+<p>This sets 128Mb as buffer memory for all the output ports of all the operators.</p>
+<p>2 Setting specific value for a particular output port of particular operator: Following example sets 1GB as buffer memory for output port <code>p</code> of an operator <code>Op</code>:</p>
+<pre><code>&lt;property&gt;
+  &lt;name&gt;dt.application.&lt;APPLICATION_NAME&gt;.operator.Op.port.p.attr.BUFFER_MEMORY_MB&lt;/name&gt;
+  &lt;value&gt;1024&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+<p>Default value for this attribute is 512 MB</p>
+<h5 id="calculating-container-memory">Calculating Container memory:</h5>
+<p>Following formula is used to calculate the container memory.</p>
+<pre><code>Container Memory = Sum of MEMORY_MB of All the operators in the container+ Sum of BUFFER_MEMORY_MB of all the output ports that have a sink in a different container.
+</code></pre>
+<p>Sometimes the memory allocated to the container is not same as calculated by the above formula, it is because actual container memory allocated by RM has to lie between</p>
+<pre><code>[yarn.scheduler.minimum-allocation-mb, yarn.scheduler.maximum-allocation-mb]
+</code></pre>
+<p>These values can be found in yarn configuration</p>
+<h5 id="configuring-application-master-memory">Configuring Application Master Memory:</h5>
+<p>Application Master memory can be configured using MASTER_MEMORY_MB attribute. Following example sets 4GB as the memory for Application Master:</p>
+<pre><code>&lt;property&gt;
+  &lt;name&gt;dt.application.&lt;APPLICATION_NAME&gt;.attr.MASTER_MEMORY_MB&lt;/name&gt;
+  &lt;value&gt;4096&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+<p>Default value for this attribute is 1024 MB. You may need to increase this value if you are running a big application that has large number of containers</p>
 <h1 id="development">Development</h1>
 <h3 id="hadoop-dependencies-conflicts">Hadoop dependencies conflicts</h3>
-<p>Coming soon.  (Use provided scope, don’t bundle any Hadoop jars.)</p>
+<p>You have to make sure that the hadoop jars are not bundled with the application package o/w they may conflict with the versions available in hadoop classpath. Here are some of the ways to exclude hadoop dependencies from the application package</p>
+<ol>
+<li>
+<p>If your application is directly dependent on the hadoop jars, make sure that the scope of the dependency is <code>provided</code>. For eg if your application is dependent on hadoop-common, this is how you should add the dependency in pom.xml</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+  &lt;artifactId&gt;hadoop-common&lt;/artifactId&gt;
+  &lt;version&gt;2.2.0&lt;/version&gt;
+  &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+</li>
+<li>
+<p>If your application has trasitive dependency on hadoop jars, make sure that hadoop jars are excluded from the transitive dependency and added back as application depedency with provided scope as mentioned above. Exclusions in pom.xml can be set as follows</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;&lt;/groupId&gt;
+  &lt;artifactId&gt;&lt;/artifactId&gt;
+  &lt;version&gt;&lt;/version&gt;
+  &lt;exclusions&gt;
+    &lt;exclusion&gt;
+      &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+      &lt;artifactId&gt;*&lt;/artifactId&gt;
+    &lt;/exclusion&gt;
+  &lt;/exclusions&gt;
+&lt;/dependency&gt;
+</code></pre>
+</li>
+</ol>
 <h3 id="getting-this-message-in-stram-logs-is-anything-wrong-in-my-code">Getting this message in STRAM logs. Is anything wrong in my code?</h3>
 <pre><code>2015-10-09 04:31:06,749 INFO com.datatorrent.stram.StreamingContainerManager: Heartbeat for unknown operator 3 (container container_1443694550865_0150_01_000007)
 </code></pre>
@@ -791,7 +875,7 @@ $ hadoop dfs -chown &lt;USER&gt; /user/&lt;USER&gt;/datatorrent
   ...
 </code></pre>
 <p>Check if the host where gateway is running has yarn-site.xml file. You need to have all Hadoop configuration files accessible to dtGateway for it to run successfully.</p>
-<h3 id="application-throws-following-kryo-exception">Application throws following Kryo exception.</h3>
+<h3 id="application-throwing-following-kryo-exception">Application throwing following Kryo exception.</h3>
 <pre><code>  com.esotericsoftware.kryo.KryoException: Class cannot be created (missing no-arg constructor):
 </code></pre>
 <p>This means that Kryo is not able to deserialize the object because the type is missing default constructor. There are couple of ways to address this exception</p>
@@ -799,18 +883,18 @@ $ hadoop dfs -chown &lt;USER&gt; /user/&lt;USER&gt;/datatorrent
 <li>Add default constructor to the type in question. </li>
 <li>
 <p>Using <a href="https://github.com/EsotericSoftware/kryo#serializers">custom serializer</a> for the type in question. Some existing alternative serializers can be found at <a href="https://github.com/magro/kryo-serializers">https://github.com/magro/kryo-serializers</a>. A custom serializer can be used as follows:</p>
-<p>2.1 Using Kryo's @FieldSerializer.Bind annotation for the field causing the exception. Here is how to bind custom serializer.
-<code>java
-@FieldSerializer.Bind(CustomSerializer.class)
-SomeType someType</code>
-Kryo will use this CustomSerializer to serialize and deserialize type SomeType.</p>
-<p>2.2 Using custom serializer with stream codec. You need to define custom stream codec and attach this custome codec to the input port that is expecting the type in question. Following is an example of creating custom stream codec:
-```java
-import java.io.IOException;
+<p>2.1 Using Kryo's @FieldSerializer.Bind annotation for the field causing the exception. Here is how to bind custom serializer.</p>
+<pre><code>@FieldSerializer.Bind(CustomSerializer.class)
+SomeType someType
+</code></pre>
+<p>Kryo will use this CustomSerializer to serialize and deserialize type SomeType.</p>
+<p>2.2 Using custom serializer with stream codec. You need to define custom stream codec and attach this custome codec to the input port that is expecting the type in question. Following is an example of creating custom stream codec:</p>
+<pre><code>import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.UUID;</p>
-<p>import com.esotericsoftware.kryo.Kryo;</p>
-<p>public class CustomSerializableStreamCodec<T> extends com.datatorrent.lib.codec.KryoSerializableStreamCodec<T>
+import java.util.UUID;
+import com.esotericsoftware.kryo.Kryo;
+
+public class CustomSerializableStreamCodec&lt;T&gt; extends com.datatorrent.lib.codec.KryoSerializableStreamCodec&lt;T&gt;
 {
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
     {
@@ -818,16 +902,17 @@ import java.util.UUID;</p>
         this.kryo = new Kryo();
         this.kryo.setClassLoader(Thread.currentThread().getContextClassLoader());
         this.kryo.register(SomeType.class, new CustomSerializer()); // Register the types along with custom serializers
-    }</p>
-<pre><code>private static final long serialVersionUID = 201411031405L;
+    }
+
+    private static final long serialVersionUID = 201411031405L;
+}
 </code></pre>
-<p>}
-<code>Let's say there is an Operator `CustomOperator` with an input port `input` that expects type SomeType. Following is how to use above defined custom stream codec</code>java
-CustomOperator op = dag.addOperator("CustomOperator", new CustomOperator());
-CustomSerializableStreamCodec<SomeType> codec = new CustomSerializableStreamCodec<SomeType>();
+<p>Let's say there is an Operator <code>CustomOperator</code> with an input port <code>input</code> that expects type SomeType. Following is how to use above defined custom stream codec</p>
+<pre><code>CustomOperator op = dag.addOperator("CustomOperator", new CustomOperator());
+CustomSerializableStreamCodec&lt;SomeType&gt; codec = new CustomSerializableStreamCodec&lt;SomeType&gt;();
 dag.setInputPortAttribute(op.input, Context.PortContext.STREAM_CODEC, codec);
-```
-This works only when the type is passed between different operators. If the type is part of the operator state, please use one of the above two ways. </p>
+</code></pre>
+<p>This works only when the type is passed between different operators. If the type is part of the operator state, please use one of the above two ways. </p>
 </li>
 </ol>
 <h1 id="log-analysis">Log analysis</h1>
@@ -919,9 +1004,6 @@ automatically scroll to bottom when new events come in.</p>
 <li>How to change commit frequency</li>
 <li>Difference between exactly once, at least once and at most once</li>
 <li>Thread local vs container local vs node local</li>
-<li>Setting operator memory</li>
-<li>Turning Bufferserver memory</li>
-<li>Turning STRAM memory</li>
 <li>Cluster nodes not able to access edge node where Gateway is running</li>
 <li>
 <p>Developers not sure when to process incoming tuples in end window or when to do it in process function of operator</p>
