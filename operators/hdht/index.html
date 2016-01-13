@@ -284,6 +284,8 @@
                 
                     <li><a class="toctree-l4" href="#architecture">Architecture</a></li>
                 
+                    <li><a class="toctree-l4" href="#configuration">Configuration</a></li>
+                
                     <li><a class="toctree-l4" href="#example">Example</a></li>
                 
                     <li><a class="toctree-l4" href="#limitations">Limitations</a></li>
@@ -579,11 +581,12 @@ for the architecture of HDHT.</p>
 - <strong>getPartition</strong> This method is inherited from StreamCodec, its return value is used to determine HDHT bucket where this event will be written. The same stream codec is used
  for partition of the input port which make sure that data for same event goes to a single partition
  of the operator.</p>
-<p>## Configuration
- 1. <strong>fileStore</strong> This setting determines the format in which files are written. Default is DTFileImpl.
-   - <strong>basePath</strong> Location in HDFS where data files are stored. This is required configuration parameter.</p>
-<pre><code>  Property File Syntax
-</code></pre>
+<h2 id="configuration">Configuration</h2>
+<h3 id="filestore">fileStore</h3>
+<p>This setting determines the format in which files are written. Default is DTFileImpl.</p>
+<h3 id="basepath">basePath</h3>
+<p>Location in HDFS where data files are stored. This is required configuration parameter.</p>
+<p>Property File Syntax</p>
 <pre><code class="xml">   &lt;property&gt;
      &lt;name&gt;dt.operator.{name}.store.basePath&lt;/name&gt;
      &lt;value&gt;/home/hdhtdatadir&lt;/value&gt;
@@ -597,23 +600,21 @@ hdsFile.setBasePath(&quot;HDHTdata&quot;);
 store.setFileStore(hdsFile);
 </code></pre>
 
-<ol>
-<li><strong>maxFileSize</strong> Size of each file. Default value is 134217728134217728 (i.e 128MB).</li>
-</ol>
-<p>Property File Syntax
- <code>xml
- &lt;property&gt;
+<h3 id="maxfilesize">maxFileSize</h3>
+<p>Size of each file. Default value is 134217728134217728 (i.e 128MB).</p>
+<p>Property File Syntax</p>
+<pre><code class="xml"> &lt;property&gt;
    &lt;name&gt;dt.operator.{name}.maxFileSize&lt;/name&gt;
    &lt;value&gt;{value in bytes}&lt;/value&gt;
- &lt;/property&gt;</code>
-Java API.</p>
+ &lt;/property&gt;
+</code></pre>
+
+<p>Java API.</p>
 <pre><code class="java">store.setMaxFileSize(64 * 1024 * 1024);
 </code></pre>
 
-<ol>
-<li><strong>flushSize</strong> HDHT will flush data to files after number of unwritten tuples crosses
-    this limit. Default value is 1000000.</li>
-</ol>
+<h3 id="flushsize">flushSize</h3>
+<p>HDHT will flush data to files after number of unwritten tuples crosses this limit. Default value is 1000000.</p>
 <p>Property File Syntax</p>
 <pre><code class="xml">&lt;property&gt;
   &lt;name&gt;dt.operator.{name}.flushSize&lt;/name&gt;
@@ -625,23 +626,21 @@ Java API.</p>
 <pre><code class="java">store.setFlushSize(1000000);
 </code></pre>
 
-<ol>
-<li><strong>flushIntervalCount</strong> This setting will force data flush even if number of tuples
- are below <em>flushSize</em>. Default value is 120 windows.</li>
-</ol>
-<p>Property File Syntax
- <code>xml
- &lt;property&gt;
+<h3 id="flushintervalcount">flushIntervalCount</h3>
+<p>This setting will force data flush even if number of tuples are below <em>flushSize</em>. Default value is 120 windows.</p>
+<p>Property File Syntax</p>
+<pre><code class="xml"> &lt;property&gt;
    &lt;name&gt;dt.operator.{name}.flushIntervalCount&lt;/name&gt;
    &lt;value&gt;{number of windows}&lt;/value&gt;
- &lt;/property&gt;</code>
- Java API.</p>
+ &lt;/property&gt;
+</code></pre>
+
+<p>Java API.</p>
 <pre><code class="java">store.setFlushIntervalCount(120);
 </code></pre>
 
-<ol>
-<li><strong>maxWalFileSize</strong> Write Ahead Log segment size. Older segments are deleted once data is written to the data files. Default value is 67108864 (i.1 64MB)</li>
-</ol>
+<h3 id="maxwalfilesize">maxWalFileSize</h3>
+<p>Write Ahead Log segment size. Older segments are deleted once data is written to the data files. Default value is 67108864 (64MB)</p>
 <p>Property File Syntax</p>
 <pre><code class="xml">&lt;property&gt;
   &lt;name&gt;dt.operator.{name}.maxWalFileSize&lt;/name&gt;
@@ -695,17 +694,18 @@ a simple serializer which serializes key and ignores the value part, as the inpu
 <p>The store operator is implemented as shown below, we will need to provide an implementation of
 <code>getCodec</code>, and override <code>processEvent</code> to change default behavior of storing data in HDHT
 directly.</p>
-<p>```java
-public class HDHTWordCounter extends AbstractSinglePortHDHTWriter<String>
+<pre><code class="java">public class HDHTWordCounter extends AbstractSinglePortHDHTWriter&lt;String&gt;
 {
-  public transient DefaultOutputPort<Pair<String, Long>&gt; out = new DefaultOutputPort&lt;&gt;();
-  private transient HashMap<String, AtomicLong> cache;</p>
-<p>@Override
-  protected HDHTCodec<String> getCodec()
+  public transient DefaultOutputPort&lt;Pair&lt;String, Long&gt;&gt; out = new DefaultOutputPort&lt;&gt;();
+  private transient HashMap&lt;String, AtomicLong&gt; cache;
+
+  @Override
+  protected HDHTCodec&lt;String&gt; getCodec()
   {
     return new StringCodec();
-  }</p>
-<p>@Override
+  }
+
+  @Override
   protected void processEvent(String word) throws IOException
   {
     AtomicLong count = cache.get(word);
@@ -714,56 +714,60 @@ public class HDHTWordCounter extends AbstractSinglePortHDHTWriter<String>
       cache.put(word, count);
     }
     count.incrementAndGet();
-  }</p>
-<p>private void updateCount() throws IOException
+  }
+
+  private void updateCount() throws IOException
   {
-    for(Map.Entry<String, AtomicLong> entry : cache.entrySet()) {
+    for(Map.Entry&lt;String, AtomicLong&gt; entry : cache.entrySet()) {
       String word = entry.getKey();
       long prevCount = 0;
       byte[] key = codec.getKeyBytes(word);
       Slice keySlice = new Slice(key);
       long bucketKey = getBucketKey(word);
-      /<strong> First look for cached data */
+      /** First look for cached data */
       byte[] value = getUncommitted(bucketKey, keySlice);
       if (value == null) {
-        /</strong> look into persisted data files */
+        /** look into persisted data files */
         value = get(bucketKey, keySlice);
         if (value == null) {
           value = ByteBuffer.allocate(8).putLong(0).array();
         }
-      }</p>
-<pre><code>  prevCount = ByteBuffer.wrap(value).getLong();
+      }
 
-  /** update count by taking new event into account */
-  prevCount += entry.getValue().get();
+      prevCount = ByteBuffer.wrap(value).getLong();
 
-  /** save computed result back to HDHT */
-  put(bucketKey, keySlice, ByteBuffer.wrap(value).putLong(prevCount).array());
+      /** update count by taking new event into account */
+      prevCount += entry.getValue().get();
 
-  /* emit updated counts on the output port */
-  out.emit(new Pair&lt;&gt;(word, prevCount));
-}
-</code></pre>
-<p>}</p>
-<p>@Override
+      /** save computed result back to HDHT */
+      put(bucketKey, keySlice, ByteBuffer.wrap(value).putLong(prevCount).array());
+
+      /* emit updated counts on the output port */
+      out.emit(new Pair&lt;&gt;(word, prevCount));
+    }
+  }
+
+  @Override
   public void beginWindow(long windowId)
   {
     super.beginWindow(windowId);
     cache = new HashMap&lt;&gt;();
-  }</p>
-<p>@Override
+  }
+
+  @Override
   public void endWindow()
   {
     try {
       updateCount();
       super.endWindow();
-    } catch (IOException e) {</p>
-<pre><code>  throw new RuntimeException("Unable to flush to HDHT");
+    } catch (IOException e) {
+
+      throw new RuntimeException(&quot;Unable to flush to HDHT&quot;);
+    }
+  }
 }
 </code></pre>
-<p>}
-}
- ```</p>
+
 <p>Sample Application.</p>
 <pre><code class="java">@ApplicationAnnotation(name=&quot;HDHTWordCount&quot;)
 public class HDHTWordCountApp implements StreamingApplication
