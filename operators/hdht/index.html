@@ -518,7 +518,7 @@
               
                 <h1 id="hdht">HDHT</h1>
 <p>Some applications need to compute values based not only on current event flow but also on historical data. HDHT provides a simple interface to store
-and access historical data in an operator. HDHT is a key value store designed to integrate well with Apache Apex. HDHT allows persistent storage while providing exactly once guarantees required by many streaming applications.</p>
+and access historical data in an operator. HDHT is an embedded state store with key value interface on top of the Hadoop file system. It is fully integrated into the Apache Apex operator model and provides persistent storage with exactly-once guarantee.</p>
 <p>The programming model of a key-value store or hash table can be applied to a wide range of common use cases. Within most streaming applications, ingested events or computed data already carry the key that can be used for storage and retrieval. Many operations performed during computation require key based access. HDHT provides an embedded key value store for the application. The advantage of HDHT over other key value stores in streaming applications are</p>
 <ul>
 <li>Embedded, Hadoop native solution. Does not require install/manage of other services.</li>
