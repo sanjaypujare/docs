@@ -3,7 +3,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
   
   <title>Advanced Features - DataTorrent Documentation</title>
   
@@ -22,6 +25,8 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Advanced Features";
+    var mkdocs_page_input_path = "tutorials/topnwords-c7.md";
+    var mkdocs_page_url = "/tutorials/topnwords-c7/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -498,6 +503,10 @@
     
       
         
+          <li>Tutorials &raquo;</li>
+        
+      
+        
           <li>Top N Words &raquo;</li>
         
       
@@ -715,8 +724,8 @@ network bandwidth) to support all the replicas.</p>
 <p>Without partitioning, the DAG shown in the <code>logical</code> and <code>physical-dag-view</code> tabs
 will be the same.
 However, once partitioning is triggered, the latter will show multiple copies of the
-partitioned operator, as well as a new, operator immediately
-downstream of all the copies, called a <em>unifier</em>. The job of the unifier is the join the
+partitioned operator, as well as a new operator immediately
+downstream of all the copies, called a <em>unifier</em>. The job of the unifier is to join the
 results emitted by all the copies, collate them in some application-specific way and
 emit the result just as it would have been emitted if no partitioning were involved.
 The unifier can either be one that is custom-written for the needs of the application
@@ -737,7 +746,7 @@ to a new file named <code>simple-partition.xml</code> in the same directory and 
 physical-dag-view tab should show the following DAG:</p>
 <p><img alt="DAG Simple Partition" src="../images/topnwords/image52.png" title="DAG Simple Partition" /></p>
 <p>Notice the two copies of <code>wordReader</code> and the generated unifier. The <code>physical</code> tab will
-also show the containers for these additional operators and their characteristica as well.</p>
+also show the containers for these additional operators and their characteristics as well.</p>
 <p>A slight variation of the above theme occurs often in practice: We would like an entire
 linear sequence of operators (i.e. a fragment of the DAG) replicated in the same way.
 In our case, the sequence consists of two operators: <code>wordReader</code> and the next operator
@@ -798,7 +807,7 @@ meaningful aggregates.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../topnwords-c6/" class="btn btn-neutral float-right" title="Appendix"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../topnwords-c6/" class="btn btn-neutral float-right" title="Appendix">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../topnwords-c5/" class="btn btn-neutral" title="Visualizing with dtDashboard"><span class="icon icon-circle-arrow-left"></span> Previous</a>

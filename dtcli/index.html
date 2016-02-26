@@ -3,7 +3,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
   
   <title>dtCli - DataTorrent Documentation</title>
   
@@ -22,6 +25,8 @@
   <script>
     // Current page data
     var mkdocs_page_name = "dtCli";
+    var mkdocs_page_input_path = "dtcli.md";
+    var mkdocs_page_url = "/dtcli/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -510,9 +515,9 @@
               
                 <h1 id="apache-apex-command-line-interface">Apache Apex Command Line Interface</h1>
 <p>dtCli, the Apache Apex command line interface, can be used to launch, monitor, and manage
-Apache Apex applications.  dtCli is a wrapper around the <a href="../dtgateway_api/">REST API</a> provided by dtGatway, and
-provides a developer friendly way of interacting with Apache Apex platform. The CLI enables a much higher level of feature set by
-hiding deep details of REST API.  Another advantage of dtCli is to provide scope, by connecting and executing commands in a context
+Apache Apex applications.<br />
+It provides a developer friendly way of interacting with Apache Apex platform.
+Another advantage of dtCli is to provide scope, by connecting and executing commands in a context
 of specific application.  dtCli enables easy integration with existing enterprise toolset for automated application monitoring
 and management.  Currently the following high level tasks are supported.</p>
 <ul>
@@ -525,7 +530,7 @@ and management.  Currently the following high level tasks are supported.</p>
 <li>Create custom macros</li>
 </ul>
 <h2 id="dtcli-commands">dtcli Commands</h2>
-<p>dtCli can be launched by running following command on the same machine where dtGatway was installed</p>
+<p>dtCli can be launched by running following command:</p>
 <pre><code>dtcli
 </code></pre>
 <p>Help on all commands is available via “help” command in the CLI</p>
@@ -765,7 +770,7 @@ they must be part of the jar files that were deployed at application launch time
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../troubleshooting/" class="btn btn-neutral float-right" title="Troubleshooting"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../troubleshooting/" class="btn btn-neutral float-right" title="Troubleshooting">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../dtgateway_security/" class="btn btn-neutral" title="Security"><span class="icon icon-circle-arrow-left"></span> Previous</a>

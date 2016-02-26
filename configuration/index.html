@@ -3,7 +3,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
   
   <title>Configuration - DataTorrent Documentation</title>
   
@@ -22,6 +25,8 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Configuration";
+    var mkdocs_page_input_path = "configuration.md";
+    var mkdocs_page_url = "/configuration/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -478,7 +483,7 @@
                 
                     <li><a class="toctree-l4" href="#custom-log4j-properties-for-application-packages">Custom log4j Properties for Application Packages</a></li>
                 
-                    <li><a class="toctree-l4" href="#dtgatway-logging">dtGatway Logging</a></li>
+                    <li><a class="toctree-l4" href="#dtgateway-logging">dtGateway Logging</a></li>
                 
             
                 <li class="toctree-l3"><a href="#hadoop-tuning">Hadoop Tuning</a></li>
@@ -624,11 +629,11 @@ settings which may change from environment to environment.</p>
 <ul>
 <li><strong>dt.gateway.listenAddress</strong> - The address and port DT Gateway listens to.  Defaults to 0.0.0.0:9090</li>
 <li><strong>dt.gateway.autoPublishInterval</strong> - The interval in milliseconds DT Gateway should publish application information on the websocket channel.  Default is 1000.</li>
-<li><strong>dt.gateway.sslKeystorePath</strong> - Specifying of the SSL Key store path enables HTTPS on the DT Gateway (See the <a href="../dtgateway_security/">dtGatway Security</a> document)</li>
-<li><strong>dt.gateway.sslKeystorePassword</strong> - The password of the SSL key store (See the <a href="../dtgateway_security/">dtGatway Security</a> document)</li>
+<li><strong>dt.gateway.sslKeystorePath</strong> - Specifying of the SSL Key store path enables HTTPS on the DT Gateway (See the <a href="../dtgateway_security/">dtGateway Security</a> document)</li>
+<li><strong>dt.gateway.sslKeystorePassword</strong> - The password of the SSL key store (See the <a href="../dtgateway_security/">dtGateway Security</a> document)</li>
 <li><strong>dt.gateway.allowCrossOrigin</strong> - Setting it to true allows cross origin HTTP access to the DT Gateway.  Default is false.</li>
-<li><strong>dt.gateway.authentication.(OPTION)</strong> - Determines the scheme of Hadoop security authentication (See the <a href="../dtgateway_security/">dtGatway Security</a> document).</li>
-<li><strong>dt.gateway.http.authentication</strong> - Determines the scheme of DT Gateway HTTP security authentication (See the <a href="../dtgateway_security/">dtGatway Security</a> document).</li>
+<li><strong>dt.gateway.authentication.(OPTION)</strong> - Determines the scheme of Hadoop security authentication (See the <a href="../dtgateway_security/">dtGateway Security</a> document).</li>
+<li><strong>dt.gateway.http.authentication</strong> - Determines the scheme of DT Gateway HTTP security authentication (See the <a href="../dtgateway_security/">dtGateway Security</a> document).</li>
 <li><strong>dt.gateway.staticResourceDirectory</strong> - The document root directory where the DT Gateway should serve from for the /static HTTP path.</li>
 </ul>
 <h4 id="application-configuration-properties">Application Configuration Properties</h4>
@@ -1051,7 +1056,7 @@ log4j.appender.RFA.layout=org.apache.log4j.PatternLayout
 </code></pre>
 </li>
 </ol>
-<h2 id="dtgatway-logging">dtGatway Logging</h2>
+<h2 id="dtgateway-logging">dtGateway Logging</h2>
 <p>DT Gateway log level can be changed to DEBUG by settings following
 environment variable before launching DT Gateway (as of version
 2.0).</p>
@@ -1101,7 +1106,7 @@ increased from 2 to 5 or higher.  Here is an example setting:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../dtgateway_security/" class="btn btn-neutral float-right" title="Security"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../dtgateway_security/" class="btn btn-neutral float-right" title="Security">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../installation/" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>

@@ -3,7 +3,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
   
   <title>Troubleshooting - DataTorrent Documentation</title>
   
@@ -22,6 +25,8 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Troubleshooting";
+    var mkdocs_page_input_path = "troubleshooting.md";
+    var mkdocs_page_url = "/troubleshooting/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -514,6 +519,8 @@
                 
                     <li><a class="toctree-l4" href="#what-is-following-button-in-events-pane">What is “following” button in events pane</a></li>
                 
+                    <li><a class="toctree-l4" href="#how-do-i-get-a-heap-dump-when-a-container-gets-an-outofmemoryerror">How do I get a heap dump when a container gets an OutOfMemoryError ?</a></li>
+                
                     <li><a class="toctree-l4" href="#coming-soon">Coming Soon</a></li>
                 
             
@@ -995,6 +1002,60 @@ allows you to search for events by time range.</p>
 <h3 id="what-is-following-button-in-events-pane">What is “following” button in events pane</h3>
 <p>When we enable “following” button the stram events list will
 automatically scroll to bottom when new events come in.</p>
+<h3 id="how-do-i-get-a-heap-dump-when-a-container-gets-an-outofmemoryerror">How do I get a heap dump when a container gets an OutOfMemoryError ?</h3>
+<p>The JVM has a special option for triggering a heap dump when an Out Of Memory error
+occurs, as well an associated option for specifying the name of the file to contain
+the dump namely <code>-XX:+HeapDumpOnOutOfMemoryError</code> and <code>-XX:HeapDumpPath=/tmp/op.heapdump</code>.
+To add them to a specific operator, use this stanza in your configuration file
+with <code>&lt;OPERATOR_NAME&gt;</code> replaced by the actual name of an operator:</p>
+<pre><code>    &lt;property&gt;
+      &lt;name&gt;dt.operator.&lt;OPERATOR_NAME&gt;.attr.JVM_OPTIONS&lt;/name&gt;
+      &lt;value&gt;-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/op.heapdump&lt;/value&gt;
+    &lt;/property&gt;
+</code></pre>
+<p>To add them to all your containers, add this stanza to your configuration file:</p>
+<pre><code>    &lt;property&gt;
+      &lt;name&gt;dt.attr.CONTAINER_JVM_OPTIONS&lt;/name&gt;
+      &lt;value&gt;-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/op.heapdump&lt;/value&gt;
+    &lt;/property&gt;
+</code></pre>
+<p>With these options, when an <strong>OutOfMemoryError</strong> occurs, the JVM writes the heap dump to the
+file <code>/tmp/op.heapdump</code>; you'll then need to retrieve the file from the node on which the
+operator was running.</p>
+<p>You can use the tool <code>jmap</code> (bundled with the JDK) to get a heap dump from a running
+container. Depending on the environment, you might need to run it as root and/or use
+the <code>-F</code> option; here is a sample invocation on the sandbox:</p>
+<pre><code>dtadmin@dtbox:~$ sudo jmap -dump:format=b,file=dump.bin -F 15557
+Attaching to process ID 15557, please wait...
+Debugger attached successfully.
+Server compiler detected.
+JVM version is 24.79-b02
+Dumping heap to dump.bin ...
+Heap dump file created
+</code></pre>
+<p>The heap dump shows the content of the entire heap in binary form and, as such, is
+not human readable and needs special tools such as
+<a href="http://docs.oracle.com/javase/7/docs/technotes/tools/share/jhat.html">jhat</a> or
+<a href="http://www.eclipse.org/mat/downloads.php">MAT</a> to analyze it.</p>
+<p>The former (<code>jhat</code>) is bundled as part of the JDK distribution, so it is very convenient
+to use. When run on a file containing a heap dump, it parses the file and makes the data
+viewable via a browser on port 7000 of the local host. Here is a typical run:</p>
+<pre><code>tmp: jhat op.heapdump 
+Reading from op.heapdump...
+Dump file created Fri Feb 26 14:06:48 PST 2016
+Snapshot read, resolving...
+Resolving 70966 objects...
+Chasing references, expect 14 dots..............
+Eliminating duplicate references..............
+Snapshot resolved.
+Started HTTP server on port 7000
+Server is ready.
+</code></pre>
+<p>It is important to remember that a heap dump is different from a thread dump. The
+latter shows the stack trace of every thread running in the container and is useful
+when threads are deadlocked.
+Additional information on tools related to both types of dumps is available
+<a href="http://www.oracle.com/technetwork/java/javase/matrix6-unix-137789.html">here</a>.</p>
 <h3 id="coming-soon">Coming Soon</h3>
 <ul>
 <li>Connection Refused Exception</li>
@@ -1069,7 +1130,7 @@ automatically scroll to bottom when new events come in.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../release_notes/" class="btn btn-neutral float-right" title="Release Notes"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../release_notes/" class="btn btn-neutral float-right" title="Release Notes">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../dtcli/" class="btn btn-neutral" title="dtCli"><span class="icon icon-circle-arrow-left"></span> Previous</a>

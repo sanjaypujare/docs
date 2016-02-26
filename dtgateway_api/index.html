@@ -3,7 +3,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
   
   <title>REST API - DataTorrent Documentation</title>
   
@@ -22,6 +25,8 @@
   <script>
     // Current page data
     var mkdocs_page_name = "REST API";
+    var mkdocs_page_input_path = "dtgateway_api.md";
+    var mkdocs_page_url = "/dtgateway_api/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -1792,7 +1797,12 @@ restricted to custom properties?</p>
 
 <h3 id="post-wsv2apppackagesmergereplacefailourstheirs">POST /ws/v2/appPackages?merge={replace|fail|ours|theirs}</h3>
 <p>Since: 1.0.4</p>
-<p>Function: Uploads an appPackage file, merge with existing app package if exists. Default is replace.</p>
+<p>Function: Uploads an appPackage file, merge with existing app package if exists. Default is replace.
+merge parameter:
+  replace - replace existing app package with the new app package without merging
+  fail - return error if there is an existing app package already with the same owner and name and version
+  ours - merge, for files existing in both existing and new app packages, use the file in the new package
+  theirs - merge, for files existing in both existing and new app packages, use the file in the existing package</p>
 <p>Payload: the raw zip file</p>
 <p>Return: The information of the app package</p>
 <h3 id="get-wsv2apppackagesownername">GET /ws/v2/appPackages/{owner}/{name}</h3>
@@ -2297,7 +2307,7 @@ Payload:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../autometrics/" class="btn btn-neutral float-right" title="AutoMetric API"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../autometrics/" class="btn btn-neutral float-right" title="AutoMetric API">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../operators/file_output/" class="btn btn-neutral" title="File Output"><span class="icon icon-circle-arrow-left"></span> Previous</a>
