@@ -2063,6 +2063,9 @@ application as the compile time validations.</p>
     = true)</li>
 <li>Output Port Connectivity: Similar. The annotation here is:    
     @OutputPortFieldAnnotation(name = "...", optional = true)</li>
+<li>@Valid: For nested property validation &mdash; a property should have this
+    annotation if its value  is itself an object whose properties
+    need to be validated.</li>
 </ul>
 </li>
 <li>

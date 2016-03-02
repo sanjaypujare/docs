@@ -591,7 +591,7 @@ standard way for assembling and sharing an Apache Apex application.</p>
 <p>You will need have the following installed:</p>
 <ol>
 <li>Apache Maven 3.0 or later (for assembling the App Package)</li>
-<li>Apache Apex 3.0.0 or later (for launching the App Package in your cluster)</li>
+<li>Apache Apex 3.2.0 or later (for launching the App Package in your cluster)</li>
 </ol>
 <h1 id="creating-your-first-apex-app-package">Creating Your First Apex App Package</h1>
 <p>You can create an Apex Application Package using your Linux command
@@ -652,22 +652,25 @@ directory as target/mydtapp-1.0-SNAPSHOT.apa. You will be able to use
 that App Package file to launch this sample application in your actual
 Apex installation.</p>
 <h2 id="using-ide">Using IDE</h2>
-<p>Alternatively, you can do the above steps all within your IDE.  For
-example, in NetBeans, select File -> New Project.  Then choose “Maven”
-and “Project from Archetype” in the dialog box, as shown.</p>
+<p>Alternatively, you can do the above steps all within your IDE.  For example, in IDEA IntelliJ, first make sure you have the "Maven Integration" plugin enabled (Use File -> Settings -&gt; Plugins).  Then select File -> New -> Project.  Choose “Maven”, and check “Create from archetype” in the dialog box, as shown.</p>
 <p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image00.png" /></p>
-<p>Then fill the Group ID, Artifact ID, Version and Repository entries as shown below.</p>
-<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image02.png" /></p>
+<p>Then go ahead and click on the "Add Archetype..." button.</p>
+<p>Then fill out the Group ID, Artifact ID, and Version entries, and leave the Repository entry blank, as shown below.</p>
+<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image01.png" /></p>
 <p>Group ID: org.apache.apex
 Artifact ID: apex-app-archetype
 Version: 3.2.0-incubating (or any later version)</p>
-<p>Press Next and fill out the rest of the required information. For
-example:</p>
-<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image01.png" /></p>
+<p>Click OK. The archetype will appear in the list, selected.  Note that this "Add Archetype..." step is only required the first time you use the archetype.  You can select the archetype directly after it has been added the first time.</p>
+<p>Click Next, and fill out the rest of the required information. For example:</p>
+<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image02.png" /></p>
+<p>Click Next, and verify the information shown on the next screen:</p>
+<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image03.png" /></p>
+<p>Click Next, and fill out the project name and location: </p>
+<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image04.png" /></p>
 <p>Click Finish, and now you have created your own Apache Apex App Package
 project, with a default unit test.  You can run the unit test, make code
 changes or make dependency changes within your IDE.  The procedure for
-other IDEs, like Eclipse or IntelliJ, is similar.</p>
+other IDEs, like Eclipse or NetBeans, is similar.</p>
 <h1 id="writing-your-own-app-package">Writing Your Own App Package</h1>
 <p>Please refer to the <a href="../create/">Creating Apps</a> on the basics on how to write an Apache Apex application.  In your AppPackage project, you can add custom operators (refer to <a href="https://www.datatorrent.com/docs/guides/OperatorDeveloperGuide.html">Operator Development Guide</a>), project dependencies, default and required configuration properties, pre-set configurations and other metadata.</p>
 <h2 id="adding-and-removing-project-dependencies">Adding (and removing) project dependencies</h2>
