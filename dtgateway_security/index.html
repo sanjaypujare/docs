@@ -439,6 +439,9 @@
                     <li><a class="toctree-l4" href="#enabling-jaas-auth">Enabling JAAS Auth</a></li>
                 
             
+                <li class="toctree-l3"><a href="#groups">Groups</a></li>
+                
+            
                 <li class="toctree-l3"><a href="#configuring-authorization">Configuring Authorization</a></li>
                 
                     <li><a class="toctree-l4" href="#permissions">Permissions</a></li>
@@ -457,8 +460,6 @@
                 
             
                 <li class="toctree-l3"><a href="#jaas-roles">JAAS roles </a></li>
-                
-                    <li><a class="toctree-l4" href="#callback-handlers">Callback Handlers</a></li>
                 
                     <li><a class="toctree-l4" href="#ldap_1">LDAP</a></li>
                 
@@ -566,18 +567,15 @@
             <div class="section">
               
                 <h1 id="datatorrent-gateway-security">DataTorrent Gateway Security</h1>
-<p>DataTorrent Gateway supports different authentication mechanisms to
-secure access to the Console. The supported types are local password
-authentication, kerberos authentication and J</p>
+<p>DataTorrent Gateway supports various authentication mechanisms to secure access to the Console. This provides the flexibility to reuse the existing authentication mechanism already being used in the enterprise and extend it to Gateway. It also supports roles, mapping of groups or roles from the external authentication mechanism to roles and supports role based authorization.</p>
 <h1 id="configuring-authentication">Configuring Authentication</h1>
-<p>After DataTorrent RTS installation, you can turn on authentication and
-authorization support to secure the DataTorrent Gateway. Gateway
-supports three types of authentication.</p>
+<p>After installation of DataTorrent RTS, authentication and authorization can be enabled and configured to secure the DataTorrent Gateway. Gateway supports different types of authentication. They are</p>
 <ul>
 <li>Password</li>
 <li>Kerberos</li>
-<li>JAAS</li>
+<li>JAAS for LDAP, Active Directory, PAM etc</li>
 </ul>
+<p>JAAS is a extensible authentication framework that supports different types of authentication mechanisms by plugging in an appropriate module.</p>
 <h2 id="enabling-password-auth">Enabling Password Auth</h2>
 <p>“Password” is the only authentication mechanism presented here that does
 not depend on any external systems.  When enabled, all users will be
@@ -669,14 +667,14 @@ authentication can be set up using the following steps.</p>
     &lt;value&gt;{authentication-token-validity-in-seconds}&lt;/value&gt;
   &lt;/property&gt;
   &lt;property&gt;
-  &lt;name\&gt;dt.gateway.http.authentication.cookie.domain&lt;/name&gt;
-  &lt;value\&gt;{http-cookie-domain-for-authentication-token}&lt;/value&gt;
+    &lt;name&gt;dt.gateway.http.authentication.cookie.domain&lt;/name&gt;
+    &lt;value&gt;{http-cookie-domain-for-authentication-token}&lt;/value&gt;
   &lt;property&gt;
-    &lt;name\&gt;dt.gateway.http.authentication.cookie.path&lt;/name&gt;
+    &lt;name&gt;dt.gateway.http.authentication.cookie.path&lt;/name&gt;
     &lt;value&gt;{http-cookie-path}&lt;/value&gt;
   &lt;/property&gt;
   &lt;property&gt;
-    &lt;name\&gt;dt.gateway.http.authentication.signature.secret&lt;/name&gt;
+    &lt;name&gt;dt.gateway.http.authentication.signature.secret&lt;/name&gt;
     &lt;value&gt;{absolute-path-of-secret-file-for-signing-authentication-tokens} &lt;/value&gt;
   &lt;/property&gt;
 &lt;/configuration&gt;
@@ -693,57 +691,45 @@ appropriate values for your setup.</p>
 </li>
 </ol>
 <h2 id="enabling-jaas-auth">Enabling JAAS Auth</h2>
-<p>JAAS is Java Authentication and Authorization Service. It is a pluggable
-and extensible mechanism for authentication. It is a generic framework
-and the actual authentication is performed by a JAAS plugin module which
-can be configured using a configuration file. Among others LDAP and PAM
-authentication can be performed via JAAS.</p>
-<p>Similar to Kerberos when this authentication is enabled the first
-authenticated user that accesses the system is assigned the admin role
-as there are no other users in the system at this point. Any subsequent
-authenticated user that access the system starts with no roles. The
-admin user can then assign roles to these users. This behavior can be
-changed by configuring an external role mapping. Please refer to the
-<a href="#ExternalRoleMapping">External Role Mapping</a> in the <a href="#ExternalRoles">Authorization using external roles</a> section below for that.</p>
-<p>This authentication can be enabled by performing the following general
-steps. The specific steps for a couple of authentication mechanisms LDAP
-and PAM are shown in the next sections but other authentication
-mechanisms that have a JAAS plugin module can also be used.</p>
+<p>JAAS or Java Authentication and Authorization Service is a pluggable
+and extensible mechanism for authentication. It is an authentication framework
+where the actual authentication is performed by a JAAS login module plugin which can be configured using a configuration file. </p>
+<p>The general configuration steps for enabling any JAAS based authentication mechanism is described below. Subsequent sections will cover the specific configuration details for LDAP, Active Directory and PAM. However JAAS is not limited to just these three mechanisms. Any other JAAS compatible mechanism can be used by specifying the appropriate module in the configuration. Also if there isn't a JAAS module available for an authentication mechanism a new one can be developed using the JAAS API and used here.</p>
+<p>Below are the general steps for configuring a JAAS authentication mechanism</p>
 <ol>
 <li>
-<p>Add a property to <code>dt-site.xml</code> configuration file, typically located
-    under <code>/opt/datatorrent/current/conf</code> ( or
-    <code>~/datatorrent/current/conf</code> for local install).</p>
+<p>Add the following properties to <code>dt-site.xml</code> configuration file, typically located under <code>/opt/datatorrent/current/conf</code> (or <code>~/datatorrent/current/conf</code> for local install).</p>
 <pre><code>&lt;configuration&gt;
-...
+    ...
   &lt;property&gt;
       &lt;name&gt;dt.gateway.http.authentication.type&lt;/name&gt;
       &lt;value&gt;jaas&lt;/value&gt;
   &lt;/property&gt;
-  &lt;property\&gt;
+  &lt;property&gt;
       &lt;name&gt;dt.gateway.http.authentication.jaas.name&lt;/name&gt;
       &lt;value&gt;name-of-jaas-module&lt;/value&gt;
   &lt;/property&gt;
-...
+    ...
 &lt;/configuration&gt;
 </code></pre>
-<p>The <code>dt.gateway.http.authentication.jaas.name</code> property specifies the
-plugin module to use with JAAS and the value should be the name of the
-plugin module.</p>
+<p>The <code>dt.gateway.http.authentication.jaas.name</code> property specifies the login module to use with JAAS and the next step explains the process for configuring it.</p>
 </li>
 <li>
-<p>The name of the plugin module specified above should be configured
+<p>If the login module requires a custom callback handler it needs to be specified. What a callback handler is and how it can be specified is described in the next section <a href="#callback-handlers">Callback Handlers</a>.</p>
+</li>
+<li>
+<p>The name of the login module specified above should be configured
     with the appropriate settings for the plugin. This is module
     specific configuration. This can be done in a file named
     .java.login.config in the home directory of the user Gateway is
     running under. If DataTorrent RTS was installed as a superuser,
     Gateway would typically run as dtadmin and this file path would
     typically be <code>/home/dtadmin/.java.login.config</code>, if running as a
-    normal user it would be <code>~/.java.login.config</code>. The sample
+    regular user it would be <code>~/.java.login.config</code>. The sample
     configurations for LDAP and PAM are shown in the next sections.</p>
 </li>
 <li>
-<p>The classes for the plugin module may need to be made available to
+<p>The classes for the login module may need to be made available to
     Gateway if they are not available in the default classpath. This can
     be done by specifying the jars containing these classes in a
     classpath variable that is used by Gateway.</p>
@@ -754,45 +740,161 @@ plugin module.</p>
     DT_CLASSPATH variable. This needs to be added at the end of the
     file in the section for specifying local overrides to environment
     variables. The line would look like</p>
-<p><code>export DT\_CLASSPATH=\${DT\_CLASSPATH}:path/to/jar1:path/to/jar2:..</code></p>
+<p><code>export DT_CLASSPATH=${DT_CLASSPATH}:path/to/jar1:path/to/jar2:..</code></p>
 </li>
 <li>
 <p>Restart the Gateway by running</p>
 <p><code>sudo service dtgateway restart</code>
-( when running Gateway in local mode use  <code>dtgateway restart</code> command)</p>
+(when running Gateway in local mode use  <code>dtgateway restart</code> command)</p>
 </li>
 </ol>
+<p>Similar to Kerberos when this authentication is enabled the first
+authenticated user that accesses the system is assigned the admin role
+as there are no other users in the system at this point. Any subsequent
+authenticated user that access the system starts with no roles. The
+admin user can then assign roles to these users. This behavior can be
+changed by configuring an external role mapping. Please refer to the
+<a href="#ExternalRoleMapping">External Role Mapping</a> in the <a href="#ExternalRoles">Authorization using external roles</a> section below for that.   </p>
+<h3 id="callback-handlers">Callback Handlers</h3>
+<p>In JAAS authentication, a login module may need a custom callback to be
+handled by the caller. These callbacks are typically used to provide
+authentication credentials to the login module. DataTorrent RTS provides a default callback handler that handles the common callbacks but it may
+not be sufficient for all login modules like in the Active Directory case described below.</p>
+<p>RTS also supports specification of a custom callback handler to handle custom callbacks of a login module. The custom callback handler can be specified using the property <code>dt.gateway.http.authentication.jaas.callback.class.name</code> and when this property is not specified the default callback handler is used. The property can be specified in the <code>dt-site.xml</code> configuration file and as follows</p>
+<pre><code>&lt;configuration&gt;
+    ...
+    &lt;property&gt; 
+            &lt;name&gt;dt.gateway.http.authentication.jaas.callback.class.name&lt;/name&gt;
+        &lt;value&gt;full-class-name-of-callback&lt;/value&gt;
+    &lt;/property&gt;
+    ...
+&lt;/configuration&gt;
+</code></pre>
+
+<p>Custom callback handlers can be implemented by extending the default callback handler so they get the support for the common callbacks or they can be implemented from scratch. The Jetty callback handler described below also extends the default callback handler. The default callback handler implementation is implemented in the <code>com.datatorrent.lib.security.auth.callback.DefaultCallbackHandler</code> class available in <code>com.datatorrent:dt-library</code> artifact.</p>
 <h3 id="ldap"><a name="LDAP"></a>LDAP</h3>
-<p>LDAP authentication is a directory based authentication mechanism used
-in many enterprises. To enable LDAP authentication following are the
-specifics for the configuration steps described above.</p>
+<p>LDAP is a directory based authentication mechanism used in many enterprises. To enable LDAP authentication follow the JAAS configuration steps described above with the following specific details for the individual steps.</p>
 <ul>
 <li>
-<p>For step 1 above specify LDAP as the authentication module to use
-    with JAAS by first specifying the value of the
-    dt.gateway.http.authentication.jaas.name property above to be “ldap”
-    (without the quotes). This name should now be configured with the
-    appropriate settings as described in the next step.</p>
+<p>For step 1 of the JAAS authentication <a href="#enabling-jaas-auth">configuration process</a>, pick a name for the JAAS module for LDAP. You can choose a name like <code>ldap</code> that is appropriate for the current scheme. This can be done by specifying the value of the <code>dt.gateway.http.authentication.jaas.name</code> property to be <code>ldap</code>. This name should now be configured with the appropriate settings as described in the next step.</p>
 </li>
 <li>
-<p>For step 2, the JAAS name specified above should be configured with
-    the appropriate LDAP settings in the .java.login.config file. A
-    sample configuration is shown below</p>
+<p>For step 2, no special callback handler needs to be specified as the default callback handler can handle the callbacks.</p>
+</li>
+<li>
+<p>For step 3, the JAAS name specified above should be configured in the .java.login.config file with the appropriate LDAP settings. There are different JAAS authentication modules available for LDAP. One of them is supplied by default in Java. It is the Sun LdapLoginModule class. A sample configuration when using this module is shown below</p>
 <pre><code>ldap {
   com.sun.security.auth.module.LdapLoginModule required
   userProvider="ldap://ldap-server-hostname"
   authIdentity="uid={USERNAME},ou=users,dc=domain,dc=com";
 };
 </code></pre>
-</li>
-</ul>
 <p>Note that the first string before the open brace, in this case
-“ldap” must match the jaas name specified in step 1. The first property
-within the braces <code>com.sun.security.auth.module.LdapLoginModule</code> specifies
+<code>ldap</code> must match the jaas name specified in step 1. The first property
+<code>com.sun.security.auth.module.LdapLoginModule</code> specifies
 the actual JAAS plugin implementation class providing the LDAP
-authentication. The next settings are LDAP settings specific to your
+authentication. The fields that appear next are LDAP settings specific to your
 organization and could be different from ones shown above. The above
 settings are only provided as a reference example.</p>
+<p>The setting <code>authIdentity</code> is used to derive the identity of the user that will be used for authentication with the server. Here it is specifying the pattern to derive the LDAP distinguished name (dn) for the user that will be used along with the password supplied by the user for authentication with the LDAP server. The <code>{USERNAME}</code> variable in the setting will be replaced by the username specified by the user. </p>
+<p>Refer to the <a href="https://docs.oracle.com/javase/7/docs/jre/api/security/jaas/spec/com/sun/security/auth/module/LdapLoginModule.html">javadoc</a> for all the configuration options available with this module.</p>
+</li>
+<li>
+<p>For step 4, no extra jars are needed as the module is available in Java</p>
+</li>
+<li>
+<p>Restart the gateway as described in step 5</p>
+</li>
+</ul>
+<h4 id="active-directory"><a name="Active Directory"></a>Active Directory</h4>
+<p>Active directory is used when authenting users in Microsoft Windows domains. The authentication protocol includes Microsoft's implementation of Keberos as well as LDAP. In this section we will look into the configuration needed for LDAP authentication with Active Directory.</p>
+<p>Follow the JAAS configuration steps described above with the following specific details.</p>
+<ul>
+<li>
+<p>For step 1 of the JAAS authentication <a href="#enabling-jaas-auth">configuration process</a>, pick a name for the JAAS module. You can choose a name like <code>ad</code> that is appropriate for the current scheme. This can be done by specifying the value of the <code>dt.gateway.http.authentication.jaas.name</code> property to be <code>ad</code>. This name should now be configured with the appropriate settings as described in the next step.</p>
+</li>
+<li>
+<p>For step 2, no special callback handler needs to be specified as the default callback handler can handle the callbacks. </p>
+</li>
+<li>
+<p>For step 3, the JAAS name specified above should be configured with
+   the appropriate Active Directory settings in the .java.login.config file. </p>
+<p>In active directory authentication the user id is typically specified as <code>username@domain</code> and sometimes just <code>username</code>. Once the user is authenticated the user id needs to be mapped to the LDAP node for the user. This is done by specifying a search filter criteria which is then used to search for the user node in the directory tree starting from a specified base.</p>
+<p>Below is an example showing a sample configuration for active directory authentication with the Sun LdapLoginModule</p>
+<pre><code>ad {
+  com.sun.security.auth.module.LdapLoginModule required
+    userProvider="ldap://ad.server.com/cn=users,dc=domain,dc=com"
+    userFilter="samAccountName={USERNAME}"
+    authIdentity="{USERNAME}@my.domain.com";
+};
+</code></pre>
+<p>The setting <code>userFilter</code> specifies the search criteria to look for the user in the Active Directory tree. The <code>{USERNAME}</code> variable in the setting is replaced with the username supplied by the user. The setting <code>authIdentity</code> specifies the pattern to derive the user id with the domain from the specified username.</p>
+<p>The search filter can have more complex logical expressions like the one shown below</p>
+<pre><code>userFilter="(&amp;(|(samAccountName={USERNAME})(userPrincipalName={USERNAME})(cn={USERNAME}))(objectClass=user))"
+</code></pre>
+<p>An Active Directory or a LDAP browser client can be used to browse the Active Directory to determine the correct filter to use find the users.</p>
+</li>
+<li>
+<p>For step 4, no extra jars are needed as the module is available in Java</p>
+</li>
+<li>
+<p>Restart the gateway as described in step 5</p>
+</li>
+</ul>
+<h5 id="jetty-module-binding">Jetty module &amp; binding</h5>
+<p>Sometimes a single <code>authIdentity</code> pattern like the one used above cannot be used to identity the users because of the way they are configured in the Active Directory, for an enterprise. An example is the case where multiple domains are being used and a single domain name cannot be specified in the <code>authIdentity</code>. </p>
+<p>In those cases a fixed identity called the root identity or a system identity is used to connect to the server. Then the user node is searched with the search criteria and supplied username, from the node the user directory name is extracted and it is used along with the supplied password for the authentication.</p>
+<p>A different JAAS login module that supports the system identity is needed as the Sun LdapLoginModule does not support this functionality. Jetty implements one such login module. The steps to configure this module are as follows.</p>
+<ul>
+<li>
+<p>For step 1 of the JAAS authentication <a href="#enabling-jaas-auth">configuration process</a>, the name <code>ad</code> can be used.</p>
+</li>
+<li>
+<p>For step 2, a special callback handler is needed to handle the Jetty module callbacks as they are not the common callbacks. There is an implementation of the callback handler for Jetty that is provided by DataTorrent RTS. It is the <code>com.datatorrent.contrib.security.jetty.JettyJAASCallbackHandler</code> class in the <code>com.datatorrent:dt-contrib</code> artifact.</p>
+<p>As explained in the <a href="#callback-handlers">Callback Handlers</a> section above, the callback handler can be specified in the <code>dt-site.xml</code> config file using a property as shown below</p>
+<pre><code>&lt;configuration&gt;
+    ...
+    &lt;property&gt; 
+        &lt;name&gt;
+            dt.gateway.http.authentication.jaas.callback.class.name
+    &lt;/name&gt;
+        &lt;value&gt;
+            com.datatorrent.contrib.security.jetty.JettyJAASCallbackHandler
+        &lt;/value&gt;
+    &lt;/property&gt;
+    ...  
+&lt;/configuration&gt;
+</code></pre>
+</li>
+<li>
+<p>For step 3, the configuration for the Jetty module is specified in the <code>.java.login.config</code> file. A sample configuration for this module is shown below</p>
+<pre><code>ad {
+    org.eclipse.jetty.plus.jaas.spi.LdapLoginModule required
+    contextFactory="com.sun.jndi.ldap.LdapCtxFactory"
+    hostname="ad.server.com"
+    bindDn="serviceId@my.domain.com"
+    bindPassword="Password1"
+    forceBindingLogin="true"
+    userBaseDn="DC=my,DC=domain,DC=com"
+    userIdAttribute="samAccountName"
+    userObjectClass="person";
+};
+</code></pre>
+<p>The property <code>org.eclipse.jetty.plus.jaas.spi.LdapLoginModule</code> specifies
+the actual JAAS plugin implementation class providing the LDAP authentication. The properties <code>bindDn</code> and <code>bindPassword</code> specify the directory name and password for the system identity respectively. The <code>userIdAttribute</code> and <code>userObjectClass</code> settings are used as search criteria to search for the user directory node under the <code>userBaseDn</code> path in the directory.</p>
+<p>Refer to the <a href="http://archive.eclipse.org/jetty/8.1.10.v20130312/apidocs/org/eclipse/jetty/plus/jaas/spi/LdapLoginModule.html">javadoc</a> for all the configuration options available with this module.</p>
+</li>
+<li>
+<p>The Gateway service in DataTorrent RTS 3.0 is compatible with Jetty 8. The Jetty login module in this version is in the <code>jetty-plus</code> jar. The following version <code>jetty-plus-8.1.10.v20130312.jar</code> is known to work but other compatible versions should work as well. The jar file can be obtained from the Jetty project or from <a href="https://maven-repository.com/artifact/org.eclipse.jetty/jetty-plus/8.1.10.v20130312">maven central</a>. </p>
+<p>Along with the jetty jar the dt-contrib jar containing the callback handler and it's dependencies should also be included. It is available on the DataTorrent maven server <a href="https://www.datatorrent.com/maven/content/repositories/releases/com/datatorrent/dt-contrib/">here</a>.  Pick the version matching the DataTorrent RTS version you are using. The dt-contrib artifact has a dependency to <code>com.datatorrent:dt-library</code> artifact. It is also available on the maven server <a href="https://www.datatorrent.com/maven/content/repositories/releases/com/datatorrent/dt-library/">here</a>.</p>
+<p>The jars can be specified in the gateway script file described in step 4 above as follows</p>
+<pre><code>export DT_CLASSPATH=${DT_CLASSPATH}:path/to/jetty-plus-8.1.10.v20130312.jar:path/to/dt-contrib-&lt;version&gt;.jar:path/to/dt-library-&lt;version&gt;.jar
+</code></pre>
+</li>
+<li>
+<p>Restart the gateway as described in step 5</p>
+</li>
+</ul>
 <h3 id="pam"><a name="PAM"></a>PAM</h3>
 <p>PAM is Pluggable Authentication Module. It is a Linux system equivalent
 of JAAS where applications call the generic PAM interface and the actual
@@ -801,27 +903,23 @@ configuration files. PAM is the login authentication mechanism in Linux
 so it can be used for example to authenticate and use local Linux user
 accounts in Gateway. If organizations have configured other PAM modules
 they can be used in Gateway as well.</p>
-<p>PAM is implemented in C language and has C API. JPam is Java PAM bridge
-that uses JNI to make PAM calls. It is available here
-<a href="http://jpam.sourceforge.net/">http://jpam.sourceforge.net/</a> and has detailed documentation on how to install and set it up. JPam also has a JAAS plugin module and hence can be used in Gateway via JAAS. Note that any other PAM implementation can be used as long as a JAAS plugin module is available.</p>
-<p>To enable JPAM following are the specifics for the configuration steps
-to enable JAAS authentication described above.</p>
+<p>PAM is implemented in C language and has a C API. JPam is a Java PAM bridge
+that uses JNI to interace with PAM. It is available at
+<a href="http://jpam.sourceforge.net/">JPAM website</a> and the wesite also has detailed documentation on how to install and set it up. JPam has a JAAS login module and hence can be used in Gateway via JAAS. Note that any other PAM implementation can be used as long as a JAAS login module is available.</p>
+<p>To enable JPAM follow the JAAS configuration steps described above with the following specific details.</p>
 <ul>
 <li>
-<p>JPAM has to be first installed on the system. Please following the
+<p>JPAM has to be first installed on the system. Please follow the
     installation instructions from the JPAM website.</p>
 </li>
 <li>
-<p>For step 1 above Specify JPAM as the authentication module to use
-    with JAAS by first specifying the value of the
-    dt.gateway.http.authentication.jaas.name property above to be
-    “net-sf-jpam” (without the quotes). This name should now be
-    configured with the appropriate settings as described in the next
-    step.</p>
+<p>For step 1 of the JAAS authentication <a href="#enabling-jaas-auth">configuration process</a>, pick a name for the JPAM authentication module. You can choose a  name like <code>net-sf-jpam</code> which JPAM typically uses as the PAM configuration name. This can be done by specifying the value of the <code>dt.gateway.http.authentication.jaas.name</code> property to be <code>net-sf-jpam</code>. This name should now be configured with the appropriate settings as described in the next step.</p>
 </li>
 <li>
-<p>For step 2 the JAAS name specified above should be configured with
-    the appropriate JPAM settings in the .java.login.config file. A
+<p>For step 2, no special callback handler needs to be specified as the default callback handler can handle the callbacks </p>
+</li>
+<li>
+<p>For step 3, the JAAS name specified above should be configured in the .java.login.config file with the appropriate JPAM settings . A
     sample configuration is shown below</p>
 <pre><code>net-sf-jpam {
    net.sf.jpam.jaas.JpamLoginModule required serviceName="net-sf-jpam";
@@ -829,24 +927,22 @@ to enable JAAS authentication described above.</p>
 </code></pre>
 </li>
 </ul>
-<p>Note that the first string before the open brace, in this case
-“net-sf-jpam” must match the jaas name specified in step 1. The first
+<p>Note that the first string before the open brace, in this case,
+<code>net-sf-jpam</code> must match the jaas name specified in step 1. The first
 property within the braces net.sf.jpam.jaas.JpamLoginModule specifies
 the actual JAAS plugin implementation class providing the JPAM
-authentication. The next settings are JPAM specific settings. The
-serviceName setting for example specifies the PAM service which would
-need to be further configured in /etc/pam.d/net-sf-jpam to specify the
-PAM modules to use. Refer to PAM documentation on how to configure a PAM
-service with PAM modules. If using Linux local accounts system-auth
-could be specified as the PAM module in this file. The above settings
-are only provided as a reference example and a different serviceName for
-example can be chosen.</p>
+authentication. The next settings are JPAM related settings. The setting <code>serviceName</code> specifies the PAM service which would need to be further configured in /etc/pam.d/net-sf-jpam to specify the PAM modules to use. Refer to PAM documentation on how to configure a PAM service with PAM modules. If using Linux local accounts system-auth could be specified as the PAM module in this file. The above settings are only provided as a reference example and a different name can be chosen for <code>serviceName</code>.</p>
 <ul>
-<li>For step 3 add the JPam jar to the DT_CLASSPATH variable. The JPam
+<li>
+<p>For step 4, add the JPam jar to the DT_CLASSPATH variable. The JPam
     jar should be available in the JPam installation package and
     typically has the filename format <code>JPam-&lt;version&gt;.jar</code> where
-   <code>&lt;version&gt;</code> denotes the version, version 1.1 has been tested.<pre><code>export DT\_CLASSPATH=\${DT\_CLASSPATH}:path/to/JPam-\&lt;version\&gt;.jar
+   <code>&lt;version&gt;</code> denotes the version, version 1.1 has been tested.</p>
+<pre><code>export DT_CLASSPATH=${DT_CLASSPATH}:path/to/JPam-&lt;version&gt;.jar
 </code></pre>
+</li>
+<li>
+<p>Restart the gateway as described in step 5 above    </p>
 </li>
 </ul>
 <h3 id="groups">Groups</h3>
@@ -992,69 +1088,25 @@ configuration is necessary.</p>
 <h2 id="jaas-roles">JAAS roles <a name="JAAS"></a></h2>
 <p>To use JAAS roles the system should be configured first to recognize
 these roles. When a user is authenticated with JAAS a list of principals
-is returned for the user by the implementing JAAS authentication module.
-Some of these principals can be for roles and these role principals need
-to be identified from the list. Additional configuration is needed to do
-this and this configuration is specific to the JAAS authentication
-module being used. Specifically the JAVA class name identifying the role
-principal needs to be specified. This can be specified using the
-property <em>“dt.gateway.http.authentication.jaas.role.class.name”</em> in the
-configuration file as shown below</p>
+is returned for the user by the JAAS plugin login module. If the module supports roles then some of these principals are for roles and these role principals need to be identified from the list. Additional configuration is needed to do
+this and it is specific to the login module implementation. Specifically the Java class name identifying the role principal is needed. This can be specified using the <em>dt.gateway.http.authentication.jaas.role.class.name</em> property in the <code>dt-site.xml</code> configuration file as shown below</p>
 <pre><code>&lt;configuration&gt;
-...
-  &lt;property&gt;
-       &lt;name&gt;dt.gateway.http.authentication.jaas.role.class.name&lt;/name&gt;
-          &lt;value&gt;full-class-name-of-role&lt;/value&gt;
- &lt;/property&gt;
-...
+    ...
+    &lt;property&gt;
+        &lt;name&gt;dt.gateway.http.authentication.jaas.role.class.name&lt;/name&gt;
+        &lt;value&gt;full-class-name-of-role&lt;/value&gt;
+    &lt;/property&gt;
+    ...
 &lt;/configuration&gt;
 </code></pre>
 
-<h3 id="callback-handlers">Callback Handlers</h3>
-<p>In JAAS authentication, a login module may need a custom callback to be
-handled by the caller. The callbacks are typically used to provide
-authentication credentials to the login module. DataTorrent RTS supports
-specification of a custom callback handler to handle these callbacks.
-The custom callback handler can be specified using the property
-“dt.gateway.http.authentication.jaas.callback.class.name”. When this
-property is not specified a default callback handler is used but it may
-not be sufficient for all login modules like in the LDAP case described
-below. The property can be specified as follows</p>
-<pre><code>&lt;configuration&gt;
-...
-&lt;property&gt;                                                                            &lt;name&gt;dt.gateway.http.authentication.jaas.callback.class.name&lt;/name&gt;
-&lt;value&gt;full-class-name-of-callback&lt;/value&gt;
-&lt;/property&gt;
-...
-&lt;/configuration&gt;
-</code></pre>
-
-<p>Custom callback handlers can be implemented by extending the default
-callback handler so they can build upon it or they can be built from
-scratch. The LDAP callback handler described below also extends the
-default callback handler. The source for the default callback handler
-can be found here <em>DefaultCallbackHandler</em> can be used as a reference when
-implementing new callback handlers.</p>
 <h3 id="ldap_1">LDAP</h3>
-<p>When using LDAP with JAAS, to use LDAP roles, a  LDAP login module
-supporting roles should be used. Any LDAP module that supports roles can
-be used. Jetty implements one such login module. The steps to configure
-this module are as follows.</p>
-<ol>
+<p>When using LDAP with JAAS, to utilize the LDAP roles, a LDAP login module supporting roles should be used. Any LDAP module that supports roles can be used. Jetty login module has support for roles. Refer to <a href="#jetty-module-binding">Jetty module &amp; binding</a> section above for more details about this module. The configuration steps are as follows.</p>
+<ul>
 <li>
-<p>The Gateway service in DataTorrent RTS 2.0 is compatible with Jetty 8. The class name identifying the 
-    role principal is <code>“org.eclipse.jetty.plus.jaas.JAASRole”</code>. When using the Jetty LDAP
-    login module a custom JAAS callback has to be handled by the caller.
-    This has been implemented by DataTorrent in a callback handler. The
-    class name for the callback handler implementation should be
-    specified as a property. The property name is
-    <code>“dt.gateway.http.authentication.jaas.callback.class.name”</code>. The class
-    name of the callback handler is
-    <code>“com.datatorrent.contrib.security.jetty.JettyJAASCallbackHandler”</code>.
-    This property should be specified along with the class name
-    identifying the role principal for the Jetty login module as
-    described in the section above. The configuration file with all the
-    JAAS properties including these looks as follows</p>
+<p>The Jetty login module returns the roles in role principal classes. The class name identifying the role is <code>org.eclipse.jetty.plus.jaas.JAASRole</code>. This should be specified using the <code>dt.gateway.http.authentication.jaas.role.class.name</code> property in the <code>dt-site.xml</code> configuration file as described in the section above. </p>
+<p>Also as described in the <a href="#jetty-module-binding">Jetty module &amp; binding</a> section a custom callback handler is needed for the Jetty login module.</p>
+<p>A sample configuration file with all the properties is shown below</p>
 <pre><code>&lt;configuration&gt;
 ...
   &lt;property&gt;
@@ -1067,38 +1119,26 @@ this module are as follows.</p>
   &lt;/property&gt;
   &lt;property&gt;  
         &lt;name&gt;dt.gateway.http.authentication.jaas.role.class.name&lt;/name&gt;
-         &lt;value&gt;org.eclipse.jetty.plus.jaas.JAASRole&lt;/value&gt;
+        &lt;value&gt;org.eclipse.jetty.plus.jaas.JAASRole&lt;/value&gt;
   &lt;/property&gt;
   &lt;/property&gt;
-&lt;name&gt;
-    dt.gateway.http.authentication.jaas.callback.class.name &lt;/name&gt;            
-&lt;value&gt;
-    com.datatorrent.contrib.security.jetty.JettyJAASCallbackHandler
-&lt;/value&gt;
+        &lt;name&gt;
+                dt.gateway.http.authentication.jaas.callback.class.name
+        &lt;/name&gt;
+        &lt;value&gt;
+            com.datatorrent.contrib.security.jetty.JettyJAASCallbackHandler
+        &lt;/value&gt;
   &lt;/property&gt;
 ...
 &lt;/configuration&gt;
 </code></pre>
-<p>Note that the JAAS callback handler property can be used to specify a
-custom callback handler. The source for the Jetty custom callback
-handler used above can be found here JettyJAASCallbackHandler</p>
 </li>
 <li>
-<p>An issue was discovered with the Jetty login module supplied with
-    Jetty 8 that prevented LDAP authentication to be successful even
-    when the user credentials were correct. DataTorrent has a fix for
-    this and is providing the login module with the fix in a separate
-    package called dt-auth. The classname for the module is
-    “com.datatorrent.auth.jetty.JettyLdapLoginModule”. The dt-auth
-    project along with the source can be found here <a href="https://github.com/DataTorrent/Auth">Auth</a>. DataTorrent
-    is working on submitting this fix back to Jetty project so that it
-    gets back into the main source.</p>
-<p>The JAAS configuration file as described in
-<a href="#LDAP">LDAP</a> section under <a href="#JAAS">Enabling JAAS Auth</a> should be configured to specify the ldap settings
-for roles. A sample configuration  roles based parameters to the
-configuration shown before</p>
+<p>If the system identity is used then the Jetty login module can be used as is and the jar dependencies in the step below can be specified as described in the <a href="#jetty-module-binding">Jetty module &amp; binding</a> section. </p>
+<p>However, if system identity is not used something different needs to be done. An issue was discovered with the Jetty login module supplied with Jetty 8 that prevented LDAP authentication to be successful even when the user credentials were correct. DataTorrent has a fix for this and is providing the login module with the fix in a separate package called <code>dt-auth</code>. The class name for the module is <code>com.datatorrent.auth.jetty.JettyLdapLoginModule</code>. The <code>dt-auth</code> project along with the source can be found here <a href="https://github.com/DataTorrent/Auth">Auth</a>. DataTorrent is working on submitting this fix back to Jetty project so that it gets back into the main source.</p>
+<p>The JAAS configuration file as described in <a href="#LDAP">LDAP</a> section under <a href="#JAAS">Enabling JAAS Auth</a> should be configured to specify the ldap settings for roles. A sample configuration containing role settings for the <code>dt-auth</code> login module is shown below. </p>
 <pre><code>ldap {
-        com.datatorrent.auth.jetty.JettyLdapLoginModule required
+    com.datatorrent.auth.jetty.JettyLdapLoginModule required
     hostname="ldap-server-hostname" authenticationMethod="simple"
     userBaseDn="ou=users,dc=domain,dc=com" userIdAttribute="uid"
     userRdnAttribute="uid" roleBaseDn="ou=groups,dc=domain,dc=com"
@@ -1106,36 +1146,20 @@ configuration shown before</p>
     contextFactory=”com.sun.jndi.ldap.LdapCtxFactory”;
 };
 </code></pre>
-<p>For more ldap settings refer to the java documentation of the login</p>
+<p>The <code>roleNameAttribute</code> and <code>roleBaseDn</code> settings are used to identify the role and the <code>userRdnAttribute</code> setting is used the identify the users that belong to the role. The values for these settings are dependent on attributes names are being used in your LDAP directory server.</p>
+<p>Similar configuration can be used when the original Jetty login module is being used with the system id, the module class would be Jetty login module class and the binding settings would be specified as described in the <a href="#jetty-module-binding">Jetty module &amp; binding</a> section.</p>
+<p>Refer to the <a href="http://archive.eclipse.org/jetty/8.1.10.v20130312/apidocs/org/eclipse/jetty/plus/jaas/spi/LdapLoginModule.html">javadoc</a> for the role and other configuration options available with this module.</p>
 </li>
 <li>
-<p>After the above configuration changes are made the gateway service
-    needs to be restarted. Before restarting however the different
-    classes specified in the configuration files above namely the
-    DataTorrent Jetty callback handler, the Jetty login module with the
-    DataTorrent fix and the Jetty dependencies containing the role class
-    should all be available for Gateway. This can be done by specifying
-    the jars containing these classes in a classpath variable that is
-    used by Gateway.</p>
-<p>The jars can be obtained from the <a href="https://github.com/DataTorrent/Auth">DataTorrent Auth</a> project.</p>
-<p>Please follow the instructions in the above url to obtain the project
-jar files. After obtaining the jar files perform the following step to
-make them available to Gateway</p>
-<p>Edit the custom-env.sh configuration file, typically located under
-<code>/opt/datatorrent/current/conf</code> ( or <code>~/datatorrent/current/conf</code> for
-local install) and append the list of jars obtained above to the
-<code>DT_CLASSPATH</code> variable. This needs to be added at the end of the
-file in the section for specifying local overrides to environment
-variables. The line would look like</p>
-<p><code>export DT\_CLASSPATH=\${DT\_CLASSPATH}:path/to/jar1:path/to/jar2:..</code></p>
+<p>If the Jetty login module is being used as is then the path specification instructions described in the <a href="#jetty-module-binding">Jetty module &amp; binding</a> section can be used. </p>
+<p>If the login module containing the DataTorrent fix, dt-auth, is being used then it's jar along with the Jetty module dependencies containing the role class, the dt-contrib jar containing the custom callback handler along with its dependencies should all be made available for Gateway. The jars can be obtained from the <a href="https://github.com/DataTorrent/Auth">DataTorrent Auth</a> project.</p>
+<p>Please follow the instructions in the above url to obtain the project jar files. After obtaining the jar files they can be specified in the gateway script file as</p>
+<p><code>export DT_CLASSPATH=${DT_CLASSPATH}:path/to/jar1:path/to/jar2:..</code></p>
 </li>
 <li>
-<p>Restart the Gateway by running</p>
-<pre><code>sudo service dtgateway restart
-</code></pre>
-<p>when running Gateway in local mode use dtgateway restart command.</p>
+<p>Restart the Gateway as described earlier</p>
 </li>
-</ol>
+</ul>
 <h2 id="external-role-mapping">External Role Mapping <a name="ExternalRoleMapping"></a></h2>
 <p>External role mapping is specified to map the external roles to the
 DataTorrent roles. For example users from an LDAP group called admins
@@ -1156,10 +1180,7 @@ staff: developer
 external role staff to the DataTorrent role developer.</p>
 </li>
 <li>
-<p>Restart the Gateway by running</p>
-<pre><code>sudo service dtgateway restart
-</code></pre>
-<p>when running Gateway in local mode use  dtgateway restart command</p>
+<p>Restart the Gateway as described earlier</p>
 </li>
 </ol>
 <h1 id="administering-using-command-line">Administering Using Command Line <a name="AdministeringUsingCommandLine"></a></h1>
