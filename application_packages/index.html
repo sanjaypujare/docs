@@ -763,7 +763,7 @@ as name value pairs, in XML format, like the following.</p>
 <h2 id="application-attributes">Application attributes</h2>
 <p>Application attributes are used to specify the platform behavior for the
 application. They can be specified using the parameter
-<code>dt.attr.&lt;attribute&gt;</code>. The prefix “dt” is a constant, “attr” is a
+<code>dt.attr.&lt;attribute&gt;</code>. The prefix <code>dt</code> is a constant, <code>attr</code> is a
 constant denoting an attribute is being specified and <code>&lt;attribute&gt;</code>
 specifies the name of the attribute. Below is an example snippet setting
 the streaming windows size of the application to be 1000 milliseconds.</p>
@@ -776,20 +776,20 @@ the streaming windows size of the application to be 1000 milliseconds.</p>
 <p>The name tag specifies the attribute and value tag specifies the
 attribute value. The name of the attribute is a JAVA constant name
 identifying the attribute. The constants are defined in
-com.datatorrent.api.Context.DAGContext and the different attributes can
+<code>com.datatorrent.api.Context.DAGContext</code> and the different attributes can
 be specified in the format described above.</p>
 <h2 id="operator-attributes">Operator attributes</h2>
 <p>Operator attributes are used to specify the platform behavior for the
 operator. They can be specified using the parameter
-<code>dt.operator.&lt;operator-name&gt;.attr.&lt;attribute&gt;</code>. The prefix “dt” is a
-constant, “operator” is a constant denoting that an operator is being
-specified, <code>&lt;operator-name&gt;</code> denotes the name of the operator, “attr” is
+<code>dt.operator.&lt;operator-name&gt;.attr.&lt;attribute&gt;</code>. The prefix <code>dt</code> is a
+constant, <code>operator</code> is a constant denoting that an operator is being
+specified, <code>&lt;operator-name&gt;</code> denotes the name of the operator, <code>attr</code> is
 the constant denoting that an attribute is being specified and
 <code>&lt;attribute&gt;</code> is the name of the attribute. The operator name is the
 same name that is specified when the operator is added to the DAG using
 the addOperator method. An example illustrating the specification is
 shown below. It specifies the number of streaming windows for one
-application window of an operator named “input” to be 10</p>
+application window of an operator named <code>input</code> to be 10</p>
 <pre><code>&lt;property&gt;
   &lt;name&gt;dt.operator.input.attr.APPLICATION_WINDOW_COUNT&lt;/name&gt;
   &lt;value&gt;10&lt;/value&gt;
@@ -799,17 +799,17 @@ application window of an operator named “input” to be 10</p>
 <p>The name tag specifies the attribute and value tag specifies the
 attribute value. The name of the attribute is a JAVA constant name
 identifying the attribute. The constants are defined in
-com.datatorrent.api.Context.OperatorContext and the different attributes
+<code>com.datatorrent.api.Context.OperatorContext</code> and the different attributes
 can be specified in the format described above.</p>
 <h2 id="operator-properties">Operator properties</h2>
 <p>Operators can be configured using operator specific properties. The
 properties can be specified using the parameter
 <code>dt.operator.&lt;operator-name&gt;.prop.&lt;property-name&gt;</code>. The difference
 between this and the operator attribute specification described above is
-that the keyword “prop” is used to denote that it is a property and
+that the keyword <code>prop</code> is used to denote that it is a property and
 <code>&lt;property-name&gt;</code> specifies the property name.  An example illustrating
-this is specified below. It specifies the property “hostname” of the
-redis server for a “redis” output operator.</p>
+this is specified below. It specifies the property <code>host</code> of the
+redis server for a <code>redis</code> output operator.</p>
 <pre><code>  &lt;property&gt;
     &lt;name&gt;dt.operator.redis.prop.host&lt;/name&gt;
     &lt;value&gt;127.0.0.1&lt;/value&gt;
@@ -819,21 +819,73 @@ redis server for a “redis” output operator.</p>
 <p>The name tag specifies the property and the value specifies the property
 value. The property name is converted to a setter method which is called
 on the actual operator. The method name is composed by appending the
-word “set” and the property name with the first character of the name
+word <code>set</code> and the property name with the first character of the name
 capitalized. In the above example the setter method would become
-setHost. The method is called using JAVA reflection and the property
-value is passed as an argument. In the above example the method setHost
-will be called on the “redis” operator with “127.0.0.1” as the argument.</p>
+<code>setHost</code>. The method is called using JAVA reflection and the property
+value is passed as an argument. In the above example the method <code>setHost</code>
+will be called on the <code>redis</code> operator with <code>127.0.0.1</code> as the argument.</p>
+<p>A property that is a simple collection like a list or a map can also be initialized
+in this way but it needs a couple of additional steps: (a) The property
+must be initialized with an empty collection of the appropriate type.
+(b) An additional setter method for initializing items of the collection
+must be present. For example, suppose we have properties named <code>list</code>
+and <code>map</code> in an operator named <code>opA</code> initialized with empty collections:</p>
+<pre><code class="java">  private List&lt;String&gt; list = new ArrayList&lt;&gt;();
+  private Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+
+  public List&lt;String&gt; getList() { return list; }
+  public void setList(List&lt;String&gt; v) { list = v; }
+
+  public Map&lt;String, String&gt; getMap() { return map; }
+  public void setMap(Map&lt;String, String&gt; v) { map = v; }
+</code></pre>
+
+<p>You can add items to those empty collections by using fragments like this in
+your properties file provided you also add the setters shown below:</p>
+<pre><code>  &lt;property&gt;
+    &lt;name&gt;dt.operator.opA.mapItem(abc)&lt;/name&gt;
+    &lt;value&gt;123&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;dt.operator.opA.mapItem(pqr)&lt;/name&gt;
+    &lt;value&gt;567&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;dt.operator.opA.listItem[0]&lt;/name&gt;
+    &lt;value&gt;1000&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;dt.operator.opA.listItem[1]&lt;/name&gt;
+    &lt;value&gt;2000&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;dt.operator.opA.listItem[3]&lt;/name&gt;
+    &lt;value&gt;3000&lt;/value&gt;
+  &lt;/property&gt;
+</code></pre>
+
+<p>The required additional setter methods in operator <code>opA</code>:</p>
+<pre><code class="java">  public void setListItem(int index, String value) {
+    final int need = index - list.size() + 1;
+    for (int i = 0; i &lt; need; i++) list.add(null);
+    list.set(index, value);
+  }
+
+  public void setMapItem(String key, String value) {
+    map.put(key, value);
+  }
+</code></pre>
+
 <h2 id="port-attributes">Port attributes</h2>
 <p>Port attributes are used to specify the platform behavior for input and
 output ports. They can be specified using the parameter <code>dt.operator.&lt;operator-name&gt;.inputport.&lt;port-name&gt;.attr.&lt;attribute&gt;</code>
 for input port and <code>dt.operator.&lt;operator-name&gt;.outputport.&lt;port-name&gt;.attr.&lt;attribute&gt;</code>
-for output port. The keyword “inputport” is used to denote an input port
-and “outputport” to denote an output port. The rest of the specification
+for output port. The keyword <code>inputport</code> is used to denote an input port
+and <code>outputport</code> to denote an output port. The rest of the specification
 follows the conventions described in other specifications above. An
 example illustrating this is specified below. It specifies the queue
-capacity for an input port named “input” of an operator named “range” to
-be 4k.</p>
+capacity for an input port named <code>input</code> of an operator named <code>range</code> to
+be 4000.</p>
 <pre><code>&lt;property&gt;
   &lt;name&gt;dt.operator.range.inputport.input.attr.QUEUE_CAPACITY&lt;/name&gt;
   &lt;value&gt;4000&lt;/value&gt;
