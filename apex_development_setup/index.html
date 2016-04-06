@@ -537,7 +537,7 @@
 <p>(Optional) If you prefer to use an IDE (Integrated Development Environment) such as <em>NetBeans</em>, <em>Eclipse</em> or <em>IntelliJ</em>, install that as well.</p>
 </li>
 </ol>
-<p>After installing these tools, make sure that the directories containing the executable files are in your PATH environment; for example, for the JDK executables like <em>java</em> and <em>javac</em>, the directory might be something like <code>C:\\Program Files\\Java\\jdk1.7.0\_80\\bin</code>; for <em>git</em> it might be <code>C:\\Program Files\\Git\\bin</code>; and for maven it might be <code>C:\\Users\\user\\Software\\apache-maven-3.3.3\\bin</code>. Open a console window and enter the command:</p>
+<p>After installing these tools, make sure that the directories containing the executable files are in your PATH environment; for example, for the JDK executables like <em>java</em> and <em>javac</em>, the directory might be something like <code>C:\Program Files\Java\jdk1.7.0\_80\bin</code>; for <em>git</em> it might be <code>C:\Program Files\Git\bin</code>; and for maven it might be <code>C:\Users\user\Software\apache-maven-3.3.3\bin</code>. Open a console window and enter the command:</p>
 <pre><code>echo %PATH%
 </code></pre>
 <p>to see the value of the <code>PATH</code> variable and verify that the above directories are present. If not, you can change its value clicking on the button at <em>Control Panel</em> &#x21e8; <em>Advanced System Settings</em> &#x21e8; <em>Advanced tab</em> &#x21e8; <em>Environment Variables</em>.</p>
@@ -578,6 +578,28 @@
 </tbody>
 </table>
 
+<p>To run the unit tests on Windows, an additional file, <code>winutils.exe</code>, is also
+required; download it from
+<a href="https://github.com/srccodes/hadoop-common-2.2.0-bin/archive/master.zip">https://github.com/srccodes/hadoop-common-2.2.0-bin/archive/master.zip</a>
+and unpack the archive to, say, <code>C:\hadoop</code>; this file should be present under
+<code>hadoop-common-2.2.0-bin-master\bin</code> within it.</p>
+<p>Now, to run unit tests from within your IDE, set the <code>HADOOP_HOME</code> environment
+variable to the path to the root of the unpacked archive; for example, with NetBeans,
+you can add:</p>
+<pre><code>Env.HADOOP_HOME=c:/hadoop/hadoop-common-2.2.0-bin-master
+</code></pre>
+<p>at <em>Properties &#8658; Actions &#8658; Run project &#8658; Set Properties</em></p>
+<p>Similarly, in Eclipse (Mars) add the HADOOP_HOME environment variable to the
+project properties at <em>Properties &#8658; Run/Debug Settings &#8658; ApplicationTest
+&#8658; Environment</em> tab.</p>
+<p>You can also run unit tests from the command line by specifying the maven
+property <code>hadoop.home.dir</code>, for example:</p>
+<pre><code>mvn -Dhadoop.home.dir=c:\hadoop\Software\hadoop-common-2.2.0-bin-master test
+</code></pre>
+<p>or set the environment variable separately:</p>
+<pre><code>set HADOOP_HOME=c:\hadoop\Software\hadoop-common-2.2.0-bin-master
+mvn test
+</code></pre>
 <p>To install the sandbox, first download it from <a href="https://www.datatorrent.com/download">https://www.datatorrent.com/download</a> and import the downloaded file into VirtualBox. Once the import completes, you can select it and click the  Start button to start the sandbox.</p>
 <p>The sandbox is configured with 6GB RAM; if your development machine has 16GB or more, you can increase the sandbox RAM to 8GB or more using the VirtualBox console. This will yield better performance and support larger applications. Additionally, you can change the network adapter from <strong>NAT</strong> to <strong>Bridged Adapter</strong>; this will allow you to login to the sandbox from your host machine using an <em>ssh</em> tool like <strong>PuTTY</strong> and also to transfer files to and from the host using <code>pscp</code> on Windows. Of course all such configuration must be done when when the sandbox is not running.</p>
 <p>You can choose to develop either directly on the sandbox or on your development machine. The advantage of the former is that most of the tools (e.g. <em>jdk</em>, <em>git</em>, <em>maven</em>) are pre-installed and also the package files created by your project are directly available to the Data Torrent tools such as  <strong>dtManage</strong> and <strong>dtcli</strong>. The disadvantage is that the sandbox is a memory-limited environment so running a memory-hungry tool like a Java IDE on it may starve other applications of memory.</p>
