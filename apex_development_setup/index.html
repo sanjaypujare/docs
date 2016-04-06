@@ -233,6 +233,8 @@
                 
                     <li><a class="toctree-l4" href="#installing-the-sandbox">Installing the Sandbox</a></li>
                 
+                    <li><a class="toctree-l4" href="#creating-a-new-project">Creating a new Project</a></li>
+                
                     <li><a class="toctree-l4" href="#running-unit-tests">Running Unit Tests</a></li>
                 
                     <li><a class="toctree-l4" href="#building-the-sources">Building the Sources</a></li>
@@ -588,6 +590,7 @@
 <p>To install the sandbox, first download it from <a href="https://www.datatorrent.com/download">https://www.datatorrent.com/download</a> and import the downloaded file into VirtualBox. Once the import completes, you can select it and click the  Start button to start the sandbox.</p>
 <p>The sandbox is configured with 6GB RAM; if your development machine has 16GB or more, you can increase the sandbox RAM to 8GB or more using the VirtualBox console. This will yield better performance and support larger applications. Additionally, you can change the network adapter from <strong>NAT</strong> to <strong>Bridged Adapter</strong>; this will allow you to login to the sandbox from your host machine using an <em>ssh</em> tool like <strong>PuTTY</strong> and also to transfer files to and from the host using <code>pscp</code> on Windows. Of course all such configuration must be done when when the sandbox is not running.</p>
 <p>You can choose to develop either directly on the sandbox or on your development machine. The advantage of the former is that most of the tools (e.g. <em>jdk</em>, <em>git</em>, <em>maven</em>) are pre-installed and also the package files created by your project are directly available to the Data Torrent tools such as  <strong>dtManage</strong> and <strong>dtcli</strong>. The disadvantage is that the sandbox is a memory-limited environment so running a memory-hungry tool like a Java IDE on it may starve other applications of memory.</p>
+<h2 id="creating-a-new-project">Creating a new Project</h2>
 <p>You can now use the maven archetype to create a basic Apache Apex project as follows: Put these lines in a Windows command file called, for example, <code>newapp.cmd</code> and run it:</p>
 <pre><code>@echo off
 @rem Script for creating a new application
