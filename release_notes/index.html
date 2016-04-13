@@ -453,6 +453,8 @@
             
                 <li class="toctree-l3"><a href="#datatorrent-rts-release-notes">DataTorrent RTS Release Notes</a></li>
                 
+                    <li><a class="toctree-l4" href="#version-330">Version 3.3.0</a></li>
+                
                     <li><a class="toctree-l4" href="#version-320">Version 3.2.0</a></li>
                 
                     <li><a class="toctree-l4" href="#version-311">Version 3.1.1</a></li>
@@ -540,12 +542,248 @@
             <div class="section">
               
                 <h1 id="datatorrent-rts-release-notes">DataTorrent RTS Release Notes</h1>
-<h2 id="version-320">Version 3.2.0</h2>
+<h2 id="version-330">Version 3.3.0</h2>
+<h3 id="summary">Summary</h3>
+<h4 id="dthub">dtHub</h4>
+<p>DataTorrent RTS allows companies to quickly build low latency real time Big Data application that can scale and fault tolerant. With the introduction of dtHub, DataTorrent now host and maintain an application distributor. You can access it through dtManage and easily install or update application without having to upgrade the whole RTS platform. Prior to dtHub, RTS installer packaged both platform and applications. In 3.3, they are decoupled with significantly reduced installer size. You can independently choose when to upgrade the platform and when to install/upgrade applications.</p>
+<h4 id="dtmanage">dtManage</h4>
+<ul>
+<li>Troubleshooting is made easier now that user can view the containers where physical operators have lived</li>
+<li>RTS Community Edition user can now view container logs and set log levels via dtManage. API for runtime DAG and property change are also available</li>
+<li>RTS Enterprise Edition is changed from 30 days to 60 days</li>
+<li>When an application is killed, RTS will delete the app directory according to policy  in dt-site.xml</li>
+</ul>
+<h4 id="dtdasbhoard">dtDasbhoard</h4>
+<ul>
+<li>New widgets for the dashboard: Geo coordinates with circles, Geo regions with gradient fill and single Value </li>
+</ul>
+<h4 id="dtassemble-beta">dtAssemble (beta)</h4>
+<ul>
+<li>Top level “Develop” takes users directly to Application Page</li>
+<li>Navigation changes on how user get to Tuple Schema. User goes to It is now "Edit Application" then "Tuple Schema"</li>
+<li>Development (breadcrumb link)</li>
+</ul>
+<h4 id="documentation">Documentation</h4>
+<ul>
+<li>FileSplitter: http://docs.datatorrent.com/operators/file_splitter/</li>
+<li>Block Reader: http://docs.datatorrent.com/operators/block_reader/</li>
+</ul>
+<h4 id="apache-apex-33">Apache Apex 3.3</h4>
+<ul>
+<li>Support for iterative processing. It is a building block to support machine learning</li>
+<li>Ability to populate DAG at application launch time</li>
+<li>Pre checkpoint operator callback so that it can execute a logic before the operator gets checkpointed (e.g. flush file to HDFS)</li>
+<li>Provide the option for operator to do checkpointing in a distribute in-memory store. It is faster than HDFS due to disk i/o latency</li>
+<li>Add group ID information in an applicatin package.  It is visible for application grouping in dtHub.</li>
+</ul>
+<h4 id="known-issues-in-33">Known Issues in 3.3</h4>
+<ul>
+<li>[SPOI-7696] - Community edition (which gets activated after expired license) does not have newly added community features</li>
+<li>[SPOI-7471] - Temp directories/files not cleaned up in Gateway</li>
+<li>[SPOI-7697] - "Set Logging Levels" option on application details page does not show initial target/loglevel fields</li>
+<li>[SPOI-7668] - If AppDataTracker is disabled, changing the YARN queue does not restart it</li>
+<li>[SPOI-7652] - AppDataTracker does not show up under "Choose apps to visualize" in dashboard settings</li>
+<li>[SPOI-7678] - On configuration complete, summary page should populate RTS version</li>
+<li>[SPOI-7479] - dtHub "check for updates" option says 'no updated versions' and then displays updated packages</li>
+<li>[SPOI-7626] - Stacked Area Chart widget shows NaN values on Firefox</li>
+</ul>
+<h3 id="appendix">Appendix</h3>
+<h4 id="dthub_1">dtHub</h4>
+<ul>
+<li>[SPOI-6787] - dtHub UI - explore, import, download</li>
+<li>[SPOI-7023] - dtHub UI - check for updates</li>
+<li>[SPOI-3643] - Remove import default packages from Application Packages page</li>
+<li>[SPOI-7451] - Add options summary to Application Packages screen</li>
+<li>[SPOI-6968] - Please make API return a new property that indicates whether gateway has internet access or not (for dtHub feature)</li>
+<li>[SPOI-7059] - add "tags" to import list</li>
+</ul>
+<h4 id="dtmanage_1">dtManage</h4>
+<ul>
+<li>[SPOI-3549] - dtManage - Ability to view container history where physical operator has lived</li>
+<li>[SPOI-7382] - UI evaluation license expiration message colour update</li>
+<li>[SPOI-7418] - Visualize AppDataTracker data</li>
+<li>[SPOI-7129] - Add countdown and links to enterprise evaluation in dtManage</li>
+<li>[SPOI-7226] - Remove choice of community edition and enterprise evaluation in install wizard</li>
+</ul>
+<h4 id="dtdashboard">dtDashboard</h4>
+<ul>
+<li>[SPOI-6522] - Geo coordinates with weighted circles widget</li>
+<li>[SPOI-6523] - Geo regions with gradient fill widget</li>
+<li>[SPOI-7247] - Create dimensional single value widget</li>
+<li>[SPOI-7258] - Persist label changes in trend and single value widgets</li>
+<li>[SPOI-6023] - dtDashboard - Widgets that support dimension schema can support multi-value keys </li>
+<li>[SPOI-6021] - Support tag for  snapshot server and dimension store</li>
+<li>[SPOI-6331] - Notify user when widget is unable to automatically load data</li>
+<li>[SPOI-6658] - UI says "no rows testing" when no data available to display in tables</li>
+<li>[SPOI-6887] - Changing choropleth map class does not remove previously selected map</li>
+<li>[SPOI-7246] - Change default widget colors to be websafe</li>
+<li>[SPOI-7257] - add tags-based dimension query settings in trend widget </li>
+</ul>
+<h4 id="dtassemble-beta_1">dtAssemble (beta)</h4>
+<ul>
+<li>[SPOI-7133] - Tuple Schemas change and Develop on top navigation bar change</li>
+</ul>
+<h4 id="megh">Megh</h4>
+<ul>
+<li>[SPOI-7665] - Megh enhancements for TelecomDemo</li>
+<li>[SPOI-7230] - Add group id information to all megh app packages</li>
+<li>[SPOI-7251] - Add directory structure for modules in megh</li>
+<li>[SPOI-7693] - Add Telecom Demo To Megh</li>
+</ul>
+<h4 id="docs">Docs</h4>
+<ul>
+<li>[SPOI-6471] - Documentation: FileSplitter</li>
+<li>[SPOI-6472] - Documentation: BlockReader</li>
+</ul>
+<h4 id="rts-community-edition">RTS Community Edition</h4>
+<ul>
+<li>[SPOI-7670] - Removing dtManage restrictions from community edition</li>
+<li>[SPOI-7682] - Lock down all auth/security features in community edition</li>
+<li>[SPOI-7130] - Community edition to have an upgrade button to Enterprise eval</li>
+<li>[SPOI-7243] - make all locked-feature places(e.g. Visualize link, logs button, new application button) to have the same effect of "upgrade to enterprise                " link in community edition, and to have a key icon instead of being crossing out</li>
+</ul>
+<h4 id="rts-enterprise-edition">RTS Enterprise Edition</h4>
+<ul>
+<li>[SPOI-7127] - Change enterprise evaluation days from 30 days to 60 days</li>
+</ul>
+<h4 id="bug-fixes">Bug Fixes</h4>
+<ul>
+<li>[SPOI-5622] - dtcli: Command 'show-physical-plan' fails with "Failed web service request" error</li>
+<li>[SPOI-6352] - Gateway's RM Proxy REST calls don't work with HA-enabled</li>
+<li>[SPOI-6424] - Gateway cannot determine its own local address to the cluster when RM HA is enabled</li>
+<li>[SPOI-6555] - Add Missing datatorrent.apppackage.classpath property to dt-demos</li>
+<li>[SPOI-6624] - ADT issues impacting dtingest Dashboard</li>
+<li>[SPOI-6674] - AbstractFileOuptutOperator refactoring and fixes</li>
+<li>[SPOI-6834] - fixing scope of jars in Megh</li>
+<li>[SPOI-6837] - Gateway has a lot of blocked threads under heavy load</li>
+<li>[SPOI-6886] - Selected map feature / object should be persisted</li>
+<li>[SPOI-6949] - Collation in BucketManager incurs a performance hit while writing to HDFS and is not an optimization</li>
+<li>[SPOI-6999] - Gateway stops updating application information after problems with YARN or HDFS</li>
+<li>[SPOI-7026] - only lists the ones that have different versions in update section</li>
+<li>[SPOI-7027] - fix a bug that loading is forever when there is no updates in check for updates</li>
+<li>[SPOI-7028] - compare version number and only list packages whose dtHub version is higher than installed version in update section</li>
+<li>[SPOI-7037] - support sorting, filter in string-type columns in import pkgs, update pkgs</li>
+<li>[SPOI-7040] - optimize visual layout of import pkgs page</li>
+<li>[SPOI-7042] - only shows packages that are compatible with the APEX version in check for update list</li>
+<li>[SPOI-7080] - remove bar chart widget that is not in use</li>
+<li>[SPOI-7106] - Update Megh japi version and fix the broken build because of semantic version</li>
+<li>[SPOI-7138] - Dimension unifier return empty results </li>
+<li>[SPOI-7236] - Console build fails due to jsHint issues after updating version</li>
+<li>[SPOI-7293] - Post installation links no longer available on datatorrent.com</li>
+<li>[SPOI-7296] - gateway spills out error trying to write to /var/log/datatorrent/ in local install</li>
+<li>[SPOI-7297] - Local install fails in secure mode</li>
+<li>[SPOI-7309] - HDHT Broken and Hangs After Wall And Purge Changes</li>
+<li>[SPOI-7338] - After changing configuration "dt.appDataTracker.queue" (e.g. to "root.ashwin") and kill system application AppDataTracker, AppDataTracker                 incorrectly starts with the default queue ("root.dtadmin").</li>
+<li>[SPOI-7350] - Installation wizard final step refers to invalid developers URL</li>
+<li>[SPOI-7361] - get-operator-attributes fails on CDH</li>
+<li>[SPOI-7383] - Update invalid links in UI console info section</li>
+<li>[SPOI-7447] - dtHub UI - check for updates - when there is no newer version for any installed package, loading image will be hanging forever</li>
+<li>[SPOI-7460] - On Visualize tab, link for documentation does not work</li>
+<li>[SPOI-7469] - Remove "in HDHT" from System Configuration page</li>
+<li>[SPOI-7471] - Temp directories/files not cleaned up in Gateway</li>
+<li>[SPOI-7474] - "Disable App Data Tracker" option does not work</li>
+<li>[SPOI-7481] - Launch macros for demo apps should be removed in dtcli</li>
+<li>[SPOI-7482] - Cloning/deleting application under Application package does not refresh the list</li>
+<li>[SPOI-7498] - Verify dtingest download link change on datatorrent website</li>
+<li>[SPOI-7502] - Lock mishandling in App Package local cache code</li>
+<li>[SPOI-7503] - Changing "dt.appDataTracker.enable=true/false" using REST API calls doesn't take effect unless gateway restarts</li>
+<li>[SPOI-7510] - Application launch notifications no longer show up</li>
+<li>[SPOI-7523] - Kill only AppDataTracker whose user is the current login user when App Data Tracker queue is changed.</li>
+<li>[SPOI-7542] - Unable to import app package from dtHub</li>
+<li>[SPOI-7574] - dtcli command 'dump-properties-file' does not work when connected to an app</li>
+<li>[SPOI-7577] - For 3.3.0 release, RTS version is shown as 3.3.1 in System Configuration</li>
+<li>[SPOI-7604] - HDHT bucket meta class is obfuscated incorrectly</li>
+<li>[SPOI-7615] - dtHub intermittently throws error as "Failed to import" while importing multiple pkgs at the same time </li>
+<li>[SPOI-7619] - specify bower link malhar-angular-dashboard to version 1.0.1</li>
+<li>[SPOI-7644] - Need to update installer script</li>
+<li>[SPOI-7679] - Unable to access newly added features for Community edition.</li>
+</ul>
+<h3 id="apache-apex-33-change-logs">Apache Apex 3.3 Change Logs</h3>
+<p>https://github.com/apache/incubator-apex-core/blob/v3.3.0-incubating/CHANGELOG.md</p>
+<ul>
+<li>[SPOI-7061] - Implement retention policy for terminated apps</li>
+<li>[SPOI-7492] - DT_GATEWAY_CLIENT_OPTS overrides all JVM options and there is no way to supply additional options to the default options</li>
+<li>[SPOI-5735] - Create local file cache for app package</li>
+<li>[SPOI-6981] - Move orderedOutput feature to AbstractDeduper. Rename AbstractDeduperOptimized to AbstractBloomFilterDeduper</li>
+<li>[SPOI-7448] - Work around the attribute bug detailed in APEXCORE-349 so that ADT still works</li>
+<li>[SPOI-7470] - Work around namenode NPE bug in hadoop 2.7.x to avoid throwing NPE to the user. https://issues.apache.org/jira/browse/APEXCORE-45 and https://issues.apache.org/jira/browse/HDFS-9851</li>
+<li>[SPOI-6381] - Support Dynamically Updating Enum Values For Keys In The Dimensions Store</li>
+<li>[SPOI-6545] - Allow Gateway to directly contact dtHub to install app packages</li>
+</ul>
 <h3 id="new-feature">New Feature</h3>
+<ul>
+<li>[APEXCORE-3] - Ability for an operator to populate DAG at launch time</li>
+<li>[APEXCORE-60] - Iterative processing support</li>
+<li>[APEXCORE-78] - Pre-Checkpoint Operator Callback</li>
+<li>[APEXCORE-276] - Make App Data Push transport pluggable and configurable</li>
+<li>[APEXCORE-283] - Operator checkpointing in distributed in-memory store</li>
+<li>[APEXCORE-288] - Add group id information to apex app package</li>
+</ul>
+<h3 id="improvement">Improvement</h3>
+<ul>
+<li>[APEXCORE-40] - Semver dependencies should be in Maven Central</li>
+<li>[APEXCORE-162] - Enhance StramTestSupport.TestMeta API</li>
+<li>[APEXCORE-181] - Expose methods in StramWSFilterInitializer to get the RM webapp address</li>
+<li>[APEXCORE-188] - Make type graph lazy load</li>
+<li>[APEXCORE-199] - CLI should check for version compatibility when launching app package</li>
+<li>[APEXCORE-228] - Add maven 3.0.5 as prerequisites to the Apex parent pom</li>
+<li>[APEXCORE-229] - Upgrade checkstyle maven plugin (2.17) and checkstyle dependency (6.11.2)</li>
+<li>[APEXCORE-291] - Provide a way for an operator to specify its metric aggregator instance</li>
+<li>[APEXCORE-305] - Enable checkstyle violations logging to console during maven build</li>
+</ul>
+<h3 id="bug">Bug</h3>
+<ul>
+<li>[APEXCORE-58] - endWindow is being called even when the operator is being undeployed</li>
+<li>[APEXCORE-83] - beginWindow not called on recovery</li>
+<li>[APEXCORE-193] - apex-app-archetype has extraneous entry that generates a warning when running it</li>
+<li>[APEXCORE-204] - Update checkstyle and codestyle to be the same</li>
+<li>[APEXCORE-211] - Brace placement after static blocks in checkstyle configuration</li>
+<li>[APEXCORE-263] - Checkpoint can be performed twice for same window</li>
+<li>[APEXCORE-274] - removeTerminatedPartition fails for Unifier operator</li>
+<li>[APEXCORE-275] - Two threads can try to reconnect to websocket server upon disconnection</li>
+<li>[APEXCORE-278] - GenericNodeTest clutters test logs with unnecessary statement</li>
+<li>[APEXCORE-296] - Memory leak in operator stats processing</li>
+<li>[APEXCORE-300] - Fix checkstyle regular expression</li>
+<li>[APEXCORE-303] - Launch properties not evaluated</li>
+</ul>
+<h3 id="task">Task</h3>
+<ul>
+<li>[APEXCORE-24] - Takes out usage of Rhino as it is GPL 2.0</li>
+<li>[APEXCORE-186] - Enable license check in Travis CI</li>
+<li>[APEXCORE-253] - Apex archetype includes dependencies which do not belong to org.apache.apex</li>
+<li>[APEXCORE-298] - Reduce the severity of  line length check</li>
+<li>[APEXCORE-301] - Add "io" as a separate import to checkstyle rules</li>
+<li>[APEXCORE-302] - Update NOTICE copyright year</li>
+<li>[APEXCORE-308] - Implement findbugs plugin reporting</li>
+<li>[APEXCORE-317] - Run performance benchmark for the Apex Core 3.3.0 release</li>
+</ul>
+<h3 id="sub-task">Sub-task</h3>
+<ul>
+<li>[APEXCORE-104] - Expand Module DAG</li>
+<li>[APEXCORE-105] - Support injecting properties through xml file on modules.</li>
+<li>[APEXCORE-144] - Provide REST api for listing information about module.</li>
+<li>[APEXCORE-151] - Provide code style templates for major IDEs (Eclipse, IntelliJ and NetBeans)</li>
+<li>[APEXCORE-182] - Add Apache copyright to IntelliJ</li>
+<li>[APEXCORE-194] - Add support for ProxyPorts in Modules</li>
+<li>[APEXCORE-226] - Strictly enforce wrapping indentation in checkstyle</li>
+<li>[APEXCORE-227] - Enforce left brace placement for anonymous class on the next line</li>
+<li>[APEXCORE-230] - Limit line lengths to be 120</li>
+<li>[APEXCORE-239] - Upgrade checkstyle to 6.12 from 6.11.2</li>
+<li>[APEXCORE-248] - Increase wrapping indentation from 2 to 4.</li>
+<li>[APEXCORE-249] - Enforce class, method, constructor annotations on a separate line</li>
+<li>[APEXCORE-250] - Exclude DtCli from System.out checks</li>
+<li>[APEXCORE-267] - Fix existing checkstyle violations in api</li>
+<li>[APEXCORE-270] - Enforce checkstyle validations on test classes</li>
+<li>[APEXCORE-272] - Attributes added to operator inside Module is not preserved.</li>
+<li>[APEXCORE-273] - Fix existing checkstyle violations in bufferserver module</li>
+<li>[APEXCORE-306] - Recovery checkpoint handing in iteration loops</li>
+</ul>
+<h2 id="version-320">Version 3.2.0</h2>
+<h3 id="new-feature_1">New Feature</h3>
 <ul>
 <li>[SPOI-6351] - Add feature to REST API to get queue information from cluster</li>
 </ul>
-<h3 id="improvement">Improvement</h3>
+<h3 id="improvement_1">Improvement</h3>
 <ul>
 <li>[SPOI-5777] - Kafka start offset should have user option to read from latest or earliest</li>
 <li>[SPOI-5828] - Stackstraces should not be shown on errors</li>
@@ -554,7 +792,7 @@
 <li>[DTIN-69] - Move Query Operators implementation to newer one</li>
 <li>[DTIN-50] - [dtIngest] add parameter "parallel readers"</li>
 </ul>
-<h3 id="bug">Bug</h3>
+<h3 id="bug_1">Bug</h3>
 <ul>
 <li>[SPOI-5104] - Ingestion: Failed to copy data when inputs include a directory and a subdirectory</li>
 <li>[SPOI-5216] - FileSplitter fails with ConcurrentModificationException</li>
@@ -600,7 +838,7 @@
 <li>[DTIN-176] - Parallel read is not working in case of FTP and S3 as input</li>
 <li>[DTIN-186] - FileMerger failed with unable to merge file exception</li>
 </ul>
-<h3 id="task">Task</h3>
+<h3 id="task_1">Task</h3>
 <ul>
 <li>[SPOI-5173] - DAG validation: Attribute values Serializable</li>
 <li>[SPOI-5403] - Ingestion Splunk integration</li>
@@ -615,7 +853,7 @@
 <li>[DTIN-54] - Disabling the splunk from dtIngest script</li>
 <li>[DTIN-71] - Integrate release 1.0.1 branch with integration-1.1.0</li>
 </ul>
-<h3 id="sub-task">Sub-task</h3>
+<h3 id="sub-task_1">Sub-task</h3>
 <ul>
 <li>[SPOI-5369] - Integrate schema support in Cassandra Input/Output</li>
 <li>[SPOI-5437] - Create Jdbc Pojo input operator and integrate schema support in Jdbc POJO input/output</li>
@@ -626,11 +864,11 @@
 <li>[SPOI-6441] - Change console home page to be welcome screen instead of operations summary</li>
 </ul>
 <h2 id="version-311">Version 3.1.1</h2>
-<h3 id="improvement_1">Improvement</h3>
+<h3 id="improvement_2">Improvement</h3>
 <ul>
 <li>[SPOI-5828] - Stackstraces should not be shown on errors</li>
 </ul>
-<h3 id="bug_1">Bug</h3>
+<h3 id="bug_2">Bug</h3>
 <ul>
 <li>[SPOI-5786] - AppDataTracker Custom Metric Store Deadlock</li>
 <li>[SPOI-6032] - App Builder should not show property from super class</li>
@@ -647,23 +885,23 @@
 <li>[SPOI-6313] - Work Around APEX-129</li>
 <li>[SPOI-6333] - RandomNumberGenerator in apex-app-archetype does not use numTuples property</li>
 </ul>
-<h3 id="task_1">Task</h3>
+<h3 id="task_2">Task</h3>
 <ul>
 <li>[SPOI-5755] - Gateway should show "HDFS is not up yet"</li>
 <li>[SPOI-6148] - Update website with release 3.1</li>
 <li>[SPOI-6241] - Change in enterprise license</li>
 </ul>
 <h2 id="version-310">Version 3.1.0</h2>
-<h3 id="new-feature_1">New Feature</h3>
+<h3 id="new-feature_2">New Feature</h3>
 <ul>
 <li>[SPOI-4670] - Enable message schema management in App Builder</li>
 <li>[SPOI-5844] - Retrieve older versions of schemas</li>
 </ul>
-<h3 id="improvement_2">Improvement</h3>
+<h3 id="improvement_3">Improvement</h3>
 <ul>
 <li>[SPOI-5611] - Simplify PubSub operators to supply Gateway connect address URI by default</li>
 </ul>
-<h3 id="bug_2">Bug</h3>
+<h3 id="bug_3">Bug</h3>
 <ul>
 <li>[SPOI-4380] - MxN unifier not removed when partition is removed from physical plan.</li>
 <li>[SPOI-5338] - Cleanup OperatorDiscoverer class to remove reflection and use ASM</li>
@@ -678,7 +916,7 @@
 <li>[SPOI-5946] - Port compatibility when port require schemas</li>
 <li>[SPOI-6002] - AppBuilder fails to load operator due to NullPointerException</li>
 </ul>
-<h3 id="task_2">Task</h3>
+<h3 id="task_3">Task</h3>
 <ul>
 <li>[SPOI-5307] - Mocha based tests for Gateway API calls</li>
 <li>[SPOI-5749] - Certify MapR sandbox</li>
@@ -693,7 +931,7 @@
 <li>[SPOI-5803] - Support of custom aggregation for ADT</li>
 <li>[SPOI-5893] - Changes for retrieving container and operator history information</li>
 </ul>
-<h3 id="sub-task_1">Sub-task</h3>
+<h3 id="sub-task_2">Sub-task</h3>
 <ul>
 <li>[SPOI-4946] - Handle new @useSchema and @description property metadata in UI</li>
 <li>[SPOI-4980] - Schema Management in the UI</li>
@@ -703,7 +941,7 @@
 <li>[SPOI-5747] - Automatically generate new eval license when sandbox starts up</li>
 </ul>
 <h2 id="version-300">Version 3.0.0</h2>
-<h3 id="sub-task_2">Sub-task</h3>
+<h3 id="sub-task_3">Sub-task</h3>
 <ul>
 <li>[SPOI-1901] - Dynamic property changes lost on AM restart </li>
 <li>[SPOI-4820] - Add an api call to retrieve all the application, operator and port attributes available for the app-package</li>
@@ -719,7 +957,7 @@
 <li>[SPOI-5361] - Button for dt.phoneHome.enable property on system config page</li>
 <li>[SPOI-5527] - Implement Queue Option</li>
 </ul>
-<h3 id="bug_3">Bug</h3>
+<h3 id="bug_4">Bug</h3>
 <ul>
 <li>[SPOI-4321] - Datatorrent Core Trigger Jenkings Job hangs</li>
 <li>[SPOI-4633] - Resolve type variable across the type hierarchy </li>
@@ -792,7 +1030,7 @@
 <li>[SPOI-5708] - Update netlet dependency to release for 3.0</li>
 <li>[SPOI-5712] - Unable to launch dtingest app using dtingest command line utility but able to launch via UI</li>
 </ul>
-<h3 id="improvement_3">Improvement</h3>
+<h3 id="improvement_4">Improvement</h3>
 <ul>
 <li>[SPOI-4513] - Expose app data tracker stats as "pseudo-datasource" for each application</li>
 <li>[SPOI-4889] - Make BucketIdTagger fault tolerant</li>
@@ -807,7 +1045,7 @@
 <li>[SPOI-5657] - Redirect to welcome screen of the Learn section after install</li>
 <li>[SPOI-5694] - Ingestion default app-config should populate meaningful defaults</li>
 </ul>
-<h3 id="new-feature_2">New Feature</h3>
+<h3 id="new-feature_3">New Feature</h3>
 <ul>
 <li>[SPOI-4672] - Support for secure HA environments</li>
 <li>[SPOI-5288] - Add "launch" button to each item in the list of app packages</li>
@@ -815,7 +1053,7 @@
 <li>[SPOI-5313] - Obfuscate ADT in the distribution build</li>
 <li>[SPOI-5561] - Markdown documentation support in the Console</li>
 </ul>
-<h3 id="task_3">Task</h3>
+<h3 id="task_4">Task</h3>
 <ul>
 <li>[SPOI-4228] - The location of App Data Tracker from installation and from devel mode</li>
 <li>[SPOI-4658] - App Data Tracker Technical Doc</li>
@@ -841,7 +1079,7 @@
 <li>[SPOI-5645] - support "short" primitive type in app builder</li>
 <li>[SPOI-5658] - Dummy ticket for Apex-17 - Change CustomMetric annotation to AutoMetric and enhancements</li>
 </ul>
-<h3 id="bug_4">Bug</h3>
+<h3 id="bug_5">Bug</h3>
 <ul>
 <li>[MLHR-1726] - Bug in PojoUtils</li>
 <li>[MLHR-1742] - Create a wrapper method in POJOUtils that returns the appropriate getter for primitives</li>
@@ -849,13 +1087,13 @@
 <li>[MLHR-1756] - Exclude hadoop-common and other hadoop libraries from application</li>
 <li>[MLHR-1789] - Complete Category and property name fixes</li>
 </ul>
-<h3 id="improvement_4">Improvement</h3>
+<h3 id="improvement_5">Improvement</h3>
 <ul>
 <li>[MLHR-1725] - Add Support for Setters to PojoUtils</li>
 <li>[MLHR-1757] - change scope of dt-engine in maven build</li>
 </ul>
 <h2 id="version-210">Version 2.1.0</h2>
-<h3 id="bug_5">Bug</h3>
+<h3 id="bug_6">Bug</h3>
 <ul>
 <li>[SPOI-3732] - Get User Info APIs creates users</li>
 <li>[SPOI-3816] - Ingestion UI: Node server should store pipelines on hdfs rather than local filesystem</li>
@@ -882,7 +1120,7 @@
 <li>[SPOI-4691] - DT console shows negative memory size for killed application</li>
 <li>[SPOI-4702] - IndexOutOfBoundsException in Stram due to counters in AbstractBlockReader</li>
 </ul>
-<h3 id="improvement_5">Improvement</h3>
+<h3 id="improvement_6">Improvement</h3>
 <ul>
 <li>[SPOI-3592] - Clean up appInstance widget definitions</li>
 <li>[SPOI-3783] - Remove gateway port automatic re-selection on startup feature</li>
@@ -899,7 +1137,7 @@
 <li>[SPOI-4728] - Support -originalAppId when launching apps through the DT Gateway API</li>
 <li>[SPOI-4751] - Upgrade sniffer maven plugin to the latest version</li>
 </ul>
-<h3 id="new-feature_3">New Feature</h3>
+<h3 id="new-feature_4">New Feature</h3>
 <ul>
 <li>[SPOI-3028] - [HDHT] Hive Interoperability</li>
 <li>[SPOI-3029] - [HDHT] Export to ORC Format</li>
@@ -908,7 +1146,7 @@
 <li>[SPOI-4636] - Added $? feature in dtcli and use it in CLIProxy</li>
 <li>[SPOI-4718] - CLI commands to support variable arguments</li>
 </ul>
-<h3 id="task_4">Task</h3>
+<h3 id="task_5">Task</h3>
 <ul>
 <li>[SPOI-3242] - Rethrow the exceptions being caught in catch block of operators.</li>
 <li>[SPOI-3502] - Create the landing page for the UI of ingestion application</li>
@@ -930,7 +1168,7 @@
 <li>[SPOI-3767] - Auto scaling of BlockReader using partitioning</li>
 <li>[SPOI-4748] - Add data query to custom metrics store</li>
 </ul>
-<h3 id="bug_6">Bug</h3>
+<h3 id="bug_7">Bug</h3>
 <ul>
 <li>[MLHR-1614] - AbstractFSWriter in append mode is not fault-tolerant</li>
 <li>[MLHR-1620] - Remove close file from AbstractFSWriter</li>
@@ -945,7 +1183,7 @@
 <li>[MLHR-1712] - The directory under which the idempotent state is stored should be relative to the app directory so that the state is copied on relaunch</li>
 <li>[MLHR-1723] - FTPStringInputOperatorTest fails on Windows OS</li>
 </ul>
-<h3 id="improvement_6">Improvement</h3>
+<h3 id="improvement_7">Improvement</h3>
 <ul>
 <li>[MLHR-1547] - Integration of Idempotent storage manager to Directory scanner</li>
 <li>[MLHR-1621] - Parititon Couchbase Output Operator</li>
@@ -956,14 +1194,14 @@
 <li>[MLHR-1684] - Improve file splitter not to emit all files  in one shot and hold scanned file names in memory</li>
 <li>[MLHR-1694] - BasicCounters improvements</li>
 </ul>
-<h3 id="new-feature_4">New Feature</h3>
+<h3 id="new-feature_5">New Feature</h3>
 <ul>
 <li>[MLHR-1355] - Supports secure hadoop cluster in the installer</li>
 <li>[MLHR-1497] - Operators for ElasticSearch</li>
 <li>[MLHR-1578] - UI Auth: UI to show different tabs and/or buttons for different user permissions</li>
 </ul>
 <h2 id="version-201">Version 2.0.1</h2>
-<h3 id="bug_7">Bug</h3>
+<h3 id="bug_8">Bug</h3>
 <ul>
 <li>[SPOI-4379] - Operator removed from physical plan due to invalid SHUTDOWN status</li>
 <li>[SPOI-4381] - Queue size missing on physical operator page </li>
@@ -971,13 +1209,13 @@
 <li>[SPOI-4384] - Recovery fails due to corrupted checkpoints.</li>
 <li>[SPOI-4437] - DTCli not recognizing $HOME variable set</li>
 </ul>
-<h3 id="improvement_7">Improvement</h3>
+<h3 id="improvement_8">Improvement</h3>
 <ul>
 <li>[SPOI-4728] - Support -originalAppId when launching apps through the DT Gateway API</li>
 <li>[SPOI-4390] - Replace 'start time' on console to 'Up time'</li>
 </ul>
 <h2 id="version-200">Version 2.0.0</h2>
-<h3 id="bug_8">Bug</h3>
+<h3 id="bug_9">Bug</h3>
 <ul>
 <li>[SPOI-4046] - Gateway /containers?states={state} call returns erroneous state information</li>
 <li>[SPOI-4057] - License can not be upgraded to Evaluation / Production License</li>
@@ -1048,7 +1286,7 @@
 <li>[SPOI-3734] - Remove macro from cli  for application or add relevant application</li>
 <li>[SPOI-3754] - Gateway can only restore roles once</li>
 </ul>
-<h3 id="improvement_8">Improvement</h3>
+<h3 id="improvement_9">Improvement</h3>
 <ul>
 <li>[SPOI-2036] - Ensure that definePartitions and partitioned are called for parallel partitioned operators</li>
 <li>[SPOI-2955] - Provide tool-tip capability to RTS UI</li>
@@ -1072,14 +1310,14 @@
 <li>[SPOI-3698] - Support URI codec out the box so that UI can set URI operator properties</li>
 <li>[SPOI-4066] - Portable environment settings across releases</li>
 </ul>
-<h3 id="new-feature_5">New Feature</h3>
+<h3 id="new-feature_6">New Feature</h3>
 <ul>
 <li>[SPOI-3393] - Track recordings by a generated ID rather than startTime</li>
 <li>[SPOI-3422] - Restore default roles with backend</li>
 <li>[SPOI-3683] - Add download button to app package</li>
 <li>[SPOI-3753] - "Reset to Defaults" for user roles</li>
 </ul>
-<h3 id="task_5">Task</h3>
+<h3 id="task_6">Task</h3>
 <ul>
 <li>[SPOI-3927] - Support per application configuration defaults and required properties</li>
 <li>[SPOI-2809] - Implement password authentication as a hadoop authentication type</li>
@@ -1138,7 +1376,7 @@
 <li>[SPOI-3706] - Convert Malhar benchmark module to app package</li>
 <li>[SPOI-3730] - Getting Started Guide updates</li>
 </ul>
-<h3 id="bug_9">Bug</h3>
+<h3 id="bug_10">Bug</h3>
 <ul>
 <li>[MLHR-1237] - Scrolling log viewer with mouse does not trigger getting more log content</li>
 <li>[MLHR-1242] - "last heartbeat" in killed container list shows date in 1969</li>
@@ -1163,7 +1401,7 @@
 <li>[MLHR-1627] - Make twitter credentials into requiredProperties in app package</li>
 <li>[MLHR-1631] - NullPointerException in launching HDFSBenchmarking App:TupleSize property missing in appResponse</li>
 </ul>
-<h3 id="improvement_9">Improvement</h3>
+<h3 id="improvement_10">Improvement</h3>
 <ul>
 <li>[MLHR-1190] - Infinite scroll mechanism in stram events widget</li>
 <li>[MLHR-1234] - Add version information to system diagnostics screen</li>
@@ -1173,7 +1411,7 @@
 <li>[MLHR-1597] - Fix FTP Input operator</li>
 <li>[MLHR-1602] - Partitioning of couchbase input operator</li>
 </ul>
-<h3 id="new-feature_6">New Feature</h3>
+<h3 id="new-feature_7">New Feature</h3>
 <ul>
 <li>[MLHR-1228] - create profile storage object</li>
 <li>[MLHR-1261] - AngularJS Migration - Tuple Viewer</li>
@@ -1184,7 +1422,7 @@
 <ul>
 <li>[MLHR-975] - Migration from Backbone to Angular</li>
 </ul>
-<h3 id="task_6">Task</h3>
+<h3 id="task_7">Task</h3>
 <ul>
 <li>[MLHR-1292] - Recording View</li>
 <li>[MLHR-1331] - Update the tuple recording topic</li>
@@ -1196,7 +1434,7 @@
 <li>[MLHR-1623] - Create synchronizer for asynchronously processing streaming data for committed windows</li>
 <li>[MLHR-1626] - Write unit tests for AbstractSynchronizer</li>
 </ul>
-<h3 id="bug_10">Bug</h3>
+<h3 id="bug_11">Bug</h3>
 <ul>
 <li>[SPOI-2946] - Provide a tool that generates a license report based on license audit logs</li>
 <li>[SPOI-2974] - Better error handling when license is expired</li>
@@ -1224,7 +1462,7 @@
 <li>[SPOI-3338] - Application level operator properties do not override "global" operator properties</li>
 <li>[SPOI-3343] - Gateway was stuck</li>
 </ul>
-<h3 id="improvement_10">Improvement</h3>
+<h3 id="improvement_11">Improvement</h3>
 <ul>
 <li>[SPOI-2918] - Document Counters</li>
 <li>[SPOI-3188] - Ability to interpret an input operator as a regular operator </li>
@@ -1234,13 +1472,13 @@
 <li>[SPOI-3321] - Improve data variation between categories, regions, and discounts</li>
 <li>[SPOI-3329] - Implement simple variable substitution in properties files</li>
 </ul>
-<h3 id="new-feature_7">New Feature</h3>
+<h3 id="new-feature_8">New Feature</h3>
 <ul>
 <li>[SPOI-2014] - Support for doc link for an operator </li>
 <li>[SPOI-2931] - Make sure app packages work in sandbox</li>
 <li>[SPOI-2989] - HDHT - Recovery</li>
 </ul>
-<h3 id="task_7">Task</h3>
+<h3 id="task_8">Task</h3>
 <ul>
 <li>[SPOI-2663] - Certify datatorrent on a CDH5 secure cluster</li>
 <li>[SPOI-2702] - HDS - Generic time series query</li>
@@ -1278,7 +1516,7 @@
 <li>[SPOI-3562] - Recording View: page module</li>
 <li>[SPOI-3565] - Container Page (angular)</li>
 </ul>
-<h3 id="bug_11">Bug</h3>
+<h3 id="bug_12">Bug</h3>
 <ul>
 <li>[MLHR-1267] - AngularJS Migration - Dashboard Layout Lock</li>
 <li>[MLHR-1352] - Custom directive for breadcrumbs</li>
@@ -1292,7 +1530,7 @@
 <li>[MLHR-1542] - App Data Framework - WebSocket Support</li>
 <li>[MLHR-1585] - Installer fails with auth enabled</li>
 </ul>
-<h3 id="improvement_11">Improvement</h3>
+<h3 id="improvement_12">Improvement</h3>
 <ul>
 <li>[MLHR-1256] - Create a new landing dashboard</li>
 <li>[MLHR-1432] - Add confirm for deleting an app package</li>
@@ -1305,7 +1543,7 @@
 <li>[MLHR-1543] - Switch to gulp in malhar-angular-table</li>
 <li>[MLHR-1549] - Short operator properties should be shown in line</li>
 </ul>
-<h3 id="new-feature_8">New Feature</h3>
+<h3 id="new-feature_9">New Feature</h3>
 <ul>
 <li>[MLHR-1282] - AngularJS Migration - App Instance Page - Alerts Recordings View</li>
 <li>[MLHR-1301] - AngularJS Migration - Physical Operator Page - Recordings</li>
@@ -1336,7 +1574,7 @@
 <li>[MLHR-1295] - AngularJS Migration - Logical Operator Page</li>
 <li>[MLHR-1296] - AngularJS Migration - Physical Operator Page</li>
 </ul>
-<h3 id="task_8">Task</h3>
+<h3 id="task_9">Task</h3>
 <ul>
 <li>[MLHR-1270] - Container Page (angular)</li>
 <li>[MLHR-1272] - Container Page: memory gauge</li>
@@ -1364,7 +1602,7 @@
 <li>[MLHR-1574] - UI Auth: support for current password auth</li>
 <li>[MLHR-1575] - UI Auth: Managing role and permissions</li>
 </ul>
-<h3 id="sub-task_3">Sub-task</h3>
+<h3 id="sub-task_4">Sub-task</h3>
 <ul>
 <li>[SPOI-3123] - Add troubleshooting section to Operations and Installation Guide</li>
 <li>[SPOI-3124] - Check for vmem/pmem ratio during System Diagnostics test</li>
@@ -1374,7 +1612,7 @@
 <li>[SPOI-3227] - Crate JSON to Map converter for App Builder Demo</li>
 <li>[SPOI-3228] - Create shared dimensions computation schema for App Builder Demo</li>
 </ul>
-<h3 id="bug_12">Bug</h3>
+<h3 id="bug_13">Bug</h3>
 <ul>
 <li>[SPOI-1667] - Drop of Performance for Machine demo</li>
 <li>[SPOI-2742] - Core dumps on EMR</li>
@@ -1400,7 +1638,7 @@
 <li>[SPOI-3262] - Issue with serialization of xml cartesian product operator</li>
 <li>[SPOI-3319] - NPE in FSStatsRecorder</li>
 </ul>
-<h3 id="improvement_12">Improvement</h3>
+<h3 id="improvement_13">Improvement</h3>
 <ul>
 <li>[SPOI-1967] - Accept Password for Private Key</li>
 <li>[SPOI-2997] - License file content updates</li>
@@ -1412,7 +1650,7 @@
 <li>[SPOI-3102] - FileSplitter needs to be idempotent</li>
 <li>[SPOI-3136] - Add a check to see if stram is connected to THIS gateway</li>
 </ul>
-<h3 id="new-feature_9">New Feature</h3>
+<h3 id="new-feature_10">New Feature</h3>
 <ul>
 <li>[SPOI-3142] - Ability to take Logical Plan Serialization JSON to construct a DAG and launch it</li>
 <li>[SPOI-3148] - App Package REST API needs to allow PUT of json logical plan for adding/replacing application in app package</li>
@@ -1423,7 +1661,7 @@
 <li>[SPOI-3199] - XML Javadoc</li>
 <li>[SPOI-3266] - Provide Ability to Allow Cross Origin Access</li>
 </ul>
-<h3 id="task_9">Task</h3>
+<h3 id="task_10">Task</h3>
 <ul>
 <li>[SPOI-3039] - Print data upon license mgr app start</li>
 <li>[SPOI-3061] - Add port tuple type in logical plan serialization</li>
@@ -1454,7 +1692,7 @@
 <li>[SPOI-3225] - Check and fix machine and twitter hash tag demos</li>
 <li>[SPOI-3236] - displayName should be available from appPackage/applications call</li>
 </ul>
-<h3 id="bug_13">Bug</h3>
+<h3 id="bug_14">Bug</h3>
 <ul>
 <li>[MLHR-1347] - Create a block reader in library which is capable of dynamic partitioning itself</li>
 <li>[MLHR-1366] - HdfsBucketStore is not completely covered by unit test cases</li>
@@ -1474,11 +1712,11 @@
 <li>[MLHR-1557] - subscribe handler on app instance alters original ws message</li>
 <li>[MLHR-1558] - Palette in the Apps List does not update after one app gets killed</li>
 </ul>
-<h3 id="improvement_13">Improvement</h3>
+<h3 id="improvement_14">Improvement</h3>
 <ul>
 <li>[MLHR-1427] - Make app name link to instance page as well in AppsList</li>
 </ul>
-<h3 id="new-feature_10">New Feature</h3>
+<h3 id="new-feature_11">New Feature</h3>
 <ul>
 <li>[MLHR-1388] - Base DAG Viewer</li>
 <li>[MLHR-1389] - App Package List Page</li>
@@ -1497,7 +1735,7 @@
 <li>[MLHR-1241] - App Package support in UI</li>
 <li>[MLHR-1357] - UI Dashboard Front Page Design</li>
 </ul>
-<h3 id="task_10">Task</h3>
+<h3 id="task_11">Task</h3>
 <ul>
 <li>[MLHR-1079] - Normalize timestamps for info pages</li>
 <li>[MLHR-1104] - Design App Package and Upload/Launch Feature</li>
@@ -1509,7 +1747,7 @@
 <li>[MLHR-1503] - Remove deprecated jdbc package from contrib</li>
 </ul>
 <h2 id="version-104">Version 1.0.4</h2>
-<h3 id="bug_14">Bug</h3>
+<h3 id="bug_15">Bug</h3>
 <ul>
 <li>[SPOI-2346] - ExactlyOnceTest#testLinearInputOperatorRecovery hangs</li>
 <li>[SPOI-2511] - ResourceManager HA support</li>
@@ -1533,14 +1771,14 @@
 <li>[SPOI-3091] - Null Pointer Exception/Internal Server Error When Getting Operator Stats</li>
 <li>[SPOI-3092] - DefaultUnifier of a port in an operator does not function correctly when the port has more than one sinks</li>
 </ul>
-<h3 id="improvement_14">Improvement</h3>
+<h3 id="improvement_15">Improvement</h3>
 <ul>
 <li>[SPOI-2821] - Add bucket processed time</li>
 <li>[SPOI-2891] - DTGateway default log setting too verbose</li>
 <li>[SPOI-2938] - Document AppBundles development and deployment</li>
 <li>[SPOI-3044] - gateway should show the full stack trace of the origin upon error when proxying</li>
 </ul>
-<h3 id="new-feature_11">New Feature</h3>
+<h3 id="new-feature_12">New Feature</h3>
 <ul>
 <li>[SPOI-2720] - API Call for determining if an application's stram can connect to the gateway</li>
 <li>[SPOI-2981] - HDS - File Format</li>
@@ -1553,7 +1791,7 @@
 <li>[SPOI-3033] - Provide byte offset for each line when grepping container log</li>
 <li>[SPOI-3049] - Ingestion streamlet design for first cut</li>
 </ul>
-<h3 id="task_11">Task</h3>
+<h3 id="task_12">Task</h3>
 <ul>
 <li>[SPOI-1734] - Licensing Agent Logging for Audit</li>
 <li>[SPOI-2810] - Update document with details on password authentication</li>
@@ -1581,7 +1819,7 @@
 <li>[SPOI-3103] - Create Synchronizer Operator</li>
 <li>[SPOI-3104] - Create Persister to store the data</li>
 </ul>
-<h3 id="bug_15">Bug</h3>
+<h3 id="bug_16">Bug</h3>
 <ul>
 <li>[MLHR-1223] - JDBC Store doesn't support connection properties</li>
 <li>[MLHR-1253] - documenting keyhashvalpair</li>
@@ -1605,7 +1843,7 @@
 <li>[MLHR-1368] - AngularJS Migration - App Instance Page - Overview Grouping</li>
 <li>[MLHR-1374] - Remove all occurrences of dag.setAttribute(DAG.APPLICATION_NAME, "xxx") in demos code</li>
 </ul>
-<h3 id="improvement_15">Improvement</h3>
+<h3 id="improvement_16">Improvement</h3>
 <ul>
 <li>[MLHR-1263] - Migrate JDBC non-transaction output operator to new db api and move it to lib</li>
 <li>[MLHR-1322] - Changing Machine Data Operator and Stream Names</li>
@@ -1616,7 +1854,7 @@
 <li>[MLHR-1353] - Centralize location of breadcrumbs</li>
 <li>[MLHR-1360] - Put dashboards on the left</li>
 </ul>
-<h3 id="new-feature_12">New Feature</h3>
+<h3 id="new-feature_13">New Feature</h3>
 <ul>
 <li>[MLHR-419] - DAG Widget with AngularJS</li>
 <li>[MLHR-1220] - Send the "unsubscribe" webSocket message for topic when no more listeners</li>
@@ -1655,7 +1893,7 @@
 <li>[MLHR-1361] - Logical/Physical DAG - Stream Locality Legend</li>
 <li>[MLHR-1365] - AngularJS Migration - Widget Settings Modal - Height Management</li>
 </ul>
-<h3 id="task_12">Task</h3>
+<h3 id="task_13">Task</h3>
 <ul>
 <li>[MLHR-1208] - Convert contrib apps to app bundles</li>
 <li>[MLHR-1244] - Update tuple recorder topic to use "applications.<appid>.tupleRecorder.<startTime>"</li>
@@ -1683,7 +1921,7 @@
 <li>[MLHR-1376] - Add counters and counters aggregator to mobile demo</li>
 </ul>
 <h2 id="version-103">Version 1.0.3</h2>
-<h3 id="bug_16">Bug</h3>
+<h3 id="bug_17">Bug</h3>
 <ul>
 <li>[SPOI-2620] - S3 reader error</li>
 <li>[SPOI-2673] - Move the Kafka Exactly Once Producer to Malhar Library</li>
@@ -1719,7 +1957,7 @@
 <li>[SPOI-2936] - Historical data store high level design</li>
 <li>[SPOI-2937] - Gateway throwing exception while launching app </li>
 </ul>
-<h3 id="improvement_16">Improvement</h3>
+<h3 id="improvement_17">Improvement</h3>
 <ul>
 <li>[SPOI-2811] - Show input record in alert information dialog</li>
 <li>[SPOI-2812] - Show top gateways for all defect aggregates and possibly all aggregates</li>
@@ -1727,7 +1965,7 @@
 <li>[SPOI-2891] - DTGateway default log setting too verbose</li>
 <li>[SPOI-2911] - Create a Bean2String codec</li>
 </ul>
-<h3 id="new-feature_13">New Feature</h3>
+<h3 id="new-feature_14">New Feature</h3>
 <ul>
 <li>[SPOI-2228] - Gateway to load and to allow manipulation of app bundles</li>
 <li>[SPOI-2753] - Front End POC - Aggregates Table</li>
@@ -1748,7 +1986,7 @@
 <li>[SPOI-2836] - Kafka integration for 1.0.3</li>
 <li>[SPOI-2851] - Platform Excellence - 1.0.3</li>
 </ul>
-<h3 id="task_13">Task</h3>
+<h3 id="task_14">Task</h3>
 <ul>
 <li>[SPOI-2212] - Determine logistics of application bundles</li>
 <li>[SPOI-2521] - Add counters for checkpointo operations</li>
@@ -1768,7 +2006,7 @@
 <li>[SPOI-2890] - Update support contacts to malhar-users group</li>
 <li>[SPOI-2914] - Configure Store operator to join logger and tracker stream.</li>
 </ul>
-<h3 id="sub-task_4">Sub-task</h3>
+<h3 id="sub-task_5">Sub-task</h3>
 <ul>
 <li>[SPOI-2747] - Total emitted window of an operator keeps on increasing even when it has stopped emitting</li>
 <li>[SPOI-2850] - Sort out the dependencies for dt-flume so we do not include the jars which are already part of dt dist and hadoop dist</li>
@@ -1776,20 +2014,20 @@
 <li>[SPOI-2895] - launch -license does not work</li>
 <li>[SPOI-2907] - Counters appear in physical plan only when a Counters aggregator or a stats listener is set on the operator</li>
 </ul>
-<h3 id="bug_17">Bug</h3>
+<h3 id="bug_18">Bug</h3>
 <ul>
 <li>[MLHR-1176] - Update demo section of README.md</li>
 <li>[MLHR-1219] - Non-chrome browsers cannot parse date format from date picker</li>
 <li>[MLHR-1227] - AbstractKafkaOutputOperator fails with java.lang.NoClassDefFoundError: com/yammer/metrics/Metrics</li>
 <li>[MLHR-1235] - close button on gateway info modal does not close the modal</li>
 </ul>
-<h3 id="improvement_17">Improvement</h3>
+<h3 id="improvement_18">Improvement</h3>
 <ul>
 <li>[MLHR-1213] - Use trackBy for malhar-angular-table</li>
 <li>[MLHR-1216] - DB key value store manager enhancement</li>
 <li>[MLHR-1218] - Clicking on an open stram log event should close it in UI</li>
 </ul>
-<h3 id="new-feature_14">New Feature</h3>
+<h3 id="new-feature_15">New Feature</h3>
 <ul>
 <li>[MLHR-1212] - Make scrollbar draggable on malhar-angular-table</li>
 <li>[MLHR-1225] - Logical Operator Table</li>
@@ -1797,7 +2035,7 @@
 <li>[MLHR-1229] - Provide better widget options dialog</li>
 <li>[MLHR-1231] - Custom template/controller for widget options</li>
 </ul>
-<h3 id="task_14">Task</h3>
+<h3 id="task_15">Task</h3>
 <ul>
 <li>[MLHR-1205] - Restructure directory structure in angular console</li>
 <li>[MLHR-1206] - Change malhar pom to use provided scope to prevent DT and hadoop jars from being sucked into the runtime classpath</li>
@@ -1805,7 +2043,7 @@
 <li>[MLHR-1224] - Kafka enabled AdsDimensions demo</li>
 </ul>
 <h2 id="version-102">Version 1.0.2</h2>
-<h3 id="bug_18">Bug</h3>
+<h3 id="bug_19">Bug</h3>
 <ul>
 <li>[SPOI-431] - Fix mergeSort operator to actually do mergeSort</li>
 <li>[SPOI-2499] - Provide license delegation tokens in secure environment</li>
@@ -1843,7 +2081,7 @@
 <li>[SPOI-2798] - Request for log content outside of range results in 500, long request time</li>
 <li>[SPOI-2839] - set-operator-property broken in master</li>
 </ul>
-<h3 id="improvement_18">Improvement</h3>
+<h3 id="improvement_19">Improvement</h3>
 <ul>
 <li>[SPOI-2602] - Containers published via websocket should only contain live containers and recently finished containers</li>
 <li>[SPOI-2610] - Parent: Automatic unobfuscation tool</li>
@@ -1853,7 +2091,7 @@
 <li>[SPOI-2736] - Merge /systemAlerts/alerts and /systemAlerts/inAlerts API calls</li>
 <li>[SPOI-2751] - Include sandbox README.html with docs.zip and on website</li>
 </ul>
-<h3 id="new-feature_15">New Feature</h3>
+<h3 id="new-feature_16">New Feature</h3>
 <ul>
 <li>[SPOI-950] - Specify memory requirements on per operator basis (duplicate)</li>
 <li>[SPOI-2220] - Gateway App Bundle API spec</li>
@@ -1894,7 +2132,7 @@
 <li>[SPOI-2667] - Automate distro certification and make it part of CI for 1.0.2</li>
 <li>[SPOI-2781] - Determine which fields are present in output that are not present in input</li>
 </ul>
-<h3 id="task_15">Task</h3>
+<h3 id="task_16">Task</h3>
 <ul>
 <li>[SPOI-2341] - Update on authentication and authorization in Yarn-open source</li>
 <li>[SPOI-2434] - Short document on deduper checkpointing scheme</li>
@@ -1973,7 +2211,7 @@
 <li>[SPOI-2800] - Install a kafka web-console in our cluster</li>
 <li>[SPOI-2805] - Investigate yarn log aggregation to see how this fits into our container logs API</li>
 </ul>
-<h3 id="sub-task_5">Sub-task</h3>
+<h3 id="sub-task_6">Sub-task</h3>
 <ul>
 <li>[SPOI-2725] - Create skeleton App</li>
 <li>[SPOI-2728] - Convert the Skeleton Operators into Real Operators - Part I</li>
@@ -1982,7 +2220,7 @@
 <li>[SPOI-2776] - Test and Certify RPM packaging for Cloudera</li>
 <li>[SPOI-2777] - Gateway throws a bunch of exceptions when trying to install using rpm</li>
 </ul>
-<h3 id="bug_19">Bug</h3>
+<h3 id="bug_20">Bug</h3>
 <ul>
 <li>[MLHR-724] - RabbitMQ test timing issue</li>
 <li>[MLHR-1128] - Breadcrumbs should say physical operator, not operator on port page</li>
@@ -2002,7 +2240,7 @@
 <li>[MLHR-1195] - App master container is not showing proper metrics</li>
 <li>[MLHR-1202] - failureCount missing for physical operators</li>
 </ul>
-<h3 id="improvement_19">Improvement</h3>
+<h3 id="improvement_20">Improvement</h3>
 <ul>
 <li>[MLHR-1132] - Improvements to errors in the stram events widget</li>
 <li>[MLHR-1146] - Only get active containers for initial container list</li>
@@ -2011,7 +2249,7 @@
 <li>[MLHR-1194] - Align app counts with labels in cluster overview widget</li>
 <li>[MLHR-1209] - Support JMS providers other than ActiveMQ</li>
 </ul>
-<h3 id="new-feature_16">New Feature</h3>
+<h3 id="new-feature_17">New Feature</h3>
 <ul>
 <li>[MLHR-921] - Installer - List of Errors/Codes</li>
 <li>[MLHR-1111] - Container Log Widget, using new REST call</li>
@@ -2040,7 +2278,7 @@
 <ul>
 <li>[MLHR-1178] - AngularJS Migration for 1.0.2</li>
 </ul>
-<h3 id="task_16">Task</h3>
+<h3 id="task_17">Task</h3>
 <ul>
 <li>[MLHR-960] - Create a Tableau output adapter</li>
 <li>[MLHR-1090] - Create first resource objects (models) for angular console</li>
@@ -2054,12 +2292,12 @@
 <li>[MLHR-1172] - Create a Cassandra read operator</li>
 <li>[MLHR-1173] - Create a Cassandra write operator</li>
 </ul>
-<h3 id="sub-task_6">Sub-task</h3>
+<h3 id="sub-task_7">Sub-task</h3>
 <ul>
 <li>[MLHR-1163] - Wireframe for DAG builder</li>
 </ul>
 <h2 id="version-101">Version 1.0.1</h2>
-<h3 id="bug_20">Bug</h3>
+<h3 id="bug_21">Bug</h3>
 <ul>
 <li>[SPOI-1404] - Create seperate environment for node0 for demos</li>
 <li>[SPOI-1952] - Operation and Install guide review</li>
@@ -2089,7 +2327,7 @@
 <li>[SPOI-2554] - Third party libraries which are required for demos are missing from /opt/datatorrent/releases/version/lib/</li>
 <li>[SPOI-2556] - Add demo guides to documentation index</li>
 </ul>
-<h3 id="improvement_20">Improvement</h3>
+<h3 id="improvement_21">Improvement</h3>
 <ul>
 <li>[SPOI-2210] - Default license generation should be part of build process</li>
 <li>[SPOI-2468] - README for certifications and benchmarks</li>
@@ -2097,7 +2335,7 @@
 <li>[SPOI-2494] - Add HTTP Get operator to Malhar</li>
 <li>[SPOI-2555] - Include README, LICENSE, and CHANGELOG in docs</li>
 </ul>
-<h3 id="new-feature_17">New Feature</h3>
+<h3 id="new-feature_18">New Feature</h3>
 <ul>
 <li>[SPOI-406] - Document and test download to work with Hortonworks HDP 2.0</li>
 <li>[SPOI-408] - Certify with MapR (Hadoop 2.3) release in 1.0.1</li>
@@ -2114,7 +2352,7 @@
 <li>[SPOI-2519] - add grep feature when getting container log</li>
 <li>[SPOI-2526] - Add REST call to return info of historical containers</li>
 </ul>
-<h3 id="task_17">Task</h3>
+<h3 id="task_18">Task</h3>
 <ul>
 <li>[SPOI-62] - Buffer Server logging</li>
 <li>[SPOI-1206] - Review Licensing of Third Party Libraries</li>
@@ -2157,12 +2395,12 @@
 <li>[SPOI-2551] - Define a process on backend to ensure archive of previous downloads works for customers</li>
 <li>[SPOI-2553] - Holding ticket for Malhar maintenance work</li>
 </ul>
-<h3 id="sub-task_7">Sub-task</h3>
+<h3 id="sub-task_8">Sub-task</h3>
 <ul>
 <li>[MLHR-774] - Terms of service license</li>
 <li>[MLHR-976] - Implement table module for angular</li>
 </ul>
-<h3 id="bug_21">Bug</h3>
+<h3 id="bug_22">Bug</h3>
 <ul>
 <li>[MLHR-998] - Compilation error while using UniqueValueCount operator.</li>
 <li>[MLHR-1054] - Update topic and rest calls for Logical/Physical Split</li>
@@ -2177,7 +2415,7 @@
 <li>[MLHR-1127] - HdfsTextFileInputOperator Fails during checkpointing</li>
 <li>[MLHR-1138] - Remove unused CPU columns in logical operator table</li>
 </ul>
-<h3 id="improvement_21">Improvement</h3>
+<h3 id="improvement_22">Improvement</h3>
 <ul>
 <li>[MLHR-1092] - Add environment variable override to rename demo apps</li>
 <li>[MLHR-1098] - Improved code coverage for malhar-angular-dashboard</li>
@@ -2187,7 +2425,7 @@
 <li>[MLHR-1119] - Add a confirm box when killing app master container</li>
 <li>[MLHR-1120] - Save range selection between page loads for stram events</li>
 </ul>
-<h3 id="new-feature_18">New Feature</h3>
+<h3 id="new-feature_19">New Feature</h3>
 <ul>
 <li>[MLHR-783] - DAG should adjust in height as the widget height changes</li>
 <li>[MLHR-784] - WidgetOutputOperator - Schema Update</li>
@@ -2208,7 +2446,7 @@
 <li>[MLHR-1061] - Dashboard Component</li>
 <li>[MLHR-1082] - Parent jira for Real Time ETL Application</li>
 </ul>
-<h3 id="task_18">Task</h3>
+<h3 id="task_19">Task</h3>
 <ul>
 <li>[MLHR-700] - Develop operator for calculating Coefficient of Determination (RSquare)</li>
 <li>[MLHR-841] - Demo guide for machine data application</li>
@@ -2232,7 +2470,7 @@
 <li>[MLHR-1104] - Design App Bundle and Upload/Launch Feature</li>
 </ul>
 <h2 id="version-100">Version 1.0.0</h2>
-<h3 id="bug_22">Bug</h3>
+<h3 id="bug_23">Bug</h3>
 <ul>
 <li>[SPOI-2086] - creation of logs directory under .dt folder of user</li>
 <li>[SPOI-2497] - Remove hard-coded "hdfs" scheme </li>
@@ -2242,27 +2480,27 @@
 <li>[SPOI-2607] - Install page should only list error (not warnings) issues</li>
 <li>[SPOI-2609] - When yarn.scheduler.minimum-allocation-mb is set to 256, PiDemo fails with NPE</li>
 </ul>
-<h3 id="improvement_22">Improvement</h3>
+<h3 id="improvement_23">Improvement</h3>
 <ul>
 <li>[SPOI-2522] - Replace InputPort.getStreamCodec method with an attribute on InputPort called StreamCodec</li>
 <li>[SPOI-2576] - Change local install from .datatorrent to datatorrent directory</li>
 <li>[SPOI-2603] - installer complains about gateway has trouble starting but it actually runs OK</li>
 <li>[SPOI-2637] - Improve the Getting Started Guide</li>
 </ul>
-<h3 id="task_19">Task</h3>
+<h3 id="task_20">Task</h3>
 <ul>
 <li>[SPOI-2520] - Change the name of the CustomStats to Counters</li>
 <li>[SPOI-2578] - Check dir before mkdir call (MapR requirement)</li>
 <li>[SPOI-2579] - Take out launch from gateway webservice spec document</li>
 <li>[SPOI-2649] - Update software license</li>
 </ul>
-<h3 id="bug_23">Bug</h3>
+<h3 id="bug_24">Bug</h3>
 <ul>
 <li>[MLHR-1101] - Install errors formatting</li>
 <li>[MLHR-1103] - Change installer instructions for DFS directory path</li>
 </ul>
 <h2 id="version-0951">Version 0.9.5.1</h2>
-<h3 id="bug_24">Bug</h3>
+<h3 id="bug_25">Bug</h3>
 <ul>
 <li>[SPOI-2554] - Third party libraries which are required for demos are missing from /opt/datatorrent/releases/version/lib/</li>
 <li>[MLHR-1113] - AdsDimension demo fails to launch</li>
@@ -2270,7 +2508,7 @@
 <li>[MLHR-1115] - MachineData demo fails to launch</li>
 </ul>
 <h2 id="version-095">Version 0.9.5</h2>
-<h3 id="sub-task_8">Sub-task</h3>
+<h3 id="sub-task_9">Sub-task</h3>
 <ul>
 <li>[SPOI-1692] - Certify fault tolerance for multiple containers failure</li>
 <li>[SPOI-1693] - Develop automated test scenario for StrAM failure to certify one of high availability aspects. </li>
@@ -2290,7 +2528,7 @@
 <ul>
 <li>[SPOI-2005] - Verify and add Machine demo to app memory usage automation</li>
 </ul>
-<h3 id="bug_25">Bug</h3>
+<h3 id="bug_26">Bug</h3>
 <ul>
 <li>[SPOI-1801] - Mobile app has two logical input gen - Need to handle containers on servers with two diff clocks</li>
 <li>[SPOI-1890] - Application behavior when resources are not available</li>
@@ -2343,7 +2581,7 @@
 <li>[SPOI-2419] - Ensure principal name propagates to containers in non-secure mode</li>
 <li>[SPOI-2435] - Latest changes to latency calculation break tests.</li>
 </ul>
-<h3 id="improvement_23">Improvement</h3>
+<h3 id="improvement_24">Improvement</h3>
 <ul>
 <li>[SPOI-1376] - Have app specific configuration to stram-site.xml in sandbox</li>
 <li>[SPOI-1855] - Ability to continue/shutdown application</li>
@@ -2358,7 +2596,7 @@
 <li>[SPOI-2405] - Add more params to /ws/v1/applications/{appid}/events call</li>
 <li>[SPOI-2407] - Need ability to supply the class name representing the property</li>
 </ul>
-<h3 id="new-feature_19">New Feature</h3>
+<h3 id="new-feature_20">New Feature</h3>
 <ul>
 <li>[SPOI-91] - Design and implement a socket adapter operator</li>
 <li>[SPOI-2007] - Automation to certify High Availability</li>
@@ -2372,7 +2610,7 @@
 <ul>
 <li>[SPOI-2215] - Password protect the dashboard</li>
 </ul>
-<h3 id="task_20">Task</h3>
+<h3 id="task_21">Task</h3>
 <ul>
 <li>[SPOI-746] - DT Phome home customer side work</li>
 <li>[SPOI-1642] - Certify support for node failure</li>
@@ -2418,7 +2656,7 @@
 <li>[SPOI-2418] - Create an ability for the DTFlumeSink to backoff if it suspects that the DAG is not processing the data in healthy fashion.</li>
 <li>[SPOI-2421] - Update end-user documentation</li>
 </ul>
-<h3 id="sub-task_9">Sub-task</h3>
+<h3 id="sub-task_10">Sub-task</h3>
 <ul>
 <li>[MLHR-726] - Time Series Forecasting Operator using Holt's Linear Trend Model</li>
 <li>[MLHR-933] - Time Series Forecasting using Holt-Winters' Seasonal Method</li>
@@ -2428,7 +2666,7 @@
 <li>[MLHR-1036] - Create incremental model for Holt's Linear Trend Forecasting Algorithm</li>
 <li>[MLHR-1040] - Develop incremental model creation for Holt-Winters' Multiplicative Method Time-Series Forecasting</li>
 </ul>
-<h3 id="bug_26">Bug</h3>
+<h3 id="bug_27">Bug</h3>
 <ul>
 <li>[MLHR-778] - Logical Operators list has no palette</li>
 <li>[MLHR-857] - Machinedata demo stop working with new Redis operator</li>
@@ -2460,7 +2698,7 @@
 <li>[MLHR-1072] - Socket input operator test fail</li>
 <li>[MLHR-1074] - Remove stram events page/widget from 0.9.5</li>
 </ul>
-<h3 id="improvement_24">Improvement</h3>
+<h3 id="improvement_25">Improvement</h3>
 <ul>
 <li>[MLHR-721] - Migrate database cache lookup to the new db framework</li>
 <li>[MLHR-985] - AdsDimension: Plug-in Dimension Unifier </li>
@@ -2473,7 +2711,7 @@
 <li>[MLHR-1062] - Install Wizard examples of Hadoop and DFS path</li>
 <li>[MLHR-1069] - License summary section in Install Wizard</li>
 </ul>
-<h3 id="new-feature_20">New Feature</h3>
+<h3 id="new-feature_21">New Feature</h3>
 <ul>
 <li>[MLHR-684] - Invalidate dashboard state from previous versions</li>
 <li>[MLHR-881] - ETL Web App - Packaging</li>
@@ -2489,7 +2727,7 @@
 <li>[MLHR-703] - Logstream UI</li>
 <li>[MLHR-709] - Widgets Library as Independent Project</li>
 </ul>
-<h3 id="task_21">Task</h3>
+<h3 id="task_22">Task</h3>
 <ul>
 <li>[MLHR-661] - Migrate JDBC adapters to use the new database adapter interface</li>
 <li>[MLHR-866] - Annotate all stateless operators in Malhar as such</li>
@@ -2514,7 +2752,7 @@
 <li>[MLHR-1071] - Create stateless deduper - aka deduper which forgets its state upon failure or repartitioning</li>
 </ul>
 <h2 id="version-094">Version 0.9.4</h2>
-<h3 id="bug_27">Bug</h3>
+<h3 id="bug_28">Bug</h3>
 <ul>
 <li>[SPOI-455] - Cleanup maven repository workaround in install.sh</li>
 <li>[SPOI-1636] - Update all node1 demo to 0.9.3 release</li>
@@ -2602,7 +2840,7 @@
 <li>[SPOI-2238] - Installer complains about sudo running as root</li>
 <li>[SPOI-2241] - DAG Firefox 28 Support</li>
 </ul>
-<h3 id="improvement_25">Improvement</h3>
+<h3 id="improvement_26">Improvement</h3>
 <ul>
 <li>[SPOI-1311] - Review platform documentation</li>
 <li>[SPOI-1567] - Certify against commercial Hadoop distributions</li>
@@ -2639,7 +2877,7 @@
 <li>[SPOI-2175] - Notify user about local DTGateway management during installation</li>
 <li>[SPOI-2188] - Installer - Register Instructions</li>
 </ul>
-<h3 id="new-feature_21">New Feature</h3>
+<h3 id="new-feature_22">New Feature</h3>
 <ul>
 <li>[SPOI-328] - Add annotation to declare the operator stateless</li>
 <li>[SPOI-393] - High Availability for STRAM</li>
@@ -2682,7 +2920,7 @@
 <ul>
 <li>[SPOI-1608] - Platform Benchmarking (Platform1 and Platform2)</li>
 </ul>
-<h3 id="task_22">Task</h3>
+<h3 id="task_23">Task</h3>
 <ul>
 <li>[SPOI-722] - Document ads demo (add comments to codebase)</li>
 <li>[SPOI-1403] - HDFS Operator Benchmark</li>
@@ -2770,7 +3008,7 @@
 <li>[SPOI-2231] - Provide Environment with Running Demos</li>
 <li>[SPOI-2240] - Set Up DataTorrent Demos on Dev Environment</li>
 </ul>
-<h3 id="sub-task_10">Sub-task</h3>
+<h3 id="sub-task_11">Sub-task</h3>
 <ul>
 <li>[SPOI-1682] - Too many mbassy threads!!!</li>
 <li>[SPOI-1718] - Update HA Documentation</li>
@@ -2794,7 +3032,7 @@
 <li>[SPOI-2079] - Run certification on bin install</li>
 <li>[SPOI-2085] - Change the certification resource xml files to contain the certification type.</li>
 </ul>
-<h3 id="bug_28">Bug</h3>
+<h3 id="bug_29">Bug</h3>
 <ul>
 <li>[MLHR-729] - Columns in table wrap in Firefox</li>
 <li>[MLHR-730] - Dev server does not escape double-quotes in error message</li>
@@ -2829,7 +3067,7 @@
 <li>[MLHR-943] - Change the method name from isConnected to Connected in the db api</li>
 <li>[MLHR-991] - DAG Stream Locality</li>
 </ul>
-<h3 id="improvement_26">Improvement</h3>
+<h3 id="improvement_27">Improvement</h3>
 <ul>
 <li>[MLHR-731] - Compile LESS on the fly in dev environment</li>
 <li>[MLHR-735] - Remove unused bundling make commands, update README</li>
@@ -2855,7 +3093,7 @@
 <li>[MLHR-948] - Remove mock issues from SummaryView in installer wizard</li>
 <li>[MLHR-993] - Demo UI - Default Applications Names for Application Discovery</li>
 </ul>
-<h3 id="new-feature_22">New Feature</h3>
+<h3 id="new-feature_23">New Feature</h3>
 <ul>
 <li>[MLHR-688] - Discard Real-Time Updates When Page is not Active</li>
 <li>[MLHR-757] - Dashboard - Save Widget Width to Local Storage</li>
@@ -2909,7 +3147,7 @@
 <li>[MLHR-802] - Web Demos - Distribution Package</li>
 <li>[MLHR-803] - Installer (Wizard) Page</li>
 </ul>
-<h3 id="task_23">Task</h3>
+<h3 id="task_24">Task</h3>
 <ul>
 <li>[MLHR-349] - Add build script to Malhar/front</li>
 <li>[MLHR-402] - Logstream - aggregate top hits and bytes for URL, geo DMA, IP, URL/status code, url</li>
@@ -2950,7 +3188,7 @@
 <li>[MLHR-981] - CLONE - Demo guide for Yahoo finance application - launch this copy</li>
 <li>[MLHR-982] - CLONE - Demo guide for Yahoo finance application with Derby SQL - launch this copy</li>
 </ul>
-<h3 id="sub-task_11">Sub-task</h3>
+<h3 id="sub-task_12">Sub-task</h3>
 <ul>
 <li>[MLHR-678] - Time Series Forecasting with Simple Linear Regression</li>
 <li>[MLHR-718] - Time Series Forecasting using Simple/Single Exponential Smoothing</li>
@@ -2959,7 +3197,7 @@
 <li>[MLHR-932] - Create Centered Moving Average Smoothing Operator</li>
 </ul>
 <h2 id="version-093">Version 0.9.3</h2>
-<h3 id="new-feature_23">New Feature</h3>
+<h3 id="new-feature_24">New Feature</h3>
 <ul>
 <li>[SPOI-261] - Design a general purpose read from stream and write to cassandra</li>
 <li>[SPOI-400] - Each streaming application should license check</li>
@@ -2973,7 +3211,7 @@
 <li>[SPOI-1823] - Gateway REST API - Get Running Applications List</li>
 <li>[SPOI-1829] - Semantic URLs for Web Apps</li>
 </ul>
-<h3 id="improvement_27">Improvement</h3>
+<h3 id="improvement_28">Improvement</h3>
 <ul>
 <li>[SPOI-1202] - Provide a way to check whether an operator is partitioned</li>
 <li>[SPOI-1783] - Add allocatedMB to main application list</li>
@@ -2987,7 +3225,7 @@
 <li>[SPOI-1320] - Support MQTT protocol</li>
 <li>[SPOI-1542] - Input operator - Directory Scan</li>
 </ul>
-<h3 id="bug_29">Bug</h3>
+<h3 id="bug_30">Bug</h3>
 <ul>
 <li>[SPOI-1696] - Make de-duper dynamically partitionable</li>
 <li>[SPOI-1704] - Stram enforcement to lock physical plan changes when license memory limit is reached</li>
@@ -3011,7 +3249,7 @@
 <li>[SPOI-1842] - Investigate the possibility of engine obfuscation jar not containing any references to license package path</li>
 <li>[SPOI-1880] - GET nonexistent container returns 500 error</li>
 </ul>
-<h3 id="task_24">Task</h3>
+<h3 id="task_25">Task</h3>
 <ul>
 <li>[SPOI-1375] - All sandbox apps must work in 8G VM. Need to test each</li>
 <li>[SPOI-1467] - DB lookup for Cassandra</li>
@@ -3039,13 +3277,13 @@
 <li>[SPOI-1825] - Update end user documentation</li>
 <li>[SPOI-1832] - Support CDH default log4j setup</li>
 </ul>
-<h3 id="sub-task_12">Sub-task</h3>
+<h3 id="sub-task_13">Sub-task</h3>
 <ul>
 <li>[SPOI-1451] - Show critical path</li>
 <li>[SPOI-1721] - Augment the Partitionable interface to inform of all the partitions which actually were deployed</li>
 <li>[SPOI-1733] - Container heartbeat RPC failover</li>
 </ul>
-<h3 id="new-feature_24">New Feature</h3>
+<h3 id="new-feature_25">New Feature</h3>
 <ul>
 <li>[MLHR-5] - UI component for license information</li>
 <li>[MLHR-6] - Google Line Chart Widget</li>
@@ -3074,11 +3312,11 @@
 <li>[MLHR-697] - Dashboard App - Node.js Configuration</li>
 <li>[MLHR-698] - Dashboard App - WebSocket/REST API Configuration</li>
 </ul>
-<h3 id="improvement_28">Improvement</h3>
+<h3 id="improvement_29">Improvement</h3>
 <ul>
 <li>[MLHR-686] - Deglobalize the visibly component</li>
 </ul>
-<h3 id="bug_30">Bug</h3>
+<h3 id="bug_31">Bug</h3>
 <ul>
 <li>[MLHR-4] - Use new livechart module for OpChart Widget</li>
 <li>[MLHR-13] - Console status column display</li>
@@ -3098,7 +3336,7 @@
 <li>[MLHR-2] - Dashboard Widgets</li>
 <li>[MLHR-3] - Dashboard App</li>
 </ul>
-<h3 id="task_25">Task</h3>
+<h3 id="task_26">Task</h3>
 <ul>
 <li>[MLHR-321] - Directory Scan operator</li>
 <li>[MLHR-452] - Create a De-duplication operator</li>
@@ -3113,7 +3351,7 @@
 <li>[MLHR-666] - DB lookup for Cassandra</li>
 </ul>
 <h2 id="version-092">Version 0.9.2</h2>
-<h3 id="bug_31">Bug</h3>
+<h3 id="bug_32">Bug</h3>
 <ul>
 <li>[SPOI-1327] - AtLeastOnceTest.testInlineOperatorsRecovery intermittent failure</li>
 <li>[SPOI-1342] - DTCli should check license and relay the information with each application launched</li>
@@ -3146,7 +3384,7 @@
 <li>[SPOI-1743] - Tuple recording on port is not showing up in web services</li>
 <li>[SPOI-1744] - Recording says ended even if the recording is still going on</li>
 </ul>
-<h3 id="improvement_29">Improvement</h3>
+<h3 id="improvement_30">Improvement</h3>
 <ul>
 <li>[SPOI-1098] - event recorder logging improvements</li>
 <li>[SPOI-1370] - Make the partition logic available to the end-users</li>
@@ -3154,7 +3392,7 @@
 <li>[SPOI-1603] - BufferServerStatsCollection - dont check against bufferserverpublisher and subscriber</li>
 <li>[SPOI-1613] - Update the User Interface guide to reflect latest version (0.9.1)</li>
 </ul>
-<h3 id="new-feature_25">New Feature</h3>
+<h3 id="new-feature_26">New Feature</h3>
 <ul>
 <li>[SPOI-165] - Parent jira for authentication</li>
 <li>[SPOI-170] - Stream should authenticate before allowing an operator to connect</li>
@@ -3170,7 +3408,7 @@
 <li>[SPOI-1621] - Input operator - CDR parser using CSV </li>
 <li>[SPOI-1699] - Add locality (and maybe id?) to physical streams in REST calls</li>
 </ul>
-<h3 id="task_26">Task</h3>
+<h3 id="task_27">Task</h3>
 <ul>
 <li>[SPOI-1689] - Map Reduce Monitor Web App</li>
 <li>[SPOI-739] - Hadoop 2.2 certification</li>
@@ -3192,7 +3430,7 @@
 <li>[SPOI-1736] - CLI warning on License Violation</li>
 <li>[SPOI-1742] - Update end-user documentation</li>
 </ul>
-<h3 id="sub-task_13">Sub-task</h3>
+<h3 id="sub-task_14">Sub-task</h3>
 <ul>
 <li>[SPOI-919] - Certify secure mode with Hadoop 2.2.0</li>
 <li>[SPOI-966] - Create a licensing agent application</li>
