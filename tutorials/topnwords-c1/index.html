@@ -140,12 +140,6 @@
                 
                     <li><a class="toctree-l4" href="#sample-input-files">Sample input files</a></li>
                 
-                    <li><a class="toctree-l4" href="#validation-for-third-party-applications">Validation for third-party applications</a></li>
-                
-                    <li><a class="toctree-l4" href="#set-up-the-sandbox">Set up the sandbox</a></li>
-                
-                    <li><a class="toctree-l4" href="#validate-the-sandbox-setup">Validate the Sandbox setup</a></li>
-                
             
             </ul>
         
@@ -245,6 +239,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../../configure_IDE/">Generate New Project in IDE</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../../application_development/">Applications</a>
         
     </li>
@@ -331,13 +332,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../../dtgateway_api/">REST API</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../../autometrics/">AutoMetric API</a>
         
     </li>
 
@@ -522,15 +516,17 @@
             <div class="section">
               
                 <h1 id="setting-up-your-development-environment">Setting up your development environment</h1>
-<p>This section describes how you can set up your development environment
-including starting the sandbox and downloading some sample input files for
-testing the application.</p>
+<p>To begin with, please follow the steps outlined in:
+<a href="apex_development_setup.md">Apache Apex Development Environment Setup</a>
+to setup your development environment; you can skip the sandbox download
+and installation if you already have a Hadoop cluster with Datatorrent
+RTS installed where you can deploy applications.</p>
 <h2 id="sample-input-files">Sample input files</h2>
-<p>For this tutorial, you need some sample text files to use as input application.
+<p>For this tutorial, you need some sample text files to use as input to the application.
 Binary files such as PDF or DOCX files are not suitable since they contain a
-lot of meaningless strings that look like words (for example,  Wqgi ).
+lot of meaningless strings that look like words (for example,  &ldquo;Wqgi&rdquo;).
 Similarly, files using markup languages such as XML or HTML files are also not
-suitable since the tag names such as  div ,  td  and  p  dominate the word
+suitable since the tag names such as  <code>div</code>, <code>td</code> and <code>p</code> dominate the word
 counts. The RFC (Request for Comment) files that are used as de-facto
 specifications for internet standards are good candidates since they contain
 pure text; download a few of them as follows:</p>
@@ -541,124 +537,6 @@ wget http://tools.ietf.org/rfc/rfc1945.txt
 wget https://www.ietf.org/rfc/rfc2616.txt  
 wget https://tools.ietf.org/rfc/rfc4844.txt
 </code></pre>
-<h2 id="validation-for-third-party-applications">Validation for third-party applications</h2>
-<p>If you are using your own installation of DataTorrent RTS instead
-of Sandbox, make sure that you have Java JDK (version 1.7.0_79 or
-later), Maven (version 3.0.5 or later), and Git (version 1.7.1 or later)
-by running the following commands:</p>
-<table>
-<colgroup>
-<col width="22%" />
-<col width="78%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td align="left"><p><b>Command</b></p></td>
-<td align="left"><p><b>Expected output</b></p></td>
-</tr>
-<tr class="even">
-<td align="left"><p><tt>java -version</tt></p></td>
-<td align="left"><p>java version &quot;1.7.0_79&quot;</p>
-<p>Java(TM) SE Runtime Environment (build 1.7.0_79-b15) </p>
-<p>Java HotSpot(TM) 64-Bit Server VM (build 24.79-b02, mixed mode)</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p><tt>mvn --version</tt></p></td>
-<td align="left"><p>Apache Maven 3.0.5 </p>
-<p>Maven home: /usr/share/maven </p>
-<p>Java version: 1.7.0_79, vendor: Oracle Corporation </p>
-<p>Java home: /home/&lt;user&gt;/Software/java/jdk1.7.0_79/jre </p>
-<p>Default locale: en_US, platform encoding: UTF-8 </p>
-<p>OS name: &quot;linux&quot;, version: &quot;3.16.0-44-generic&quot;, arch: &quot;amd64&quot;, family: &quot;unix&quot; </p></td>
-</tr>
-<tr class="even">
-<td align="left"><p><tt>git --version</tt></p></td>
-<td align="left"><p>git version 1.7.1</p></td>
-</tr>
-</tbody>
-</table>
-
-<hr />
-<h2 id="set-up-the-sandbox">Set up the sandbox</h2>
-<p>At the time of writing, the sandbox corresponds to version 3.1.1 of DataTorrent
-RTS, which, as noted above, includes a complete, stand-alone, instance of the
-Enterprise Edition configured as a single-node Hadoop cluster.</p>
-<p>Before you begin, ensure that you have Oracle VM VirtualBox version 4.3 or
-later on your development machine. The sandbox is a virtual appliance bundled
-along with Ubuntu 12.0.4 (or later) that needs to be imported into VirtualBox.</p>
-<p>These steps describe how to download, import, and start the sandbox.</p>
-<ol>
-<li>
-<p>Download Sandbox:</p>
-<ol>
-<li>Open <a href="https://www.datatorrent.com/download/">https://www.datatorrent.com/download/</a> in a web browser.</li>
-<li>Under <em>DataTorrent RTS Sandbox</em>, click <strong>DOWNLOAD NOW</strong> button.</li>
-<li>On the contact details form that appears, provide your name, email, and
-   your organization s name, and click <em>Submit</em>.</li>
-<li>Click the link named <em>click here</em> (scroll the page down if necessary to
-   see the link).</li>
-<li>On the Sandbox downloads page that appears, click <strong>Download</strong> under
-    <em>Requirements</em>.</li>
-</ol>
-</li>
-<li>
-<p>Import the sandBox into Oracle VirtualBox:</p>
-<ol>
-<li>Open the VirtualBox Manager.</li>
-<li>In the <em>File</em> menu, choose <em>Import Appliance</em>.  </li>
-<li>On the <em>Appliance to import</em> dialog box, type or select the full path to
-    the OVA template file that you downloaded and click <em>Next</em>.</li>
-<li>Click <em>Import</em>.</li>
-</ol>
-</li>
-<li>
-<p>After the import completes, click the <code>Start</code> button on the VirtualBox
-    Manager. If this is a first-time start, select the default operating
-    system and wait till the virtual machine initializes.</p>
-<p>After the virtual machine initializes, wait for a few minutes to allow all
-Hadoop and Sandbox processes to start.</p>
-</li>
-<li>
-<p>Log on to Sandbox.</p>
-<ol>
-<li>
-<p>In the browser that appears displaying the Readme, click DataTorrent
-    Console. You can also click the <strong>DataTorrent Console</strong> button on the toolbar of your virtual machine.</p>
-</li>
-<li>
-<p>Type the username and password (dtadmin/dtadmin), and click <strong>Login</strong>.</p>
-</li>
-</ol>
-</li>
-</ol>
-<p><img alt="Login dialog" src="../images/topnwords//image32.png" title="Login dialog" /></p>
-<p>You should see a welcome page with a diagram illustrating the components in the
-platform stack; each block of the diagram is a clickable link for exploring
-that component.</p>
-<h2 id="validate-the-sandbox-setup">Validate the Sandbox setup</h2>
-<p>After setting up the sandbox, validate the installation:</p>
-<ol>
-<li>
-<p>On the top navigation bar, look for links named <em>Configure</em>, <em>Develop</em>,
-   <em>Monitor</em>, <em>Visualize</em> and <em>Learn</em>.</p>
-</li>
-<li>
-<p>If Visualize is not present, click <em>Configure</em>, and then <em>License
-    Information</em>.</p>
-</li>
-</ol>
-<p>A page showing license details including the text: <em>License Edition:
-  enterprise</em> appears.</p>
-<ul>
-<li>If the license details display   <em>community</em> instead of <em>enterprise</em>, wait
-  for a few minutes, refresh the page, and check again.</li>
-<li>If that does not work, navigate to the other tabs, and repeat these steps
-  again. The license edition should be <em>enterprise</em> and you should see the
-  <em>Visualize</em> link on the top navigation bar.</li>
-</ul>
-<p>Note: The enterprise license is present on the Hadoop HDFS file system. To
-retrieve details of this license, the HDFS servers need to be up and running,
-which can take a few minutes.</p>
               
             </div>
           </div>

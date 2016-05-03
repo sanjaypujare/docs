@@ -230,6 +230,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../configure_IDE/">Generate New Project in IDE</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../application_development/">Applications</a>
         
     </li>
@@ -244,14 +251,7 @@
                 <li class="toctree-l3"><a href="#apache-apex-application-packages">Apache Apex Application Packages</a></li>
                 
             
-                <li class="toctree-l3"><a href="#requirements">Requirements</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#creating-your-first-apex-app-package">Creating Your First Apex App Package</a></li>
-                
-                    <li><a class="toctree-l4" href="#using-command-line">Using Command Line</a></li>
-                
-                    <li><a class="toctree-l4" href="#using-ide">Using IDE</a></li>
+                <li class="toctree-l3"><a href="#preliminaries">Preliminaries</a></li>
                 
             
                 <li class="toctree-l3"><a href="#writing-your-own-app-package">Writing Your Own App Package</a></li>
@@ -397,13 +397,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../dtgateway_api/">REST API</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../autometrics/">AutoMetric API</a>
         
     </li>
 
@@ -587,90 +580,16 @@
 <p>An Apache Apex Application Package is a zip file that contains all the
 necessary files to launch an application in Apache Apex. It is the
 standard way for assembling and sharing an Apache Apex application.</p>
-<h1 id="requirements">Requirements</h1>
-<p>You will need have the following installed:</p>
-<ol>
-<li>Apache Maven 3.0 or later (for assembling the App Package)</li>
-<li>Apache Apex 3.2.0 or later (for launching the App Package in your cluster)</li>
-</ol>
-<h1 id="creating-your-first-apex-app-package">Creating Your First Apex App Package</h1>
-<p>You can create an Apex Application Package using your Linux command
-line, or using your favorite IDE.</p>
-<h2 id="using-command-line">Using Command Line</h2>
-<p>First, change to the directory where you put your projects, and create
-an Apex application project using Maven by running the following
-command.  Replace "com.example", "mydtapp" and "1.0-SNAPSHOT" with the
-appropriate values (make sure this is all on one line):</p>
-<pre><code>$ mvn archetype:generate \
- -DarchetypeGroupId=org.apache.apex \
- -DarchetypeArtifactId=apex-app-archetype -DarchetypeVersion=3.2.0-incubating \
- -DgroupId=com.example -Dpackage=com.example.mydtapp -DartifactId=mydtapp \
- -Dversion=1.0-SNAPSHOT
-</code></pre>
-<p>This creates a Maven project named "mydtapp". Open it with your favorite
-IDE (e.g. NetBeans, Eclipse, IntelliJ IDEA). In the project, there is a
-sample DAG that generates a number of tuples with a random number and
-prints out "hello world" and the random number in the tuples.  The code
-that builds the DAG is in
-src/main/java/com/example/mydtapp/Application.java, and the code that
-runs the unit test for the DAG is in
-src/test/java/com/example/mydtapp/ApplicationTest.java. Try it out by
-running the following command:</p>
-<pre><code>$cd mydtapp; mvn package
-</code></pre>
-<p>This builds the App Package runs the unit test of the DAG.  You should
-be getting test output similar to this:</p>
-<pre><code> -------------------------------------------------------
-  TESTS
- -------------------------------------------------------
-
- Running com.example.mydtapp.ApplicationTest
- hello world: 0.8015370953286478
- hello world: 0.9785359225545481
- hello world: 0.6322611586644047
- hello world: 0.8460953663451775
- hello world: 0.5719372906929072
- hello world: 0.6361174312337172
- hello world: 0.14873007534816318
- hello world: 0.8866986277418261
- hello world: 0.6346526809866057
- hello world: 0.48587295703904465
- hello world: 0.6436832429676687
-
- ...
-
- Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.863
- sec
-
- Results :
-
- Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
-</code></pre>
-
-<p>The "mvn package" command creates the App Package file in target
-directory as target/mydtapp-1.0-SNAPSHOT.apa. You will be able to use
-that App Package file to launch this sample application in your actual
-Apex installation.</p>
-<h2 id="using-ide">Using IDE</h2>
-<p>Alternatively, you can do the above steps all within your IDE.  For example, in IDEA IntelliJ, first make sure you have the "Maven Integration" plugin enabled (Use File -> Settings -&gt; Plugins).  Then select File -> New -> Project.  Choose “Maven”, and check “Create from archetype” in the dialog box, as shown.</p>
-<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image00.png" /></p>
-<p>Then go ahead and click on the "Add Archetype..." button.</p>
-<p>Then fill out the Group ID, Artifact ID, and Version entries, and leave the Repository entry blank, as shown below.</p>
-<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image01.png" /></p>
-<p>Group ID: org.apache.apex
-Artifact ID: apex-app-archetype
-Version: 3.2.0-incubating (or any later version)</p>
-<p>Click OK. The archetype will appear in the list, selected.  Note that this "Add Archetype..." step is only required the first time you use the archetype.  You can select the archetype directly after it has been added the first time.</p>
-<p>Click Next, and fill out the rest of the required information. For example:</p>
-<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image02.png" /></p>
-<p>Click Next, and verify the information shown on the next screen:</p>
-<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image03.png" /></p>
-<p>Click Next, and fill out the project name and location: </p>
-<p><img alt="" src="../images/AppPackage/ApplicationPackages.html-image04.png" /></p>
-<p>Click Finish, and now you have created your own Apache Apex App Package
-project, with a default unit test.  You can run the unit test, make code
-changes or make dependency changes within your IDE.  The procedure for
-other IDEs, like Eclipse or NetBeans, is similar.</p>
+<h1 id="preliminaries">Preliminaries</h1>
+<p>Please read <a href="../apex_development_setup/">Apache Apex Development Environment Setup</a>
+for detailed instructions on:</p>
+<ul>
+<li>Pre-requisite tools such as JDK, Maven, Git, etc.</li>
+<li>Setting up the Datatorrent sandbox, if necessary.</li>
+<li>Creating a new Apache Apex project using either the command line or one of the
+  common IDEs.</li>
+<li>Running the unit test from the newly created project.</li>
+</ul>
 <h1 id="writing-your-own-app-package">Writing Your Own App Package</h1>
 <p>Please refer to the <a href="../create/">Creating Apps</a> on the basics on how to write an Apache Apex application.  In your AppPackage project, you can add custom operators (refer to <a href="https://www.datatorrent.com/docs/guides/OperatorDeveloperGuide.html">Operator Development Guide</a>), project dependencies, default and required configuration properties, pre-set configurations and other metadata.</p>
 <h2 id="adding-and-removing-project-dependencies">Adding (and removing) project dependencies</h2>

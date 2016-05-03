@@ -230,6 +230,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../configure_IDE/">Generate New Project in IDE</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../application_development/">Applications</a>
         
     </li>
@@ -340,13 +347,6 @@
                 
             
             </ul>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../autometrics/">AutoMetric API</a>
         
     </li>
 
@@ -1785,6 +1785,21 @@ restricted to custom properties?</p>
 }
 </code></pre>
 
+<h3 id="post-wsv2applicationsappidrestartqueuequeue">POST /ws/v2/applications/{appid}/restart[?queue={queue}]</h3>
+<p>Since: 3.4.0
+Function: Restart the terminated application. Payload is optional.
+Payload:</p>
+<pre><code class="json">{
+  &quot;{propertyName}&quot; : &quot;{propertyValue}&quot;, ...
+}
+</code></pre>
+
+<p>Return:</p>
+<pre><code class="json">{
+  &quot;appId&quot;: &quot;{appId}&quot;
+}
+</code></pre>
+
 <h3 id="get-wsv2apppackages">GET /ws/v2/appPackages</h3>
 <p>Since: 1.0.4</p>
 <p>Function: Gets the list of appPackages the user can view in the system</p>
@@ -1939,10 +1954,13 @@ Returns:</p>
 </code></pre>
 
 <h3 id="post-wsv2apppackagesuserapppackagenameapppackageversionmerge">POST /ws/v2/appPackages/{user}/{appPackageName}/{appPackageVersion}/merge</h3>
-<p>Function: Merge the configuration, json apps, and resources files from the version specified from the payload to the specified app package in the url, without overwriting any existing file in the specified app package</p>
+<p>Function: Merge the configuration, json apps, and resources files from the app package specified by user/name/version from the payload to the specified app package in the url, without overwriting any existing file in the specified app package. If replaceExisting is true, the files in the app, conf and resources directory of the app package will be replaced by the ones in the app package specified in the payload. Otherwise, they will not be replaced. The fields user, name and replaceExisting in the payload are optional. If user and name are not specified, they are default to be the same as in the URI path. replaceExisting's default is false.</p>
 <p>Payload:</p>
 <pre><code class="json">{
- &quot;version&quot;: &quot;{versionToMergeFrom}&quot;
+ &quot;user&quot;: &quot;{user}&quot;,
+ &quot;name&quot;: &quot;{name}&quot;,
+ &quot;version&quot;: &quot;{versionToMergeFrom}&quot;,
+ &quot;replaceExisting&quot;: &quot;{true/false}&quot;
 }
 </code></pre>
 
@@ -2269,8 +2287,8 @@ Payload:</p>
 
 <h1 id="publisher-subscriber-websocket-protocol">Publisher-Subscriber WebSocket Protocol</h1>
 <p>dtGateway provides a light-weight pubsub websocket service.
-The URL of dtGateway's pubsub websocket service is: \&lt;dtGateway-host-port>/pubsub.
-For example: http://localhost:9090/pubsub</p>
+The URL of dtGateway's pubsub websocket service is: <code>ws://{dtGateway-host-port}/pubsub</code>.
+For example: <code>ws://localhost:9090/pubsub</code></p>
 <h2 id="input">Input</h2>
 <h3 id="publishing">Publishing</h3>
 <pre><code>{"type":"publish", "topic":"{topic}", "data":{data}}
@@ -2284,7 +2302,7 @@ For example: http://localhost:9090/pubsub</p>
 <h3 id="subscribing-to-the-number-of-subscribers-of-a-topic">Subscribing to the number of subscribers of a topic</h3>
 <pre><code>{"type":"subscribeNumSubscribers", "topic":"{topic}"}
 </code></pre>
-<h3 id="subscribing-to-the-number-of-subscribers-of-a-topic_1">Subscribing to the number of subscribers of a topic</h3>
+<h3 id="unsubscribing-from-the-number-of-subscribers-of-a-topic">Unsubscribing from the number of subscribers of a topic</h3>
 <pre><code>{"type":"unsubscribeNumSubscribers", "topic":"{topic}"}
 </code></pre>
 <h2 id="output">Output</h2>
@@ -2315,7 +2333,7 @@ For example: http://localhost:9090/pubsub</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../autometrics/" class="btn btn-neutral float-right" title="AutoMetric API">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../dtingest/" class="btn btn-neutral float-right" title="dtIngest">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../operators/file_output/" class="btn btn-neutral" title="File Output"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -2347,7 +2365,7 @@ For example: http://localhost:9090/pubsub</p>
         <span><a href="../operators/file_output/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../autometrics/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../dtingest/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

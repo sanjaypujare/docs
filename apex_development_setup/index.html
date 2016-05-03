@@ -249,6 +249,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../configure_IDE/">Generate New Project in IDE</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../application_development/">Applications</a>
         
     </li>
@@ -335,13 +342,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../dtgateway_api/">REST API</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../autometrics/">AutoMetric API</a>
         
     </li>
 
@@ -536,10 +536,10 @@
 <p><em>maven</em> -- Apache Maven is a build system for Java projects (version 3.0.5 or later). It can be downloaded from <a href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a>.</p>
 </li>
 <li>
-<p><em>VirtualBox</em> -- Oracle VirtualBox is a virtual machine manager (version 4.3 or later) and can be downloaded from <a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a>. It is needed to run the Data Torrent Sandbox.</p>
+<p><em>VirtualBox</em> -- Oracle VirtualBox is a virtual machine manager (version 4.3 or later) and can be downloaded from <a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a>. It is needed to run the DataTorrent Sandbox.</p>
 </li>
 <li>
-<p><em>DataTorrent Sandbox</em> -- The sandbox can be downloaded from <a href="https://www.datatorrent.com/download">https://www.datatorrent.com/download</a>. It is useful for testing simple applications since it contains Apache Hadoop and Data Torrent RTS 3.1.1 pre-installed with a time-limited Enterprise License. If you already installed the RTS Enterprise Edition (evaluation or production license) on a cluster, you can use that setup for deployment and testing instead of the sandbox.</p>
+<p><em>DataTorrent Sandbox</em> -- The sandbox can be downloaded from <a href="https://www.datatorrent.com/download">https://www.datatorrent.com/download</a>. It is useful for testing simple applications since it contains Apache Hadoop and DataTorrent RTS pre-installed with a time-limited Enterprise License. If you already installed the RTS Enterprise Edition (evaluation or production license) on a cluster, you can use that setup for deployment and testing instead of the sandbox.</p>
 </li>
 <li>
 <p>(Optional) If you prefer to use an IDE (Integrated Development Environment) such as <em>NetBeans</em>, <em>Eclipse</em> or <em>IntelliJ</em>, install that as well.</p>
@@ -587,38 +587,65 @@
 </table>
 
 <h2 id="installing-the-sandbox">Installing the Sandbox</h2>
-<p>To install the sandbox, first download it from <a href="https://www.datatorrent.com/download">https://www.datatorrent.com/download</a> and import the downloaded file into VirtualBox. Once the import completes, you can select it and click the  Start button to start the sandbox.</p>
-<p>The sandbox is configured with 6GB RAM; if your development machine has 16GB or more, you can increase the sandbox RAM to 8GB or more using the VirtualBox console. This will yield better performance and support larger applications. Additionally, you can change the network adapter from <strong>NAT</strong> to <strong>Bridged Adapter</strong>; this will allow you to login to the sandbox from your host machine using an <em>ssh</em> tool like <strong>PuTTY</strong> and also to transfer files to and from the host using <code>pscp</code> on Windows. Of course all such configuration must be done when when the sandbox is not running.</p>
-<p>You can choose to develop either directly on the sandbox or on your development machine. The advantage of the former is that most of the tools (e.g. <em>jdk</em>, <em>git</em>, <em>maven</em>) are pre-installed and also the package files created by your project are directly available to the Data Torrent tools such as  <strong>dtManage</strong> and <strong>dtcli</strong>. The disadvantage is that the sandbox is a memory-limited environment so running a memory-hungry tool like a Java IDE on it may starve other applications of memory.</p>
+<p>The sandbox includes, as noted above, a complete, stand-alone, instance of the
+Datatorrent RTS Enterprise Edition configured as a single-node Hadoop cluster. Please
+see <a href="../sandbox/">DataTorrent RTS Sandbox</a> for details on setting up the sandbox.</p>
+<p>You can choose to develop either directly on the sandbox or on your development machine. The advantage of the former is that most of the tools (e.g. <em>jdk</em>, <em>git</em>, <em>maven</em>) are pre-installed and also the package files created by your project are directly available to the DataTorrent tools such as  <strong>dtManage</strong> and <strong>dtcli</strong>. The disadvantage is that the sandbox is a memory-limited environment so running a memory-hungry tool like a Java IDE on it may starve other applications of memory.</p>
 <h2 id="creating-a-new-project">Creating a new Project</h2>
-<p>You can now use the maven archetype to create a basic Apache Apex project as follows: Put these lines in a Windows command file called, for example, <code>newapp.cmd</code> and run it:</p>
+<p>You can now use the maven archetype to create a basic Apache Apex project as follows: Put these lines in a Windows command file called, for example, <code>newapp.cmd</code> and run it (the
+value for <code>archetypeVersion</code> can be a more recent version if available):</p>
 <pre><code>@echo off
 @rem Script for creating a new application
 setlocal
-mvn archetype:generate ^
--DarchetypeRepository=https://www.datatorrent.com/maven/content/repositories/releases ^
-  -DarchetypeGroupId=com.datatorrent ^
+mvn -B archetype:generate ^
+  -DarchetypeGroupId=org.apache.apex ^
   -DarchetypeArtifactId=apex-app-archetype ^
-  -DarchetypeVersion=3.1.1 ^
+  -DarchetypeVersion=3.3.0-incubating ^
   -DgroupId=com.example ^
   -Dpackage=com.example.myapexapp ^
   -DartifactId=myapexapp ^
   -Dversion=1.0-SNAPSHOT
 endlocal
 </code></pre>
-<p>The caret (^) at the end of some lines indicates that a continuation line follows. When you run this file, the properties will be displayed and you will be prompted with <code>Y: :</code>; just press <strong>Enter</strong> to complete the project generation.</p>
-<p>This command file also exists in the Data Torrent <em>examples</em> repository which you can check out with:</p>
+<p>The caret (^) at the end of some lines indicates that a continuation line follows.</p>
+<p>This command file also exists in the DataTorrent <em>examples</em> repository which you can check out with:</p>
 <pre><code>git clone https://github.com/DataTorrent/examples
 </code></pre>
 <p>You will find the script under <code>examples\tutorials\topnwords\scripts\newapp.cmd</code>.</p>
-<p>You can also, if you prefer, use an IDE to generate the project as described in Section 3 of <a href="../application_packages/">Application Packages</a> but use the archetype version 3.1.1 instead of 3.0.0.</p>
+<p>You can also, if you prefer, use an IDE to generate the project as described in
+<a href="../configure_IDE/">Creating a New Apache Apex Project with your IDE</a>.</p>
 <p>When the run completes successfully, you should see a new directory named <code>myapexapp</code> containing a maven project for building a basic Apache Apex application. It includes 3 source files:<strong>Application.java</strong>,  <strong>RandomNumberGenerator.java</strong> and <strong>ApplicationTest.java</strong>. You can now build the application by stepping into the new directory and running the appropriate maven command:</p>
 <pre><code>cd myapexapp
 mvn clean package -DskipTests
 </code></pre>
-<p>The build should create the application package file <code>myapexapp\target\myapexapp-1.0-SNAPSHOT.apa</code>. This file can then be uploaded to the Data Torrent GUI tool on the sandbox (called <strong>dtManage</strong>) and launched  from there. It generates a stream of random numbers and prints them out, each prefixed by the string  <code>hello world:</code>.  If you built this package on the host, you can transfer it to the sandbox using the <code>pscp</code> tool bundled with <strong>PuTTY</strong> mentioned earlier.</p>
+<p>The build should create the application package file <code>myapexapp\target\myapexapp-1.0-SNAPSHOT.apa</code>. This file can then be uploaded to the DataTorrent GUI tool (<strong>dtManage</strong>) on your cluster if you have DataTorrent RTS installed there, or on the sandbox and launched  from there. It generates a stream of random numbers and prints them out, each prefixed by the string  <code>hello world:</code>.</p>
+<p>If you built this package on the host, you can transfer it to the sandbox using either a shared folder or the <code>pscp</code> tool bundled with <code>PuTTY</code> mentioned earlier.</p>
+<p>You can also run this application from the generated unit test file as described in the
+next section.</p>
 <h2 id="running-unit-tests">Running Unit Tests</h2>
-<p>To run unit tests on Linux or OSX, simply run the usual maven command, for example: <code>mvn test</code>.</p>
+<p>To run unit tests on Linux or OSX, simply run the usual maven command, for example: <code>mvn test</code>
+to run all tests or <code>mvn -Dcom.example.myapexapp.ApplicationTest#testApplication test</code> to run
+a selected test. For the default application generated from the archetype, it should
+print output like this:</p>
+<pre><code> -------------------------------------------------------
+  TESTS
+ -------------------------------------------------------
+
+ Running com.example.mydtapp.ApplicationTest
+ hello world: 0.8015370953286478
+ hello world: 0.9785359225545481
+ hello world: 0.6322611586644047
+ hello world: 0.8460953663451775
+ hello world: 0.5719372906929072
+ ...
+
+ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.863
+ sec
+
+ Results :
+
+ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+</code></pre>
 <p>On Windows, an additional file, <code>winutils.exe</code>, is required; download it from
 <a href="https://github.com/srccodes/hadoop-common-2.2.0-bin/archive/master.zip">https://github.com/srccodes/hadoop-common-2.2.0-bin/archive/master.zip</a>
 and unpack the archive to, say, <code>C:\hadoop</code>; this file should be present under
@@ -639,12 +666,22 @@ mvn test
 unit test in the usual way. For example, with NetBeans you can add:</p>
 <pre><code>Env.HADOOP_HOME=c:/hadoop/hadoop-common-2.2.0-bin-master
 </code></pre>
-<p>at <em>Properties &#8658; Actions &#8658; Run project &#8658; Set Properties</em>.</p>
+<p>at <em>Properties &#x21e8; Actions &#x21e8; Run project &#x21e8; Set Properties</em>.</p>
 <p>Similarly, in Eclipse (Mars) add it to the
-project properties at <em>Properties &#8658; Run/Debug Settings &#8658; ApplicationTest
-&#8658; Environment</em> tab.</p>
+project properties at <em>Properties</em> &#x21e8; <em>Run/Debug Settings</em> &#x21e8; <em>ApplicationTest</em>
+&#x21e8; <em>Environment</em> tab.</p>
 <h2 id="building-the-sources">Building the Sources</h2>
-<p>If you want to checkout the Apache Apex source repositories and build them, you can do so by running the script <code>build-apex.cmd</code> located in the same place in the examples repository described above. The source repositories contain more substantial demo applications and the associated source code. Alternatively, if you do not want to use the script, you can follow these simple manual steps:</p>
+<p>The Apache Apex source code is useful to have locally for a variety of reasons:
+- It has more substantial demo applications which can serve as models for new
+  applications in the same or similar domain.
+- When extending a class, it is helpful to refer to the base class implementation
+  of overrideable methods.
+- The maven build file <code>pom.xml</code> can be a useful model when you need to add or delete
+  plugins, dependencies, profiles, etc.
+- Browsing the code is a good way to gain a deeper understanding of the platform.</p>
+<p>You can download and build the source repositories by running the script <code>build-apex.cmd</code>
+located in the same place in the examples repository described above. Alternatively, if
+you do not want to use the script, you can follow these simple manual steps:</p>
 <ol>
 <li>
 <p>Check out the source code repositories:</p>
@@ -655,18 +692,22 @@ git clone https://github.com/apache/incubator-apex-malhar
 <li>
 <p>Switch to the appropriate release branch and build each repository:</p>
 <pre><code>pushd incubator-apex-core
-git checkout release-3.1
 mvn clean install -DskipTests
 popd
 pushd incubator-apex-malhar
-git checkout release-3.1
 mvn clean install -DskipTests
 popd
 </code></pre>
 </li>
 </ol>
-<p>The <code>install</code> argument to the <code>mvn</code> command installs resources from each project to your local maven repository (typically <code>.m2/repository</code> under your home directory), and <strong>not</strong> to the system directories, so Administrator privileges are not required. The  <code>-DskipTests</code> argument skips running unit tests since they take a long time. If this is a first-time installation, it might take several minutes to complete because maven will download a number of associated plugins.</p>
-<p>After the build completes, you should see the demo application package files in the target directory under each demo subdirectory in <code>incubator-apex-malhar\demos\</code>.</p>
+<p>The <code>install</code> argument to the <code>mvn</code> command installs resources from each project to your
+local maven repository (typically <code>.m2/repository</code> under your home directory), and
+<strong>not</strong> to the system directories, so <em>Administrator</em> privileges are not required.
+The  <code>-DskipTests</code> argument skips running unit tests since they take a long time. If this is a first-time installation, it might take several minutes to complete because maven will download a number of associated plugins.</p>
+<p>After the build completes, you should see application package files in the <code>target</code>
+directories under each module; for example, the <code>Pi Demo</code> package file
+<code>pi-demo-3.2.1-incubating-SNAPSHOT.apa</code> should be under
+<code>incubator-apex-malhar\demos\pi\target</code>.</p>
 <h2 id="linux">Linux</h2>
 <p>Most of the instructions for Linux (and other Unix-like systems) are similar to those for Windows described above, so we will just note the differences.</p>
 <p>The pre-requisites (such as <em>git</em>, <em>maven</em>, etc.) are the same as for Windows described above; please run the commands in the table and ensure that appropriate versions are present in your PATH environment variable (the command to display that variable is: <code>echo $PATH</code>).</p>
@@ -678,7 +719,7 @@ popd
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../application_development/" class="btn btn-neutral float-right" title="Applications">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../configure_IDE/" class="btn btn-neutral float-right" title="Generate New Project in IDE">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../tutorials/salesdimensions-c4/" class="btn btn-neutral" title="Monitoring with dtManage"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -710,7 +751,7 @@ popd
         <span><a href="../tutorials/salesdimensions-c4/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../application_development/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../configure_IDE/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

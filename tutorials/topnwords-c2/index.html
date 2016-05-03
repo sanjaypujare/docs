@@ -147,13 +147,11 @@
                 
                     <li><a class="toctree-l4" href="#step-i-clone-the-apex-malhar-repository">Step I: Clone the Apex Malhar repository</a></li>
                 
-                    <li><a class="toctree-l4" href="#step-ii-create-the-application-project-using-netbeans-ide">Step II: Create the application project using NetBeans IDE</a></li>
-                
-                    <li><a class="toctree-l4" href="#step-ii-optional-create-the-application-project-using-the-command-line">Step II (Optional): Create the application project using the command line</a></li>
+                    <li><a class="toctree-l4" href="#step-ii-create-a-new-application-project">Step II: Create a new application project</a></li>
                 
                     <li><a class="toctree-l4" href="#step-iii-copy-application-files-to-the-new-project">Step III: Copy application files to the new project</a></li>
                 
-                    <li><a class="toctree-l4" href="#step-iv-customize-the-application-and-operators">Step IV: Customize the application and operators</a></li>
+                    <li><a class="toctree-l4" href="#step-iv-configure-the-application-and-operators">Step IV: Configure the application and operators</a></li>
                 
                     <li><a class="toctree-l4" href="#step-v-build-the-top-n-words-count-application">Step V: Build the top N words count application</a></li>
                 
@@ -253,6 +251,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../../configure_IDE/">Generate New Project in IDE</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../../application_development/">Applications</a>
         
     </li>
@@ -339,13 +344,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../../dtgateway_api/">REST API</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../../autometrics/">AutoMetric API</a>
         
     </li>
 
@@ -532,10 +530,8 @@
                 <h1 id="building-top-n-words-using-java">Building top N words using JAVA</h1>
 <p>This chapter describes the steps to build the application in Java using some
 source files from the Malhar repository, suitably modified and customized to
-run on the sandbox. We will use the <strong>dtManage</strong> GUI tool to launch the
+run on a cluster (or sandbox). We will use the <strong>dtManage</strong> GUI tool to launch the
 application.</p>
-<p><em>Note</em>: You can build the top N words application using an IDE such as NetBeans
-or maven on the command line. The following sections describe both ways.</p>
 <h2 id="step-i-clone-the-apex-malhar-repository">Step I: Clone the Apex Malhar repository</h2>
 <p>Clone the Malhar repository (we will use some of these source files in a later
 section):</p>
@@ -550,123 +546,13 @@ section):</p>
 </code></pre>
 <p>You should now see a directory named <code>incubator-apex-malhar</code>.</p>
 </li>
-<li>
-<p>Navigate to the <code>incubator-apex-malhar</code> directory and switch to the
-    <code>devel-3</code> branch:</p>
-<pre><code>cd incubator-apex-malhar
-git checkout devel-3
-</code></pre>
-</li>
 </ol>
-<h2 id="step-ii-create-the-application-project-using-netbeans-ide">Step II: Create the application project using NetBeans IDE</h2>
-<p>This section describes how to generate a new Apache Apex maven project using
-the NetBeans IDE (downloadable from <a href="https://netbeans.org/downloads/">https://netbeans.org/downloads/</a>). You can
-also use other IDEs such as Eclipse if you wish. The next section describes an
-alternative method of doing the same thing from the command-line without using
-an IDE.</p>
-<p>Generate a new Maven archetype project as follows:</p>
-<ul>
-<li>Open NetBeans.</li>
-<li>Click File &#x21e8; New Project.</li>
-<li>
-<p>From the projects list, select <em>Project from Archetype</em>, and click <em>Next</em>.
-    <img alt="Project from ArcheType" src="../images/topnwords//image34.png" title="Project from Archetype" /></p>
-</li>
-<li>
-<p>On the Maven Archetype window, type <code>apex</code> in the <em>Search</em> box, and
-     from the list of <em>Known Archetypes</em>, select <code>apex-app-archetype</code>.
-     <img alt="apex archetype" src="../images/topnwords//image33.png" title="apex archetype" /></p>
-</li>
-<li>Make sure that the values for the fields match the values shown in this
-     table:</li>
-</ul>
-<p><table>
-  <colgroup>
-  <col width="20%" />
-  <col width="80%" />
-  </colgroup>
-  <tbody>
-  <tr class="odd">
-  <td align="left"><p><strong>Field</strong></p></td>
-  <td align="left"><p><strong>Value</strong></p></td>
-  </tr>
-  <tr class="even">
-  <td align="left"><p>Group ID</p></td>
-  <td align="left"><p>com.datatorrent</p></td>
-  </tr>
-  <tr class="odd">
-  <td align="left"><p>Artifact ID</p></td>
-  <td align="left"><p>apex-app-archetype</p></td>
-  </tr>
-  <tr class="even">
-  <td align="left"><p>Version</p></td>
-  <td align="left"><p>3.1.1</p></td>
-  </tr>
-  <tr class="odd">
-  <td align="left"><p>Repository</p></td>
-  <td align="left"><p>https://www.datatorrent.com/maven/content/repositories/releases/</p></td>
-  </tr>
-  </tbody>
-  </table></p>
-<ul>
-<li>Click Next.</li>
-<li>
-<p>On the <em>Name and Location</em> window, do the following:</p>
-<ol>
-<li>Enter a name for this project in the <em>Project Name</em> box, for example,
-    <code>TopNWordCount</code>.</li>
-<li>Enter a location for this project in the <em>Project Location</em> box, for
-     example, <code>/home/dtadmin/NetBeansProjects</code>.</li>
-<li>Enter an ID in the <em>Group Id</em> box, for example, <code>com.example</code>.</li>
-<li>Enter a version for this project in the <em>Version</em> box, for example,
-     <code>1.0-SNAPSHOT</code>.</li>
-<li>Enter the package name in the <em>Package</em> box, for example,
-      <code>com.example.topnwordcount</code>.</li>
-</ol>
-<p><img alt="Name and Location" src="../images/topnwords//image36.png" title="Name and Location" /></p>
-</li>
-<li>
-<p>Click Finish.</p>
-</li>
-</ul>
-<p>The project is generated at the specified location and should be visible in
-the left panel with the name <em>My Apex Application</em>. You can right-click the
-project and choose <em>Rename</em> to provide a more descriptive name such as
-<strong>TopNWordCount</strong>.</p>
-<hr />
-<h2 id="step-ii-optional-create-the-application-project-using-the-command-line">Step II (Optional): Create the application project using the command line</h2>
-<p>The new maven project can be created using the command line (instead of an IDE)
-as follows:</p>
-<ol>
-<li>
-<p>Copy this script to a simple text file named, for example, <code>newdt.sh</code>.</p>
-<pre><code>#!/bin/bash
-# script to create a new project
-mvn archetype:generate \
--DarchetypeRepository=https://www.datatorrent.com/maven/content/repositories/releases \
-  -DarchetypeGroupId=com.datatorrent \
-  -DarchetypeArtifactId=apex-app-archetype \
-  -DarchetypeVersion=3.1.1 \
-  -DgroupId=com.example \
-  -Dpackage=com.example.topnwordcount \
-  -DartifactId=topNwordcount \
-  -Dversion=1.0-SNAPSHOT
-</code></pre>
-</li>
-<li>
-<p>Run the file: <code>bash newdt.sh</code></p>
-<p><em>Note</em>: The command parameters might require minor adjustments as newer
-versions of Apache Apex are released. The parameters are displayed when you run this command.</p>
-</li>
-<li>
-<p>Press <em>Enter</em> when prompted with <code>Y : :</code>. A new project directory named
-    <code>topNwordcount</code> containing source files for a simple application should
-    appear.</p>
-</li>
-</ol>
+<h2 id="step-ii-create-a-new-application-project">Step II: Create a new application project</h2>
+<p>Create a new application project as described in (you can use either an IDE
+or the command line):
+<a href="apex_development_setup.md">Apache Apex Development Environment Setup</a></p>
 <h2 id="step-iii-copy-application-files-to-the-new-project">Step III: Copy application files to the new project</h2>
-<p>We assume you now have a new project created via one of the two methods
-outlined above. We will now copy over a few of the application files downloaded
+<p>We will now copy over a few of the application files downloaded
 in Step I to the appropriate subdirectory of the new project.</p>
 <ol>
 <li>Delete files <code>Application.java</code> and <code>RandomNumberGenerator.java</code>
@@ -675,11 +561,9 @@ in Step I to the appropriate subdirectory of the new project.</p>
    <code>src/test/java/com/example/topnwordcount</code>.</li>
 <li>
 <p>Copy the following files from:</p>
-<pre><code>incubator-apex-malhar/demos/wordcount/src/main/java/com/datatorrent/demos/wordcount/
-</code></pre>
+<p><code>incubator-apex-malhar/demos/wordcount/src/main/java/com/datatorrent/demos/wordcount/</code></p>
 <p>to</p>
-<pre><code>src/main/java/com/example/topnwordcount
-</code></pre>
+<p><code>src/main/java/com/example/topnwordcount</code></p>
 <ul>
 <li>ApplicationWithQuerySupport.java</li>
 <li>FileWordCount.java</li>
@@ -692,67 +576,15 @@ in Step I to the appropriate subdirectory of the new project.</p>
 </li>
 <li>
 <p>Copy the file <code>WordDataSchema.json</code> from</p>
-<pre><code>incubator-apex-malhar/demos/wordcount/src/main/resources/
-</code></pre>
+<p><code>incubator-apex-malhar/demos/wordcount/src/main/resources/</code></p>
 <p>to</p>
-<pre><code>src/main/resources/
-</code></pre>
+<p><code>src/main/resources/</code></p>
 <p>in the new project.</p>
 <p><em>Note</em>: This file defines the format of data sent to the visualization widgets within <strong>dtDashboard</strong>.</p>
 </li>
 </ol>
-<h2 id="step-iv-customize-the-application-and-operators">Step IV: Customize the application and operators</h2>
-<p>We will now customize the application so that we can build and run it in our
-sandbox environment.</p>
-<p>The first customization involves the package name within the files which
-currently reflects the package from which they were copied. The relevant line
-within each file might look like this:</p>
-<pre><code>package com.datatorrent.demos.wordcount;
-</code></pre>
-
-<p>Change this line to reflect the current location, for example:</p>
-<pre><code>package com.example.topnwordcount;
-</code></pre>
-
-<p>Note: This change is easily accomplished in NetBeans by opening each file,
-clicking the red error icon in the left margin, and selecting the
-<em>Change package declaration to com.example.topnwordcount</em> entry from the
-drop-down list. Do this for each Java file that you copied.</p>
-<p><strong>Customize the operators</strong></p>
-<p>The next customization involves the query operators: The new code has two
-query operators that are embedded within other operators. Support for such
-embedding is absent in the 3.1.1 code, so we must:</p>
-<ul>
-<li>Remove the embedding calls</li>
-<li>Add the operators directly to the DAG</li>
-<li>Connect these query operators to the rest of the DAG via suitable streams</li>
-</ul>
-<p><em>Note</em>: All the operators used in this application are described in detail in the
-Appendix.</p>
-<p>To make these changes, edit the file <code>ApplicationWithQuerySupport.java</code>:</p>
-<ol>
-<li>
-<p>Remove the lines containing calls to <code>setEmbeddableQueryInfoProvider()</code>
-    and add these two lines in their place:</p>
-<pre><code>dag.addOperator("QueryFile",   wsQueryFile);  
-dag.addOperator("QueryGlobal", wsQueryGlobal);
-</code></pre>
-</li>
-<li>
-<p>Add streams to connect the two query operators to the DAG by adding these
-    lines before the four existing <code>addstream()</code> calls:</p>
-<pre><code>dag.addStream("QueryFileStream", wsQueryFile.outputPort, snapshotServerFile.query);
-dag.addStream("QueryGlobalStream", wsQueryGlobal.outputPort, snapshotServerGlobal.query);
-</code></pre>
-</li>
-<li>
-<p>Save the file.</p>
-</li>
-</ol>
-<p><strong>Note</strong>: After you complete this procedure, the newly copied Java files
-should not show the red error icon in the IDE.</p>
-<p><strong>Customize the application configuration</strong></p>
-<p>Lastly, you must add configure some properties of the application. These
+<h2 id="step-iv-configure-the-application-and-operators">Step IV: Configure the application and operators</h2>
+<p>Next, we need to configure application properties. These
 properties accomplish the following aims:</p>
 <ul>
 <li>Limit the amount of memory used by most operators so that more memory can
@@ -769,7 +601,7 @@ properties accomplish the following aims:</p>
 <li>Define the topics for sending queries and retrieving data for visualization.</li>
 </ul>
 <p>To do this:</p>
-<p>Open the src/main/resources/META-INF/properties.xml file, and replace its
+<p>Open the file <code>src/main/resources/META-INF/properties.xml</code>, and replace its
 content with the following:</p>
 <pre><code>&lt;configuration&gt;
  &lt;property&gt;
@@ -818,13 +650,20 @@ content with the following:</p>
 &lt;/configuration&gt;
 </code></pre>
 
+<p><em>Note</em>:
+The package name within the Java files we just copied currently reflects the
+package from which they were copied. This may be flagged as an error by your IDE
+but the application should build with no errors when built with maven on the
+command line. You can fix the errors in the IDE by changing the relevant line
+within each file from:</p>
+<pre><code>package com.datatorrent.demos.wordcount;
+</code></pre>
+<p>to reflect the current location of the file, for example:</p>
+<pre><code>package com.example.topnwordcount;
+</code></pre>
 <h2 id="step-v-build-the-top-n-words-count-application">Step V: Build the top N words count application</h2>
-<p>To build the application from NetBeans</p>
-<ol>
-<li>Open NetBeans IDE.</li>
-<li>Right-click the project, and click <em>Build</em>.</li>
-</ol>
-<p>Building the application from the command line is equally simple:</p>
+<p>From your IDE build the application in the usual way</p>
+<p>From the command line build it with:</p>
 <pre><code>cd topNwordcount; mvn clean package -DskipTests
 </code></pre>
 <p>In either case, if the build is successful, it should have created the
@@ -843,9 +682,9 @@ application package file
 <li>Wait till the package is successfully uploaded.</li>
 </ol>
 <h2 id="step-vii-launch-the-top-n-words-application">Step VII: Launch the top N words application</h2>
-<p><em>Note</em>: Before launching the top N words application, shut down the IDE. If your
-IDE is running at the time of a launch, the sandbox might hang due to resource
-exhaustion.</p>
+<p><em>Note</em>: If you are launching the application on the sandbox, make sure that
+an IDE is not running on it at the same time; otherwise, the sandbox might
+hang due to resource exhaustion.</p>
 <ol>
 <li>Log on to the DataTorrent Console (the default username and password are
    both <code>dtadmin</code>).</li>

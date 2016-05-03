@@ -106,6 +106,8 @@
                 
                     <li><a class="toctree-l4" href="#accessing-console">Accessing Console</a></li>
                 
+                    <li><a class="toctree-l4" href="#configuring-the-sandbox">Configuring the Sandbox</a></li>
+                
                     <li><a class="toctree-l4" href="#running-demo-applications">Running Demo Applications</a></li>
                 
                     <li><a class="toctree-l4" href="#service-management">Service Management </a></li>
@@ -247,6 +249,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../configure_IDE/">Generate New Project in IDE</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../application_development/">Applications</a>
         
     </li>
@@ -333,13 +342,6 @@
             
     <li class="toctree-l1 ">
         <a class="" href="../dtgateway_api/">REST API</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../autometrics/">AutoMetric API</a>
         
     </li>
 
@@ -516,23 +518,53 @@
             <div class="section">
               
                 <h1 id="datatorrent-rts-sandbox">DataTorrent RTS Sandbox</h1>
-<p>Welcome to the DataTorrent Sandbox, an introduction to DataTorrent RTS, the industry’s only unified stream and batch processing platform.  The Sandbox provides a quick and simple way to experience DataTorrent RTS without setting up and managing a complete Hadoop cluster.  The Sandbox contains pre-installed DataTorrent RTS Enterprise Edition along with all the Hadoop services required to launch and run the included demo applications.</p>
+<p>The DataTorrent Sandbox provides a quick and simple way to experience
+DataTorrent RTS without setting up and managing a complete Hadoop cluster.
+The Sandbox has the latest version of DataTorrent RTS Enterprise Edition
+pre-installed along with all the Hadoop services required to launch and run
+the included demo applications.</p>
 <h2 id="installation">Installation</h2>
-<p>If you have not already, sandbox can be downloaded by visiting <a href="https://www.datatorrent.com/download/">datatorrent.com/download</a>.  To run the DataTorrent Sandbox, ensure you have downloaded and installed <a href="https://www.virtualbox.org/">VirtualBox</a> 4.3 or greater.</p>
+<p>You'll need to install Virtual Box in order to run the sandbox.
+Oracle VirtualBox is a virtual machine manager (version 4.3 or later)
+and can be downloaded from <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>.</p>
+<p>Download the sandbox from
+<a href="https://www.datatorrent.com/download/">datatorrent.com/download</a> and import it
+into Virtual Box. Then select the newly imported image in the left pane of the
+Virtual Box console and click the <code>Start</code> button to
+start the sandbox virtual machine. When the machine comes up, you should see a
+browser window showing a login dialog which is discussed in the next section.</p>
 <h2 id="accessing-console">Accessing Console</h2>
 <p>When accessing DataTorrent console in the sandbox for the first time, you will be required to log in.  Use username <strong>dtadmin</strong> and password <strong>dtadmin</strong>.  Same credentials are also valid for sandbox system access.</p>
 <p><a href="http://localhost:9090/" target="\_blank">
 <img alt="" src="../images/sandbox/login.png" />
 </a></p>
+<p>If the various HDFS services are not yet ready, you may see a red warning saying
+HDFS is not ready like this:</p>
+<p><img alt="HDFS Not Ready" src="../images/sandbox/HDFSNotReady.png" title="HDFS Not Ready" /></p>
+<p>This warning should disappear after a few minutes and the console should appear
+looking something like this:</p>
+<p><img alt="Sandbox Console" src="../images/sandbox/SandboxConsole.png" title="Sandbox Console" /></p>
+<p>If the warning persists after several minutes, check that all required services
+are running as described in the <em>Service Management</em> section below.</p>
 <p>Inside the DataTorrent RTS Sandbox console can be accessed by opening a browser and visiting <a href="http://localhost:9090/" target="\_blank">http://localhost:9090/</a></p>
+<h2 id="configuring-the-sandbox">Configuring the Sandbox</h2>
+<p>The sandbox is configured with 6GB RAM; if your development machine has 16GB or
+more, you can increase the sandbox RAM to 8GB or more using the VirtualBox
+console. This will yield better performance and support larger applications.</p>
+<p>Additionally, you can change the network adapter from <strong>NAT</strong> to
+<strong>Bridged Adapter</strong>; this will allow you to login to the sandbox from your
+host as well as transfer files back and forth using <em>ssh</em> and <em>scp</em> on Linux
+or <em>ssh</em> tools like <strong>PuTTY</strong> and <strong>pscp</strong> on Windows.</p>
+<p>A simpler option for sharing files is to mount a shared folder from the host
+on the guest; this may be the only option in some environments where the
+sandbox is unable to acquire a separate IP address from DHCP. See, for example,
+<a href="http://www.htpcbeginner.com/mount-virtualbox-shared-folder-on-ubuntu-linux/">http://www.htpcbeginner.com/mount-virtualbox-shared-folder-on-ubuntu-linux/</a> or
+<a href="http://www.htpcbeginner.com/setup-virtualbox-shared-folders-linux-windows/">http://www.htpcbeginner.com/setup-virtualbox-shared-folders-linux-windows/</a>.</p>
+<p>Of course all such configuration must be done when when the sandbox is not running.</p>
 <h2 id="running-demo-applications">Running Demo Applications</h2>
 <p>Once authenticated, you can continue to <a href="../demos/">Demo Applications</a> section to learn how to import, launch, and run demo applications.</p>
 <h2 id="service-management">Service Management <a name="service_management"></a></h2>
-<p>The DataTorrent Sandbox automatically launches Hadoop HDFS and YARN, dtGateway, and other required services during startup.  Depending on the host machine capabilities, these may take from several seconds to several minutes to start up.  Until Hadoop services are active and ready, it is normal to see error messages about availability of HDFS and YARN in the Issues section of the DataTorrent console.  Ensure there are no errors remaining in the console by allowing sufficient time for Hadoop services startup prior to launching applications.  </p>
-<blockquote>
-<p><strong>Note</strong>: By default, this sandbox is designed to run with 6 GB of RAM.  Limited resources may cause delays during Hadoop services and applications startup.</p>
-</blockquote>
-<p>DataTorrent Sandbox automatically launches following services on startup.</p>
+<p>The sandbox automatically launches the following services on startup.</p>
 <ul>
 <li>Hadoop HDFS NameNode</li>
 <li>Hadoop HDFS DataNode</li>
@@ -540,23 +572,17 @@
 <li>Hadoop YARN NodeManager</li>
 <li>DataTorrent Gateway</li>
 </ul>
-<p>Following service management actions are available:</p>
-<ul>
-<li>Start all Hadoop and DataTorrent services</li>
-<li>Shut down all Hadoop and DataTorrent services</li>
-<li>Rebuild HDFS (deletes all data!) and restart all services.</li>
-</ul>
-<p>To manage the services following desktop launchers have been set up</p>
-<ul>
-<li>
-<p><strong>Ubuntu Sandbox Edition</strong> - right-click on <em>DataTorrent Services</em> desktop launcher</p>
-<p><img alt="" src="../images/sandbox/services.png" /></p>
-</li>
-<li>
-<p><strong>Lubuntu Sandbox Edition</strong> - hover the mouse over Lubuntu launcher hidden in the bottom left corner of the sandbox screen, and navigate to DataTorrent menu</p>
-<p><img alt="" src="../images/sandbox/services_lubuntu.png" /></p>
-</li>
-</ul>
+<p>Depending on the host machine capabilities, these may take from several seconds to several minutes to start up.  Until Hadoop services are active and ready, it is normal to see the warning message described above.</p>
+<p>If the warning persists after several minutes, check the status of each of these
+following services: you can do that with a shell script like this:</p>
+<pre><code>#!/bin/bash
+services='hadoop-hdfs-namenode hadoop-hdfs-datanode hadoop-yarn-resourcemanager hadoop-yarn-nodemanager dtgateway'
+for s in $services; do
+    sudo service "$s" status
+done
+</code></pre>
+<p>If any of these services are not running, you can start them by running a similar
+script but with <code>status</code> replaced by <code>start</code>.</p>
 <h2 id="support">Support</h2>
 <p>If you experience issues while experimenting with the sandbox, or have any feedback and comments, please let us know, and we will be happy to help!  Contact us using one of the methods listed on <a href="https://www.datatorrent.com/contact/">datatorrent.com/contact</a> page.</p>
               
