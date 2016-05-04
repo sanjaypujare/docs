@@ -554,6 +554,33 @@ Return:
 }
 ```
 
+### GET /ws/v2/applications/{appid}/physicalPlan/containers/{containerId}/stackTrace
+
+Since: 3.4.0 
+
+Function: Return the stack trace of the specified container
+
+Return:
+
+```json
+{
+    "threads" :  [
+        { 
+            "name": "{name}",
+            "state": "{state}",
+            "id": "{id}",
+            "stackTraceElements": [
+                        "{line1}",
+                        "{line2}",
+                        ...
+                    ]    
+         },
+        ... 
+    ]
+}
+```
+
+
 ### GET /ws/v2/applications/{appid}/physicalPlan/containers/{containerId}/logs/{logName}[?start={startPos}&end={endPos}&grep={regexp}&includeOffset={true/false}]
 
 Function: Return the raw log
