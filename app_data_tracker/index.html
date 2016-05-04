@@ -593,7 +593,7 @@ following methods is needed:</p>
 <li>Combining two aggregations together into one aggregation</li>
 </ul>
 <p>Let’s consider the case where we want to perform the following rolling average:</p>
-<p>Y_n = ½ * X_n + ½ * X_n-1 + ¼ * X_n-2 + ⅛ * X_n-3 +...</p>
+<p>Y_n = (1/2) * X_n + (1/4) * X_n-1 + (1/8) * X_n-2 + (1/16) * X_n-3 +...</p>
 <p>This aggregation could be performed by the following Custom Aggregator:</p>
 <pre><code class="java">@Name(&quot;IIRAVG&quot;)
 public class AggregatorIIRAVG extends AbstractIncrementalAggregator
