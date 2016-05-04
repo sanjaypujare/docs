@@ -567,8 +567,8 @@ Return:
     "threads": [
         {
             "name": "{name}",
-            "state": "{state}"
-            "id": "{id}"
+            "state": "{state}",
+            "id": "{id}",
             "stackTraceElements": [
                 "{line1}",
                 "{line2}", ...
