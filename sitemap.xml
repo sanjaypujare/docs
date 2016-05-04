@@ -106,6 +106,12 @@
     
         
     <url>
+     <loc>/app_data_tracker/</loc>
+     <lastmod>2016-05-03</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>/dtingest/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
