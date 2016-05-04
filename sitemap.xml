@@ -90,6 +90,12 @@
     </url>
         
     <url>
+     <loc>/app_data_framework/</loc>
+     <lastmod>2016-05-03</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>/dtgateway_api/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
