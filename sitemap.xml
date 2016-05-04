@@ -3,7 +3,7 @@
 
     
     <url>
-     <loc>None/</loc>
+     <loc>/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -12,13 +12,13 @@
     
         
     <url>
-     <loc>None/demo_videos/</loc>
+     <loc>/demo_videos/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/demos/</loc>
+     <loc>/demos/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -27,7 +27,7 @@
 
     
     <url>
-     <loc>None/sandbox/</loc>
+     <loc>/sandbox/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -36,61 +36,61 @@
     
         
     <url>
-     <loc>None/create/</loc>
+     <loc>/create/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None</loc>
+     <loc></loc>
      <lastmod></lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/apex_development_setup/</loc>
+     <loc>/apex_development_setup/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/configure_IDE/</loc>
+     <loc>/configure_IDE/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/application_development/</loc>
+     <loc>/application_development/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/application_packages/</loc>
+     <loc>/application_packages/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/configuration_packages/</loc>
+     <loc>/configuration_packages/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/operator_development/</loc>
+     <loc>/operator_development/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None</loc>
+     <loc></loc>
      <lastmod></lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/dtgateway_api/</loc>
+     <loc>/dtgateway_api/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -100,7 +100,7 @@
     
         
     <url>
-     <loc>None/dtingest/</loc>
+     <loc>/dtingest/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -110,77 +110,43 @@
     
         
     <url>
-     <loc>None/rts/</loc>
+     <loc>/rts/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/dtmanage/</loc>
+     <loc>/dtmanage/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/dtassemble/</loc>
+     <loc>/dtassemble/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/dtdashboard/</loc>
+     <loc>/dtdashboard/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/dtgateway/</loc>
+     <loc>/dtgateway/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/apex/</loc>
+     <loc>/apex/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/apex_malhar/</loc>
-     <lastmod>2016-05-03</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    
-
-    
-        
-    <url>
-     <loc>None/installation/</loc>
-     <lastmod>2016-05-03</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/configuration/</loc>
-     <lastmod>2016-05-03</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/dtgateway_security/</loc>
-     <lastmod>2016-05-03</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/dtcli/</loc>
-     <lastmod>2016-05-03</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/troubleshooting/</loc>
+     <loc>/apex_malhar/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -188,8 +154,42 @@
     
 
     
+        
     <url>
-     <loc>None/release_notes/</loc>
+     <loc>/installation/</loc>
+     <lastmod>2016-05-03</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/configuration/</loc>
+     <lastmod>2016-05-03</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/dtgateway_security/</loc>
+     <lastmod>2016-05-03</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/dtcli/</loc>
+     <lastmod>2016-05-03</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/troubleshooting/</loc>
+     <lastmod>2016-05-03</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+    <url>
+     <loc>/release_notes/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -197,7 +197,7 @@
 
     
     <url>
-     <loc>None/glossary/</loc>
+     <loc>/glossary/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -205,7 +205,7 @@
 
     
     <url>
-     <loc>None/additional_docs/</loc>
+     <loc>/additional_docs/</loc>
      <lastmod>2016-05-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
