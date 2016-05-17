@@ -471,7 +471,7 @@
                 
                     <li><a class="toctree-l4" href="#dt-gateway-configuration">DT Gateway Configuration</a></li>
                 
-                    <li><a class="toctree-l4" href="#dtmanage-authentication">dtManage Authentication</a></li>
+                    <li><a class="toctree-l4" href="#console-authentication">Console Authentication</a></li>
                 
             
                 <li class="toctree-l3"><a href="#run-time-management">Run-Time Management</a></li>
@@ -519,7 +519,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../dtcli/">dtCli</a>
+        <a class="" href="../apexcli/">Apex CLI</a>
         
     </li>
 
@@ -606,8 +606,8 @@ to configure CLASSPATH, JAVA_HOME, and various runtime settings.</p>
 <p>Depending on the installation type, these may be located under <code>/opt/datatorrent/current/conf</code> or <code>~/datatorrent/current/conf</code>.  See <a href="../installation/">installation guide</a> for details.</p>
 <h3 id="install-dirconfcustom-envsh">(install dir)/conf/custom-env.sh</h3>
 <p>This file can be used to configure behavior of DT Gateway service,
-as well as <code>dtcli</code> command line utility.  After adding custom properties
-to this file, dtgateway and dtcli utilities need to be restarted for
+as well as <code>apex</code> command line utility.  After adding custom properties
+to this file, dtgateway and Apex CLI utilities need to be restarted for
 changes to take effect.</p>
 <p>Example custom-env.sh configuration:</p>
 <pre><code class="bash"># Increase DT Gateway memory to 2GB
@@ -618,7 +618,7 @@ DT_GATEWAY_HEAP_MEM=2048m
 <ul>
 <li><em>DT_GATEWAY_HEAP_MEM</em> &ndash; Maximum heap size allocated to DT Gateway service.  Default is 1024m.</li>
 <li><em>DT_GATEWAY_DEBUG</em> &ndash; Set to 1 to enable additional debug information in the dtgateway.log</li>
-<li><em>DT_CLASSPATH</em> &ndash; Classpath used to load additional jars or properties for dtcli and dtgateway</li>
+<li><em>DT_CLASSPATH</em> &ndash; Classpath used to load additional jars or properties for Apex CLI and dtgateway</li>
 <li><em>DT_LOG_DIR</em> &ndash; Directory for log files</li>
 <li><em>DT_RUN_DIR</em> &ndash; Directory for process id and other temporary files
 created at run time</li>
@@ -657,7 +657,7 @@ settings which may change from environment to environment.</p>
 <p>The platform provides continuous information about CPU, Memory, and Network
 usage for the system as a whole, individual running applications,
 operators, streams, and various internal components.  These statistics
-are available via <a href="../dtgateway_api/">REST API</a>, <a href="../dtcli/">dtCli</a>, and <a href="../dtmanage/">dtManage</a>.</p>
+are available via <a href="../dtgateway_api/">REST API</a>, <a href="../apexcli/">Apex CLI</a>, and <a href="../dtmanage/">dtManage</a>.</p>
 <p>The platform is also responsible for</p>
 <ul>
 <li>Honoring the resource restrictions enforced by the YARN RM and taking
@@ -822,7 +822,7 @@ and replace [username] with the user running the DT Gateway:</p>
 applications along with performing various other operations on
 applications.  When Kerberos security is enabled in Hadoop, a Kerberos
 ticket granting ticket or the Kerberos credentials of the user is needed
-by the CLI program <code>dtcli</code> to authenticate with Hadoop for any
+by the CLI program <code>apex</code> to authenticate with Hadoop for any
 operation. Kerberos credentials are composed of a principal and either a
 <em>keytab</em> or a password. For security and operational reasons only keytabs
 are supported in Hadoop and by extension in DataTorrent platform. When
@@ -835,12 +835,12 @@ found online or in man pages. An sample usage of this command is</p>
 <pre><code>kinit -k -t path-tokeytab-file kerberos-principal
 </code></pre>
 <p>If this command is successful, the TGT is obtained, cached and available for
-other programs. The CLI program <code>dtcli</code> can then be started to launch
+other programs. The CLI program <code>apex</code> can then be started to launch
 applications and perform other operations.</p>
 <h3 id="using-kerberos-credentials">Using Kerberos credentials</h3>
-<p>The CLI program <code>dtcli</code> can also use the Kerberos credentials directly without
+<p>The CLI program <code>apex</code> can also use the Kerberos credentials directly without
 requiring a TGT to be obtained separately. This can be useful in batch mode
-where <code>dtcli</code> is not launched manually and also in scenarios where running a
+where <code>apex</code> is not launched manually and also in scenarios where running a
 separate program like <code>kinit</code> is not feasible.</p>
 <p>The credentials can be specified in the <code>dt-site.xml</code> configuration
 file. If only a single user is launching applications, the global
@@ -865,37 +865,10 @@ user principal and <code>dt.authentication.keytab</code> specifies the absolute 
 to the keytab file for the user.</p>
 <h2 id="dt-gateway-configuration">DT Gateway Configuration</h2>
 <p>DT Gateway is a service that provides the backend functionality
-for the DataTorrent UI console. Refer to <a href="../dtmanage/">dtManage</a> for
-details on the UI console. The DT Gateway provides real-time information
-about running applications, allows changes to applications, launching
-new applications among various other operations. In Kerberos secure
-mode, Kerberos credentials are required for DT Gateway to operate. The
-credentials should match the user that the DT Gateway service is running
-as.</p>
-<p>In a multi-user installation DT Gateway is typically running as
-user <code>dtadmin</code> and the Kerberos credentials specified should be for this
-user. They are specified in the <code>dt-site.xml</code> configuration file in the
-installation folder. For a single user installation where gateway is
-running as the user, the Kerberos credentials will be the user’s and
-they will be specified in the <code>dt-site.xml</code> in the home directory location
-<code>$HOME/.dt/dt-site.xml</code>.</p>
-<p>The snippet below shows how the credentials are specified in the
-configuration file as properties.</p>
-<pre><code class="xml">&lt;property&gt;
-        &lt;name&gt;dt.gateway.authentication.principal&lt;/name&gt;
-        &lt;value&gt;kerberos-principal-of-gateway-user&lt;/value&gt;
-&lt;/property&gt;
-&lt;property&gt;
-        &lt;name&gt;dt.gateway.authentication.keytab&lt;/name&gt;
-        &lt;value&gt;absolute-path-to-keytab-file&lt;/value&gt;
-&lt;/property&gt;
-</code></pre>
-
-<h2 id="dtmanage-authentication">dtManage Authentication</h2>
-<p>Access to the UI console can be protected by having users authenticate before they can access the contents of the console.
-Different authentication mechanisms are supported including local password,
-Kerberos and LDAP. Please refer to <a href="../dtgateway_security/">Gateway Security</a>
-for details of how to configure this.</p>
+for the DataTorrent UI console. In a Hadoop cluster with Kerberos security enabled additional configuration is needed for this service to communicate with Hadoop. This is described in <a href="../dtgateway_security/">Gateway Security</a>.</p>
+<h2 id="console-authentication">Console Authentication</h2>
+<p>Access to the UI console can be secured by having users authenticate before they can access the contents of the console. Different authentication mechanisms are supported including local password,
+Kerberos and LDAP. Please refer to <a href="../dtgateway_security/">Gateway Security</a> for details of how to configure this.</p>
 <h1 id="run-time-management">Run-Time Management</h1>
 <p>Unlike Map-Reduce, streaming applications never end. They are designed
 to run 24x7, processing a continuous stream of input data. This makes run-time
@@ -915,7 +888,7 @@ support for various operations. These include</p>
 <p>Platform supports changes to an application at multiple stages.
 Application design parameters (attributes and properties) can be
 changed at launch time via the job configuration file and during runtime via
-the <code>dtcli</code> tool or using the REST webservice calls. Support for runtime
+the <code>apex</code> tool or using the REST webservice calls. Support for runtime
 changes is critical for operability as it enables changes to a running
 application without being forced to kill it. This is a critical need for
 streaming applications and a significant difference from map-reduce/batch

@@ -468,7 +468,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../dtcli/">dtCli</a>
+        <a class="" href="../apexcli/">Apex CLI</a>
         
     </li>
 
@@ -999,6 +999,25 @@ recording goes on forever)
         {
             &quot;length&quot;: &quot;{log length}&quot;,
             &quot;name&quot;: &quot;{logName}&quot;
+        }, ...
+    ]
+}
+</code></pre>
+
+<h3 id="get-wsv2applicationsappidphysicalplancontainerscontaineridstacktrace">GET /ws/v2/applications/{appid}/physicalPlan/containers/{containerId}/stackTrace</h3>
+<p>Since: 3.4.0 </p>
+<p>Function: Return the container stack trace</p>
+<p>Return:</p>
+<pre><code class="json">{
+    &quot;threads&quot;: [
+        {
+            &quot;name&quot;: &quot;{name}&quot;,
+            &quot;state&quot;: &quot;{state}&quot;,
+            &quot;id&quot;: &quot;{id}&quot;,
+            &quot;stackTraceElements&quot;: [
+                &quot;{line1}&quot;,
+                &quot;{line2}&quot;, ...
+            ]
         }, ...
     ]
 }

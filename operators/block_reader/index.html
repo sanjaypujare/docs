@@ -483,7 +483,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../dtcli/">dtCli</a>
+        <a class="" href="../../apexcli/">Apex CLI</a>
         
     </li>
 
@@ -562,7 +562,7 @@
                 <h1 id="block-reader">Block Reader</h1>
 <p>This is a scalable operator that reads and parses blocks of data sources into records. A data source can be a file or a message bus that contains records and a block defines a chunk of data in the source by specifying the block offset and the length of the source belonging to the block. </p>
 <h2 id="why-is-it-needed">Why is it needed?</h2>
-<p>A Block Reader is needed to parallelize reading and parsing of a single data source, for example a file. Simple parallelism of reading data sources can be achieved by multiple partitions reading different source of same type (for files see <a href="https://github.com/apache/incubator-apex-malhar/blob/devel-3/library/src/main/java/com/datatorrent/lib/io/fs/AbstractFileInputOperator.java">AbstractFileInputOperator</a>) but Block Reader partitions can read blocks of same source in parallel and parse them for records ensuring that no record is duplicated or missed.</p>
+<p>A Block Reader is needed to parallelize reading and parsing of a single data source, for example a file. Simple parallelism of reading data sources can be achieved by multiple partitions reading different source of same type (for files see <a href="https://github.com/apache/incubator-apex-malhar/blob/master/library/src/main/java/com/datatorrent/lib/io/fs/AbstractFileInputOperator.java">AbstractFileInputOperator</a>) but Block Reader partitions can read blocks of same source in parallel and parse them for records ensuring that no record is duplicated or missed.</p>
 <h2 id="class-diagram">Class Diagram</h2>
 <p><img alt="BlockReader class diagram" src="../images/blockreader/classdiagram.png" /></p>
 <h2 id="abstractblockreader">AbstractBlockReader</h2>

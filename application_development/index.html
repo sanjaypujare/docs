@@ -528,7 +528,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../dtcli/">dtCli</a>
+        <a class="" href="../apexcli/">Apex CLI</a>
         
     </li>
 
@@ -1155,19 +1155,19 @@ STRAM in more detail in the next chapter.</p>
 directory &lt;INSTALL_DIR&gt; and the command line interface (CLI) will
 be used to launch the demo application. An application can be run in
 <a href="#h.3dy6vkm">local mode</a><a href="#h.3dy6vkm"> </a>(in IDE or from command line) or on a  <a href="#h.1t3h5sf">Hadoop cluster</a> <a href="#h.1t3h5sf">.</a></p>
-<p>To start the dtCli run</p>
-<pre><code>&lt;INSTALL_DIR&gt;/bin/dtcli
+<p>To start the Apex CLI run</p>
+<pre><code>&lt;INSTALL_DIR&gt;/bin/apex
 </code></pre>
 <p>The command line prompt appears.  To start the application in local mode (the actual version number in the file name may differ)</p>
-<pre><code>dt&gt; launch -local &lt;INSTALL_DIR&gt;/yahoo-finance-demo-3.2.0-SNAPSHOT.apa
+<pre><code>apex&gt; launch -local &lt;INSTALL_DIR&gt;/yahoo-finance-demo-3.4.0.apa
 </code></pre>
 <p>To terminate the application in local mode, enter Ctrl-C</p>
 <p>Tu run the application on the Hadoop cluster (the actual version
 number in the file name may differ)</p>
-<pre><code>dt&gt; launch &lt;INSTALL_DIR&gt;/yahoo-finance-demo-3.2.0-SNAPSHOT.apa
+<pre><code>apex&gt; launch &lt;INSTALL_DIR&gt;/yahoo-finance-demo-3.4.0.apa
 </code></pre>
-<p>To stop the application running in Hadoop, terminate it in the dtCli:</p>
-<pre><code>dt&gt; kill-app
+<p>To stop the application running in Hadoop, terminate it in the Apex CLI:</p>
+<pre><code>apex&gt; kill-app
 </code></pre>
 <p>Executing the application in either mode includes the following
 steps. At a top level, STRAM (Streaming Application Manager) validates
@@ -1517,20 +1517,20 @@ also validate the correct processing of the data. The same tests can be
 re-run whenever the application or its dependencies change (operator
 libraries, version of the platform etc.)</p>
 <h4 id="running-an-application">Running an application</h4>
-<p>The platform provides a commandline tool called dtcli for managing applications (launching,
+<p>The platform provides a command line tool called Apex CLI (apex) for managing applications (launching,
 killing, viewing, etc.). This tool was already discussed above briefly
 in the section entitled Running the Test Application. It will introspect
 the jar file specified with the launch command for applications (classes
 that implement ApplicationFactory) or property files that define
 applications. It will also deploy the dependency jar files from the
 application package to the cluster.</p>
-<p>Dtcli can run the application in local mode (i.e. outside a
+<p>Apex CLI can run the application in local mode (i.e. outside a
 cluster). It is recommended to first run the application in local mode
 in the development environment before launching on the Hadoop cluster.
 This way some of the external system integration and correct
 functionality of the application can be verified in an easier to debug
 environment before testing distributed mode.</p>
-<p>For more details on CLI please refer to the <a href="../dtcli/">dtCli Guide</a>.</p>
+<p>For more details on CLI please refer to the <a href="../apexcli/">Apex CLI Guide</a>.</p>
 <h2 id="application-api">Application API</h2>
 <p>This section introduces the API to write a streaming application.
 The work involves connecting operators via streams to form the logical
@@ -1697,7 +1697,7 @@ an id. This id along with the Hadoop container name uniquely identifies
 the operator in the execution plan of the DAG. The logical names and the
 physical names are required for web service support. Operators can be
 accessed via both names. These same names are used while interacting
-with  dtcli to access an operator.
+with Apex CLI to access an operator.
 Ideally these names should be self-descriptive. For example in Figure 1,
 the node named “Daily volume” has a physical identifier of 2.</p>
 <h3 id="operator-interface">Operator Interface</h3>

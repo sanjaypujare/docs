@@ -518,7 +518,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../dtcli/">dtCli</a>
+        <a class="" href="../apexcli/">Apex CLI</a>
         
     </li>
 
@@ -645,7 +645,7 @@ the default pom.xml:</p>
 </code></pre>
 
 <p>By default, as shown above, the default dependencies include
-malhar-library in compile scope, dt-engine in provided scope, and junit
+malhar-library in compile scope, apex-engine in provided scope, and junit
 in test scope.  Do not remove these three dependencies since they are
 necessary for any Apex application.  You can, however, exclude
 transitive dependencies from malhar-library to reduce the size of your
@@ -1080,28 +1080,28 @@ and should contain the properties to be launched with the application.
 <p>Please refer to the <a href="https://www.google.com/url?q=https://www.datatorrent.com/docs/guides/DTGatewayAPISpecification.html&amp;sa=D&amp;usg=AFQjCNEWfN7-e7fd6MoWZjmJUE3GW7UwdQ">Gateway API reference</a> for the complete specification of the REST API.</p>
 <h1 id="examining-and-launching-application-packages-through-apex-cli">Examining and Launching Application Packages Through Apex CLI</h1>
 <p>If you are working with Application Packages in the local filesystem and
-do not want to deal with dtGateway, you can use the Apex Command Line Interface (dtcli).  Please refer to the <a href="../dtgateway_api/">Gateway API</a>
+do not want to deal with dtGateway, you can use the Apex Command Line Interface (apex).  Please refer to the <a href="../dtgateway_api/">Gateway API</a>
 to see samples for these commands.</p>
 <h2 id="getting-application-package-meta-information">Getting Application Package Meta Information</h2>
 <p>You can get the meta information about the Application Package using
 this Apex CLI command.</p>
-<pre><code> dt&gt; get-app-package-info &lt;app-package-file&gt;
+<pre><code> apex&gt; get-app-package-info &lt;app-package-file&gt;
 </code></pre>
 
 <h2 id="getting-available-operators-in-application-package_1">Getting Available Operators In Application Package</h2>
 <p>You can get the list of available operators in the Application Package
 using this command.</p>
-<pre><code> dt&gt; get-app-package-operators &lt;app-package-file&gt; &lt;package-prefix&gt;
+<pre><code> apex&gt; get-app-package-operators &lt;app-package-file&gt; &lt;package-prefix&gt;
  [parent-class]
 </code></pre>
 
 <h2 id="getting-properties-of-operators-in-application-package_1">Getting Properties of Operators in Application Package</h2>
 <p>You can get the list of properties of any operator in the Application
 Package using this command.</p>
-<p>dt&gt; get-app-package-operator-properties <app-package-file> <operator-class></p>
+<p>apex&gt; get-app-package-operator-properties <app-package-file> <operator-class></p>
 <h2 id="launching-an-application-package_1">Launching an Application Package</h2>
 <p>You can launch an application within an Application Package.</p>
-<pre><code>dt&gt; launch [-D property-name=property-value, ...] [-conf config-name]
+<pre><code> apex&gt; launch [-D property-name=property-value, ...] [-conf config-name]
  [-apconf config-file-within-app-package] &lt;app-package-file&gt;
  [matching-app-name]
 </code></pre>
