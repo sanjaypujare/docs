@@ -203,6 +203,9 @@ stop-recording operator-id [port-name]
 	Stop recording
 wait timeout
 	Wait for completion of current application
+get-container-stacktrace container-id
+	Shows the stack trace of all the threads in the container
+         
 ```
 
 ### Commands when changing the logical plan
