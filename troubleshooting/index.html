@@ -738,6 +738,28 @@ machine. Following are prerequisites for DataTorrent RTS:</p>
 <li>DataTorrent dtDashboard</li>
 <li>Demo Applications</li>
 </ul>
+<h3 id="why-does-the-browser-console-on-the-sandbox-say-hdfs-not-ready">Why does the browser console on the sandbox say <code>HDFS Not Ready</code> ?</h3>
+<p>The Hadoop HDFS services take a few minutes to start; the console needs all of
+those services to be up and running and until that occurs, it displays this
+warning. If the normal console does not appear after a few minutes, please run
+the <code>jps</code> command to see which services may <em>not</em> be running, for example:</p>
+<pre><code class="shell">dtadmin@dtbox:~/tmp$ jps
+1407 DTGateway
+4145 Jps
+2830 NodeManager
+3059 ResourceManager
+2650 NameNode
+</code></pre>
+
+<p>Here we see that the <code>DataNode</code> is not running. In this case, stop all
+HDFS services (using, for example the script shown in the
+<a href="http://docs.datatorrent.com/sandbox/">sandbox page</a>. Then, remove everything
+under these directories:</p>
+<pre><code>/sfw/hadoop/shared/data/hdfs/datanode/current
+/sfw/hadoop/shared/data/hdfs/namenode/current
+</code></pre>
+<p>Now reformat HDFS with <code>hdfs namenode -format</code>
+and finally, restart all HDFS services.</p>
 <h3 id="what-is-dtingest-applicaiton">What is dtIngest applicaiton?</h3>
 <p>DataTorrent dtIngest simplifies the collection, aggregation and movement of large amounts of data to and from Hadoop and is available for production use at no cost.</p>
 <h3 id="where-do-i-get-dtingest-application">Where do I get dtingest application?</h3>
