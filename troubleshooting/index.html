@@ -7,20 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>Troubleshooting - DataTorrent Documentation</title>
-  
-
   <link rel="shortcut icon" href="../favicon.ico">
   
-
-  
+  <title>Troubleshooting - DataTorrent Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -33,7 +27,6 @@
   <script src="../js/modernizr-2.8.3.min.js"></script>
   <script type="text/javascript" src="../js/highlight.pack.js"></script>
   <script src="../js/theme.js"></script> 
-
   
   <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -63,7 +56,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -108,7 +101,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../create/">Creating Applications</a>
+        <a class="" href="../beginner/">Beginner's Guide</a>
         
     </li>
 
@@ -790,7 +783,7 @@ and finally, restart all HDFS services.</p>
 <h3 id="minimum-hardware-requirements-what-happens-if-certain-minimum-configuration-requirement-has-not-been-met">Minimum hardware requirements, what happens if certain minimum configuration requirement has not been met?</h3>
 <p>Minimum of 8G RAM is required on the Hadoop cluster.</p>
 <h3 id="what-happens-if-java-is-not-installed">What happens if java is not installed?</h3>
-<p>Following message can be seen when Java is not abilable on the system</p>
+<p>Following message can be seen when Java is not available on the system</p>
 <pre><code>Error: java executable not found. Please ensure java
 or hadoop are installed and available in PATH environment variable
 before proceeding with this installation.
@@ -956,7 +949,9 @@ same user id on the cluster nodes.</p>
 <pre><code>@FieldSerializer.Bind(CustomSerializer.class)
 SomeType someType
 </code></pre>
-<p>Kryo will use this CustomSerializer to serialize and deserialize type SomeType.</p>
+<p>Kryo will use this CustomSerializer to serialize and deserialize type SomeType. If
+SomeType is a Map or Collection, there are some special annotations @BindMap and
+@BindCollection; please see <a href="https://github.com/EsotericSoftware/kryo">here</a>.</p>
 <p>2.2 Using the @DefaultSerializer annotation on the class, for example:</p>
 <pre><code>@DefaultSerializer(JavaSerializer.class)
 public class SomeClass ...
@@ -989,7 +984,7 @@ dag.setInputPortAttribute(op.input, Context.PortContext.STREAM_CODEC, codec);
 </li>
 </ol>
 <h1 id="log-analysis">Log analysis</h1>
-<p>There are multiple ways to adjust logging levels.  For details see <a href="../configuration/#logging">configuraiton guide</a>.</p>
+<p>There are multiple ways to adjust logging levels.  For details see <a href="../configuration/#logging">configuration guide</a>.</p>
 <h3 id="how-to-check-stram-logs">How to check STRAM logs</h3>
 <p>You can get STRAM logs by retrieving YARN logs from command line, or by using dtManage web interface.  </p>
 <p>In dtManage console, select first container from the Containers List in Physical application view.  The first container is numbered 000001. Then click the logs dropdown and select the log you want to look at.  </p>
@@ -1197,7 +1192,7 @@ Additional information on tools related to both types of dumps is available
       </div>
 
     </section>
-
+    
   </div>
 
 <div class="rst-versions" role="note" style="cursor: pointer">

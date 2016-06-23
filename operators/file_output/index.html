@@ -7,20 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>File Output - DataTorrent Documentation</title>
-  
-
   <link rel="shortcut icon" href="../../favicon.ico">
   
-
-  
+  <title>File Output - DataTorrent Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
-
   
   <script>
     // Current page data
@@ -33,7 +27,6 @@
   <script src="../../js/modernizr-2.8.3.min.js"></script>
   <script type="text/javascript" src="../../js/highlight.pack.js"></script>
   <script src="../../js/theme.js"></script> 
-
   
   <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -63,7 +56,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -108,7 +101,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../create/">Creating Applications</a>
+        <a class="" href="../../beginner/">Beginner's Guide</a>
         
     </li>
 
@@ -669,7 +662,7 @@ for (FSFilterStreamContext streamContext: openStreams.values()) {
 <p>When the operator is re-deployed, it checks in its <code>setup(...)</code> method if the state of a file which it has seen before the failure is consistent with the file's state on the file system, that is, the size of the file on the file system should match the size in the <code>endOffsets</code>. When it doesn't the operator truncates the file.</p>
 <p>For example, let's say the operator wrote 100 bytes to test1.txt by the end of window 10. It wrote another 20 bytes by the end of window 12 but failed in window 13. When the operator gets re-deployed it is restored with window 10 (recovery checkpoint) state. In the previous run, by the end of window 10, the size of file on the filesystem was 100 bytes but now it is 120 bytes. Tuples for windows 11 and 12 are going to be replayed. Therefore, in order to avoid writing duplicates to test1.txt, the operator truncates the file to 100 bytes (size at the end of window 10) discarding the last 20 bytes.</p>
 <h3 id="requestfinalizestring-filename"><a name="requestFinalize"></a><code>requestFinalize(String fileName)</code></h3>
-<p>When the operator is always writing to temporary files (in order to avoid HDFS Lease exceptions), then it is necessary to rename the temporary files to the actual files once it has been determined that the files are closed. This is refered to as <em>finalization</em> of files and the method allows the user code to specify when a file is ready for finalization.</p>
+<p>When the operator is always writing to temporary files (in order to avoid HDFS Lease exceptions), then it is necessary to rename the temporary files to the actual files once it has been determined that the files are closed. This is referred to as <em>finalization</em> of files and the method allows the user code to specify when a file is ready for finalization.</p>
 <p>In this method, the requested file (or in the case of rotation &mdash; all the file parts including the latest open part which have not yet been requested for finalization) are registered for finalization. Registration is basically adding the file names to <code>finalizedFiles</code> state and updating <code>finalizedPart</code>.</p>
 <p>The process of <em>finalization</em> of all the files which were requested till the window <em>w</em> is deferred till window <em>w</em> is committed. This is because until a window is committed it can be replayed after a failure which means that a file can be open for writing even after it was requested for finalization.</p>
 <p>When rotation is enabled, part files as and when they get completed are requested for finalization. However, when rotation is not enabled user code needs to invoke this method as the knowledge that when a file is closed is unknown to this abstract operator.</p>
@@ -702,7 +695,7 @@ for (FSFilterStreamContext streamContext: openStreams.values()) {
       </div>
 
     </section>
-
+    
   </div>
 
 <div class="rst-versions" role="note" style="cursor: pointer">
