@@ -646,7 +646,7 @@ creation.</p>
 <p>Two operators are created: <code>randomGenerator</code> and <code>console</code>. The first is
 defined in <code>RandomNumberGenerator.java</code>; it generates random
 floating point values and emits them on its output port. The second is an instance
-of <code>ConsoleOutputOperator</code> class defined in <strong>Malhar</strong> -- the library of pre-built
+of <code>ConsoleOutputOperator</code> class defined in <strong>Malhar</strong> &ndash; the library of pre-built
 operators. The first argument to <code>addOperator()</code> is the name of this operator instance
 (there can be multiple instances of the same class, so we need a unique name to
 distinguish them); the second can be either a class object that needs to be instantiated
@@ -789,7 +789,7 @@ objects, please look
 <a href="http://docs.datatorrent.com/application_packages/#operator-properties">here</a>.</p>
 <h2 id="local-mode-testing">Local Mode Testing</h2>
 <p>As noted above, the <code>LocalMode</code> class is used for testing the application locally in
-your development environment. A common use looks like this:</p>
+your development environment. A common, though suboptimal, use looks like this:</p>
 <pre><code class="java">try {
   LocalMode lma = LocalMode.newInstance();
   Configuration conf = new Configuration(false);
@@ -805,10 +805,10 @@ your development environment. A common use looks like this:</p>
 <p>Here, a <em>Configuration</em> object containing all the appropriate settings of properties and
 attributes for the application is created by parsing the default <code>properties.xml</code> file,
 a new <em>Application</em> object is created and configured and finally a controller used for
-timed execution of the application. This approach, though useful to uncover shallow
-bugs, has one glaring deficiency -- it does not check the results in any way as most
-unit tests do.</p>
-<p>One way of remedying the situation is to write data to some storage system
+timed execution of the application. This approach, though occasionally useful to uncover
+shallow bugs, has one glaring deficiency &ndash; it does not check the results in any way
+as most unit tests do. We strongly recommend avoiding this usage pattern.</p>
+<p>A far better (and recommended) approach is to write data to some storage system
 that can then be queried for verification. An example of this approach is
 <a href="https://github.com/DataTorrent/examples/blob/master/tutorials/fileOutput/src/test/java/com/example/fileOutput/ApplicationTest.java">here</a> and looks like this:</p>
 <pre><code class="java">try {
@@ -836,8 +836,8 @@ teardown upon test termination; these functions are annotated with <code>@Before
 <h3 id="checking-logs">Checking logs</h3>
 <p>Logs for the Application Master and the various containers can be retrieved and viewed
 on the UI console by navigating to the <code>Physical</code> tab, clicking on the specific container
-in question, clicking on the blue <code>logs</code> button and then selecting the appropirate file
-from the dropdown. If you don't have access to the UI, you'll need log in to the
+in question, clicking on the blue <code>logs</code> button and then selecting the appropriate file
+from the dropdown. If you don't have access to the UI, you'll need to log in to the
 appropriate node on the cluster and check the logs there.</p>
 <p>A good starting point is the
 YARN log file which is usually present at <code>/var/log/hadoop-yarn</code> or <code>/var/log/hadoop</code> or
@@ -956,8 +956,9 @@ annotated with <code>@OperatorAnnotation(partitionable = false)</code>. No code 
 Incoming tuples entering input ports of the operator are automatically distributed among the
 partitions based on their hash code by default. You can get greater control of how tuples
 are distributed to partitions by using a <code>StreamCodec</code>; further discussion of stream
-codecs is deferred to the Advanced Guide. A samall sample program illustrating use of
-stream codecs is  <a href="https://github.com/DataTorrent/examples/tree/master/tutorials/partition">here</a>.</p>
+codecs is deferred to the Advanced Guide [<em>coming soon</em>].
+A small sample program illustrating use of stream codecs is
+<a href="https://github.com/DataTorrent/examples/tree/master/tutorials/partition">here</a>.</p>
 <p>Connectors need special care since they interact with external systems. Many connectors
 (e.g. Kafka input, file input and output operators) implement the <code>Partitioner</code>
 interface and support partitioning using custom implementations of <code>definePartitions</code>
@@ -1010,7 +1011,7 @@ this limit.</p>
 <p>The <code>Buffer Server</code> is a separate thread within a container which implements a tuple
 queue with a publish-subscribe model. It is present whenever the container hosts an
 operator with an output port connected to another operator outside the container; each
-such port has a separate buffer server.</p>
+such port has a separate queue.</p>
 <p>The output port is the publisher and the connected input ports of downstream operators
 are the subscribers. It buffers tuples so that they can be replayed when a
 downstream operator fails and is restarted. As described earlier, the memory allocated
@@ -1061,7 +1062,7 @@ We briefly describe a few of them below.</p>
 application does. In most cases, the unit tests function as full application tests that
 can be run locally in your development environment without the need for a cluster as
 described above.</p>
-<h3 id="application-file-copy">Application -- file copy</h3>
+<h3 id="application-file-copy">Application &mdash; file copy</h3>
 <p>The <code>fileIO-simple</code> application copies all data verbatim from files added to an input
 directory to rolling files in an output directory. The input and output directories,
 the output file base name and maximum size are configured in <code>META_INF/properties.xml</code>:</p>
@@ -1104,7 +1105,7 @@ and extends the <code>AbstractFileOutputOperator</code> and overrides 3 methods:
 + <code>setup</code> which creates the actual file name by appending the operator id to the configured base name (this last step is necessary when partitioning is involved to ensure that multiple partitions do not write to the same file).</p>
 <p>Output files are created with temporary names like <code>myfile_p2.0.1465929407447.tmp</code> and
 renamed to <code>myfile_p2.0</code> when they reach the maximum configured size.</p>
-<h3 id="application-database-to-file">Application -- database to file</h3>
+<h3 id="application-database-to-file">Application &mdash; database to file</h3>
 <p>The <code>jdbcIngest</code> application reads rows from a table in <code>MySQL</code>, creates Java objects
 (_POJO_s) and writes them to a file in the user specified directory in HDFS.</p>
 <p>Application configuration values are specified in 2 files: 
@@ -1126,7 +1127,7 @@ need a couple of preparatory steps:</p>
 <p>The application uses two operators: The first is <code>FileLineOutputOperator</code> which extends
 <code>AbstractFileOutputOperator</code> and provides implementations for two methods:
 <code>getFileName</code> and <code>getBytesForTuple</code>. The former creates a file name using the operator
-id -- this is important if this operator has multiple partitions and prevents the
+id &dash; this is important if this operator has multiple partitions and prevents the
 partitions from writing to the same file (which could cause garbled data). The latter
 simply converts the incoming object to an array of bytes and returns it.</p>
 <p>The second is <code>JdbcPOJOInputOperator</code> which comes from Malhar; it reads records from
@@ -1147,9 +1148,9 @@ FileLineOutputOperator fileOutput = dag.addOperator(&quot;FileOutputOperator&quo
 dag.addStream(&quot;POJO's&quot;, jdbcInputOperator.outputPort, fileOutput.input).setLocality(Locality.CONTAINER_LOCAL);
 </code></pre>
 
-<h3 id="application-database-to-database">Application -- database to database</h3>
+<h3 id="application-database-to-database">Application &mdash; database to database</h3>
 <p>[Coming soon]</p>
-<h3 id="application-file-to-database">Application -- file to database</h3>
+<h3 id="application-file-to-database">Application &mdash; file to database</h3>
 <p>[Coming soon]</p>
 <h2 id="additional-resources">Additional Resources</h2>
 <ol>
