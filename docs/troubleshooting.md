@@ -378,6 +378,22 @@ You have to make sure that the hadoop jars are not bundled with the application 
           </exclusions>
         </dependency>
 
+### Serialization considerations
+
+The platform requires all operators and tuples in an Apex application to be serializable (and deserializable).
+After an application is launched, operators are serialized from the starting node and de-serialized
+to instantiate on various cluster nodes. Also checkpointing involves serializing an operator to a store and 
+de-serializing from the store in case of recovery. Tuples are serialized and de-serialized when transmitted
+over a stream.
+
+Problems of lack of serializability (and deserializability) in the code can only be uncovered at run-time. So the
+recommended way to uncover these problems is to run the application in 
+[local mode](http://apex.apache.org/docs/apex/application_development/#local-mode) before running on a cluster.
+Use the [ApexCLI](http://apex.apache.org/docs/apex/apex_cli/) to launch your application with the `-local` option
+to run it in local mode. If certain fields or objects are not serializable or de-serializable the application
+will fail at that point with relevant exceptions logged on the console or the log file as described in the
+[Kryo exception](#application-throwing-following-kryo-exception) section. Check out that section for hints about
+troubleshooting serialization issues.
 
 ### Getting this message in STRAM logs. Is anything wrong in my code?
 
