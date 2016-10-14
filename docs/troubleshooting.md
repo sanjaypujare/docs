@@ -381,19 +381,31 @@ You have to make sure that the hadoop jars are not bundled with the application 
 ### Serialization considerations
 
 The platform requires all operators and tuples in an Apex application to be serializable (and deserializable).
-After an application is launched, operators are serialized from the starting node and de-serialized
-to instantiate on various cluster nodes. Also checkpointing involves serializing an operator to a store and 
-de-serializing from the store in case of recovery. Tuples are serialized and de-serialized when transmitted
+After an application is launched, operators are serialized from the starting node and deserialized and 
+instantiated on various cluster nodes. Also checkpointing involves serializing an operator to a store and 
+deserializing from the store in case of recovery. Tuples are serialized and deserialized when transmitted
 over a stream.
 
-Problems of lack of serializability (and deserializability) in the code can only be uncovered at run-time. So the
-recommended way to uncover these problems is to run the application in 
+Problems of lack of serializability (and deserializability) in the code can only be reliably uncovered at run-time.
+So the recommended way to uncover these problems is to run the application in 
 [local mode](http://apex.apache.org/docs/apex/application_development/#local-mode) before running on a cluster.
 Use the [ApexCLI](http://apex.apache.org/docs/apex/apex_cli/) to launch your application with the `-local` option
-to run it in local mode. If certain fields or objects are not serializable or de-serializable the application
-will fail at that point with relevant exceptions logged on the console or the log file as described in the
-[Kryo exception](#application-throwing-following-kryo-exception) section. Check out that section for hints about
-troubleshooting serialization issues.
+to run it in local mode. When the platform runs into a situation where a field or object is not serializable or 
+deserializable, the application will fail at that point with a relevant exception logged on the console or the
+log file as described in the [Kryo exception](#application-throwing-following-kryo-exception) section. Check out 
+that section further for hints about troubleshooting serialization issues.
+
+#### Transient members
+
+A data member of an operator does not need to be serialized or deserialized during deployment or 
+checkpointing/recovery because it is [transient](http://docs.oracle.com/javase/specs/jls/se7/html/jls-8.html#jls-8.3.1.3)
+in nature and does not represent stateful data. Developers should judiciously use the 
+[transient](http://docs.oracle.com/javase/specs/jls/se7/html/jls-8.html#jls-8.3.1.3) keyword for declaring
+non-stateful members of operators (or members of objects which are indirectly members of operators) so that
+the platform skips serialization of such members and serialization/deserialization errors are minimized.
+Transient members are further described in the context of the operator life-cycle 
+[here](http://apex.apache.org/docs/apex/operator_development/#setup-call).
+
 
 ### Getting this message in STRAM logs. Is anything wrong in my code?
 
