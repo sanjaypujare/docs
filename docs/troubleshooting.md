@@ -384,34 +384,39 @@ An Apex application needs to satisfy serializability requirements on operators a
 
 #### Operators
 
-After an application is launched, operators are serialized from the starting node and deserialized and 
-instantiated on various cluster nodes. The platform uses 
-[Java serialization](https://docs.oracle.com/javase/8/docs/platform/serialization/spec/serialTOC.html) 
-in this case.
+After an application is launched, the DAG is serialized using a combination of
+[Java Serialization](https://docs.oracle.com/javase/8/docs/platform/serialization/spec/serialTOC.html) and
+[Kryo](https://github.com/EsotericSoftware/kryo/blob/master/README.md) and then the DAG is
+transferred over the network from the launching node to the application master node.
 
-Checkpointing also involves serializing and persisting an operator to a store and deserializing from 
-the store in case of recovery. However the platform uses 
-[Kryo](https://github.com/EsotericSoftware/kryo/blob/master/README.md) serialization in this case.
+Checkpointing also involves serializing and persisting an operator state to a store and deserializing 
+from the store in case of recovery. The platform uses Kryo serialization in this case. Kryo imposes
+additional requirements on an operator Java class to be de-serializable. For more details check out
+this [page](https://github.com/EsotericSoftware/kryo/blob/master/README.md#object-creation).
 
 #### Tuples
 
-Tuples are serialized (and deserialized) when transmitted over a stream between Yarn containers, hence 
-they need to be serializable in this case. With the default [Kryo](https://github.com/EsotericSoftware/kryo/blob/master/README.md) 
-codec, tuples need to be [Kryo](https://github.com/EsotericSoftware/kryo/blob/master/README.md) serializable 
-which is different from the Java serializability requirement. However one can also use a custom codec for
-tuples in which case those tuples don't need to be Kryo serializable.
+Tuples are serialized (and deserialized) according to the specified stream codec when transmitted between Yarn containers.
+When no stream codec is specified, Apex uses the default stream codec that relies on the 
+[Kryo](https://github.com/EsotericSoftware/kryo/blob/master/README.md) serialization library to
+serialize and deserialize tuples. A custom stream codec can be specified to use a different serialization
+framework.
 
-Thread and container local streams don't use serialization nor need a codec, so tuples don't need to be
-serializable in such cases.
+Thread and container local streams don't use a stream codec, so tuples don't need to be serializable in such cases.
 
 #### Troubleshooting serialization issues
 
-Problems of lack of serializability (and deserializability) in the code can only be reliably uncovered at run-time.
-So the recommended way to uncover these problems is to run the application in 
-[local mode](http://apex.apache.org/docs/apex/application_development/#local-mode) before running on a cluster.
-Use the [ApexCLI](http://apex.apache.org/docs/apex/apex_cli/) to launch your application with the `-local` option
-to run in local mode. The application will fail at a point when the platform is unable to serialize or 
-deserialize a field or object, with the relevant exception logged on the console or the log file as described in the 
+There is no guaranteed way to uncover serialization issues in your code. An operator may emit a problematic tuple
+only in very rare and hard to reproduce conditions while testing. Kryo deserialization problem in an operator will 
+not be uncovered until the recovery time, and at that point it is most likely too late. It is recommended to unit
+test an operator's ability to restore itself properly similar to this 
+[example](https://github.com/apache/apex-malhar/blob/master/library/src/test/java/com/datatorrent/lib/io/fs/AbstractFileOutputOperatorTest.java)
+
+To exercise tuple serialization, run your application in 
+[local mode](http://apex.apache.org/docs/apex/application_development/#local-mode) that could uncover many tuple
+serialization problems. Use the [ApexCLI](http://apex.apache.org/docs/apex/apex_cli/) to launch your application with
+the `-local` option to run it in local mode. The application will fail at a point when the platform is unable to serialize
+or deserialize a tuple,and the relevant exception will be logged on the console or a log file as described in the 
 [Kryo exception](#application-throwing-following-kryo-exception) section. Check out that section further for
 hints about troubleshooting serialization issues.
 
